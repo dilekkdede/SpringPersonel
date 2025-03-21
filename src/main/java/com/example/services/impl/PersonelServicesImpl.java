@@ -165,5 +165,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return personelList;
     }
 
+    @Override
+    public int personelListesiCount() {
+      int count=personelNativeRepository.personelListesiCount();
+      return count;
+    }
+
 
 }

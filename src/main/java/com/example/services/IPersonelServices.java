@@ -40,4 +40,6 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiDogumGunuNotNull();
 
+    int personelListesiCount();
+
 }

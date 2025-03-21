@@ -45,4 +45,6 @@ public interface PersonelNativeRepository extends JpaRepository<Personel, Long> 
     @Query(value = "select * from personel p where p.birth_day is not null " , nativeQuery = true)
     List<Personel> personelListesiDogumGunuNotNull();
 
+    @Query(value = "select count(*) from personel p" , nativeQuery = true)
+    int personelListesiCount();
 }

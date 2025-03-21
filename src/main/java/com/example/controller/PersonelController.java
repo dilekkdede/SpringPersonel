@@ -96,4 +96,9 @@ public class PersonelController {
         return personelServices.personelListesiDogumGunuNotNull();
     }
 
+    @GetMapping(path = "personel-listesi-count")
+    public int personelListesiCount(){
+        return personelServices.personelListesiCount();
+    }
+
 }
