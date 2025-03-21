@@ -29,4 +29,6 @@ public interface IPersonelServices {
     List<Personel> personelListesiBolumBilgisi(String bolum);
 
     List<Personel> personelListesiBolumBilgisiUpper(String bolum);
+
+    List<Personel> personelListesiBolumBilgisiLower(String bolum);
 }

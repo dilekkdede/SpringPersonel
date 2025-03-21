@@ -75,4 +75,9 @@ public class PersonelController {
         return personelServices.personelListesiBolumBilgisiUpper(bolum);
     }
 
+    @GetMapping(path = "/personel-listesi-bolum-lower/{bolum}")
+    public List<Personel> personelListesiBolumBilgisiLower(@PathVariable(name = "bolum") String bolum) {
+        return personelServices.personelListesiBolumBilgisiLower(bolum);
+    }
+
 }
