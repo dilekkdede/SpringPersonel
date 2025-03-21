@@ -2,8 +2,10 @@ package com.example.services;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.entites.Personel;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IPersonelServices {
@@ -31,4 +33,7 @@ public interface IPersonelServices {
     List<Personel> personelListesiBolumBilgisiUpper(String bolum);
 
     List<Personel> personelListesiBolumBilgisiLower(String bolum);
+
+    List<Personel> personelListesiDogumGunu(PersonelDtoDogumGunu dto);
+
 }

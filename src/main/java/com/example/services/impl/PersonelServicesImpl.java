@@ -2,6 +2,7 @@ package com.example.services.impl;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.entites.Personel;
 import com.example.repository.PersonelRepository;
 import com.example.services.IPersonelServices;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -138,6 +140,12 @@ public class PersonelServicesImpl implements IPersonelServices {
     @Override
     public List<Personel> personelListesiBolumBilgisiLower(String bolum) {
         List<Personel> personelList=personelRepository.personelListesiBolumBilgisiLower(bolum);
+        return personelList;
+    }
+
+    @Override
+    public List<Personel> personelListesiDogumGunu(PersonelDtoDogumGunu dto) {
+        List<Personel> personelList=personelRepository.personelListesiDogumGunu(dto.getDogumGunu());
         return personelList;
     }
 

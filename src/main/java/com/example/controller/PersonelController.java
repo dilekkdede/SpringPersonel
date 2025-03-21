@@ -2,12 +2,14 @@ package com.example.controller;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.entites.Personel;
 import com.example.services.IPersonelServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.NamingEnumeration;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -78,6 +80,11 @@ public class PersonelController {
     @GetMapping(path = "/personel-listesi-bolum-lower/{bolum}")
     public List<Personel> personelListesiBolumBilgisiLower(@PathVariable(name = "bolum") String bolum) {
         return personelServices.personelListesiBolumBilgisiLower(bolum);
+    }
+
+    @PostMapping(path = "/personel-listesi-dogum-gunu")
+    public List<Personel> personelListesiDogumGunu(@RequestBody PersonelDtoDogumGunu dto) {
+        return personelServices.personelListesiDogumGunu(dto);
     }
 
 }
