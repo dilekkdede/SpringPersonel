@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.entites.Personel;
 import com.example.services.IPersonelServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,11 @@ public class PersonelController {
     public PersonelResponseDto updatePersonel(@PathVariable(name = "id") Long id, @RequestBody PersonelRequestDto personel) {
         return personelServices.update(id, personel);
     }
+
+    @GetMapping(path = "/personel-listesi")
+    public List<Personel> personelListesi() {
+        return personelServices.personelListesi();
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.example.services;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.entites.Personel;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public interface IPersonelServices {
     void deleteById(Long id);
 
     PersonelResponseDto update(Long id, PersonelRequestDto dto);
+
+    List<Personel> personelListesi();
 
 
 }

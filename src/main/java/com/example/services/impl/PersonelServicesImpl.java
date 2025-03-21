@@ -98,5 +98,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return null;
     }
 
+    @Override
+    public List<Personel> personelListesi() {
+        List<Personel> personelList = personelRepository.personelListesi();
+        return personelList;
+    }
+
 
 }
