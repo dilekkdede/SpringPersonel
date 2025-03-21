@@ -109,5 +109,10 @@ public class PersonelController {
         return personelServices.personelListesiInKullanimi(dtoIdIn);
     }
 
+    @GetMapping(path = "personel-listesi-count-status/{status}")
+    public int personelListesiCountvestatus(@PathVariable(name = "status") int status) {
+        return personelServices.personelListesiCountvestatus(status);
+    }
+
 
 }

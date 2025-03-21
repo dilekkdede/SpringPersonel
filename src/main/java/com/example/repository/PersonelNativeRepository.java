@@ -51,4 +51,8 @@ public interface PersonelNativeRepository extends JpaRepository<Personel, Long> 
 
     @Query(value = "select * from personel p where p.id in :dtoIdIn" , nativeQuery = true)
     List<Personel> personelListesiInKullanimi(List<Long> dtoIdIn);
+
+    @Query(value = "select count(*) from personel p where p.status =:status" , nativeQuery = true)
+    int personelListesiCountvestatus(int status);
+
 }

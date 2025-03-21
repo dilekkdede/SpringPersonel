@@ -45,4 +45,6 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn);
 
+    int personelListesiCountvestatus(int status);
+
 }
