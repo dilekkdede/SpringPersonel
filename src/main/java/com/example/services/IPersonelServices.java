@@ -36,4 +36,6 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiDogumGunu(PersonelDtoDogumGunu dto);
 
+    List<Personel> personelListesiDogumGunuNull();
+
 }

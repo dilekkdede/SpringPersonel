@@ -149,5 +149,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return personelList;
     }
 
+    @Override
+    public List<Personel> personelListesiDogumGunuNull() {
+        List<Personel> personelList=personelRepository.personelListesiDogumGunuNull();
+        return personelList;
+    }
+
 
 }

@@ -86,5 +86,9 @@ public class PersonelController {
     public List<Personel> personelListesiDogumGunu(@RequestBody PersonelDtoDogumGunu dto) {
         return personelServices.personelListesiDogumGunu(dto);
     }
+    @GetMapping(path = "/personel-listesi-dogum-gunu-null")
+    public List<Personel> personelListesiDogumGunuNull() {
+        return personelServices.personelListesiDogumGunuNull();
+    }
 
 }
