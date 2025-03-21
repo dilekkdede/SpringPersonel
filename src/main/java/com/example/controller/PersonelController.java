@@ -7,6 +7,7 @@ import com.example.services.IPersonelServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.NamingEnumeration;
 import java.util.List;
 
 @RestController
@@ -46,6 +47,11 @@ public class PersonelController {
     @GetMapping(path = "/personel-listesi")
     public List<Personel> personelListesi() {
         return personelServices.personelListesi();
+    }
+
+    @GetMapping(path = "/personel-listesi-id2-id11/{id2}/{id11}")
+    public List<Personel> persnelListsiID2ve11(@PathVariable(name = "id2") long id2, @PathVariable(name = "id11") long id11) {
+        return personelServices.persnelListsiID2ve11(id2, id11);
     }
 
 
