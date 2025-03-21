@@ -38,4 +38,6 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiDogumGunuNull();
 
+    List<Personel> personelListesiDogumGunuNotNull();
+
 }

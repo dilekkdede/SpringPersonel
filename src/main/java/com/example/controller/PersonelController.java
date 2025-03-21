@@ -91,4 +91,9 @@ public class PersonelController {
         return personelServices.personelListesiDogumGunuNull();
     }
 
+    @GetMapping(path = "/personel-listesi-dogum-gunu-not-null")
+    public List<Personel> personelListesiDogumGunuNotNull() {
+        return personelServices.personelListesiDogumGunuNotNull();
+    }
+
 }
