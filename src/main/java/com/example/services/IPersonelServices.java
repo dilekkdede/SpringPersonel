@@ -25,5 +25,8 @@ public interface IPersonelServices {
     List<Personel> personelListesistatus(int status);
 
     List<Personel> personelListesiLikeKullanimi(String isim);
+
     List<Personel> personelListesiBolumBilgisi(String bolum);
+
+    List<Personel> personelListesiBolumBilgisiUpper(String bolum);
 }

@@ -129,5 +129,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return personelList;
     }
 
+    @Override
+    public List<Personel> personelListesiBolumBilgisiUpper(String bolum) {
+        List<Personel> personelList=personelRepository.personelListesiBolumBilgisiUpper(bolum);
+        return personelList;
+    }
+
 
 }
