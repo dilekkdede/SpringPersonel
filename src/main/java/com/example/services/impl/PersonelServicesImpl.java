@@ -123,5 +123,11 @@ public class PersonelServicesImpl implements IPersonelServices {
        return personelList;
     }
 
+    @Override
+    public List<Personel> personelListesiBolumBilgisi(String bolum) {
+        List<Personel> personelList =personelRepository.personelListesiBolumBilgisi(bolum);
+        return personelList;
+    }
+
 
 }

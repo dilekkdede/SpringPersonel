@@ -26,4 +26,7 @@ public interface PersonelRepository extends JpaRepository<Personel, Long> {
     @Query(value = "select * from personel p where p.first_name like %:isim%", nativeQuery = true)
     List<Personel> personelListesiLikeKullanimi(String isim);
 
+    @Query(value = "select * from personel p where p.bolum =:bolum", nativeQuery = true)
+    List<Personel> personelListesiBolumBilgisi(String bolum);
+
 }

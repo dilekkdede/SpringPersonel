@@ -65,4 +65,9 @@ public class PersonelController {
         return personelServices.personelListesiLikeKullanimi(isim);
     }
 
+    @GetMapping(path = "/personel-listesi-bolum/{bolum}")
+    public List<Personel> personelListesiBolumBilgisi(@PathVariable(name = "bolum") String bolum) {
+        return personelServices.personelListesiBolumBilgisi(bolum);
+    }
+
 }
