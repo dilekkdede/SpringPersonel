@@ -105,8 +105,15 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<Personel> persnelListsiID2ve11(long id2, long id11) {
+    public List<Personel> personelListsiID2ve11(long id2, long id11) {
         List<Personel> personelList = personelRepository.persnelListsiID2ve11(id2,id11);
+        return personelList;
+    }
+
+    @Override
+    public List<Personel> personelListesistatus(int status) {
+
+        List<Personel> personelList = personelRepository.personelListesistatus(status);
         return personelList;
     }
 

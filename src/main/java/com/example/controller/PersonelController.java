@@ -50,8 +50,14 @@ public class PersonelController {
     }
 
     @GetMapping(path = "/personel-listesi-id2-id11/{id2}/{id11}")
-    public List<Personel> persnelListsiID2ve11(@PathVariable(name = "id2") long id2, @PathVariable(name = "id11") long id11) {
-        return personelServices.persnelListsiID2ve11(id2, id11);
+    public List<Personel> personelListsiID2ve11(@PathVariable(name = "id2") long id2, @PathVariable(name = "id11") long id11) {
+        return personelServices.personelListsiID2ve11(id2, id11);
+    }
+
+
+    @GetMapping(path = "/personel-listesi-status/{status}")
+    public List<Personel> personelListsistatus(@PathVariable(name = "status") int status) {
+        return personelServices.personelListesistatus(status);
     }
 
 

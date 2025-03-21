@@ -20,7 +20,7 @@ public interface IPersonelServices {
 
     List<Personel> personelListesi();
 
-    List<Personel> persnelListsiID2ve11(long id2,long id11);
+    List<Personel> personelListsiID2ve11(long id2,long id11);
 
-
+    List<Personel> personelListesistatus(int status);
 }
