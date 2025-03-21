@@ -117,5 +117,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return personelList;
     }
 
+    @Override
+    public List<Personel> personelListesiLikeKullanimi(String isim) {
+       List<Personel> personelList = personelRepository.personelListesiLikeKullanimi(isim);
+       return personelList;
+    }
+
 
 }

@@ -23,4 +23,7 @@ public interface PersonelRepository extends JpaRepository<Personel, Long> {
     @Query(value = "select * from personel p where p.status =:status", nativeQuery = true)
     List<Personel> personelListesistatus(int status);
 
+    @Query(value = "select * from personel p where p.first_name like %:isim%", nativeQuery = true)
+    List<Personel> personelListesiLikeKullanimi(String isim);
+
 }

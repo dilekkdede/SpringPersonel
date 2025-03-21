@@ -23,4 +23,6 @@ public interface IPersonelServices {
     List<Personel> personelListsiID2ve11(long id2,long id11);
 
     List<Personel> personelListesistatus(int status);
+
+    List<Personel> personelListesiLikeKullanimi(String isim);
 }

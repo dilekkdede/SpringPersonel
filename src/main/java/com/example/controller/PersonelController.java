@@ -60,5 +60,9 @@ public class PersonelController {
         return personelServices.personelListesistatus(status);
     }
 
+    @GetMapping(path = "/personel-listesi-like-kullanimi/{isim}")
+    public List<Personel> personelListsistatus(@PathVariable(name = "isim") String isim) {
+        return personelServices.personelListesiLikeKullanimi(isim);
+    }
 
 }
