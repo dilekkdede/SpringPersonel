@@ -4,6 +4,7 @@ import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.entites.Personel;
+import com.example.repository.PersonelNativeRepository;
 import com.example.repository.PersonelRepository;
 import com.example.services.IPersonelServices;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,9 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     @Autowired
     private PersonelRepository personelRepository;
+
+    @Autowired
+    private PersonelNativeRepository personelNativeRepository;
 
     @Override
     public PersonelResponseDto save(PersonelRequestDto dto) {
@@ -102,62 +106,62 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     @Override
     public List<Personel> personelListesi() {
-        List<Personel> personelList = personelRepository.personelListesi();
+        List<Personel> personelList = personelNativeRepository.personelListesi();
         return personelList;
     }
 
     @Override
     public List<Personel> personelListsiID2ve11(long id2, long id11) {
-        List<Personel> personelList = personelRepository.persnelListsiID2ve11(id2,id11);
+        List<Personel> personelList = personelNativeRepository.persnelListsiID2ve11(id2,id11);
         return personelList;
     }
 
     @Override
     public List<Personel> personelListesistatus(int status) {
 
-        List<Personel> personelList = personelRepository.personelListesistatus(status);
+        List<Personel> personelList = personelNativeRepository.personelListesistatus(status);
         return personelList;
     }
 
     @Override
     public List<Personel> personelListesiLikeKullanimi(String isim) {
-       List<Personel> personelList = personelRepository.personelListesiLikeKullanimi(isim);
+       List<Personel> personelList = personelNativeRepository.personelListesiLikeKullanimi(isim);
        return personelList;
     }
 
     @Override
     public List<Personel> personelListesiBolumBilgisi(String bolum) {
-        List<Personel> personelList =personelRepository.personelListesiBolumBilgisi(bolum);
+        List<Personel> personelList =personelNativeRepository.personelListesiBolumBilgisi(bolum);
         return personelList;
     }
 
     @Override
     public List<Personel> personelListesiBolumBilgisiUpper(String bolum) {
-        List<Personel> personelList=personelRepository.personelListesiBolumBilgisiUpper(bolum);
+        List<Personel> personelList=personelNativeRepository.personelListesiBolumBilgisiUpper(bolum);
         return personelList;
     }
 
     @Override
     public List<Personel> personelListesiBolumBilgisiLower(String bolum) {
-        List<Personel> personelList=personelRepository.personelListesiBolumBilgisiLower(bolum);
+        List<Personel> personelList=personelNativeRepository.personelListesiBolumBilgisiLower(bolum);
         return personelList;
     }
 
     @Override
     public List<Personel> personelListesiDogumGunu(PersonelDtoDogumGunu dto) {
-        List<Personel> personelList=personelRepository.personelListesiDogumGunu(dto.getDogumGunu());
+        List<Personel> personelList=personelNativeRepository.personelListesiDogumGunu(dto.getDogumGunu());
         return personelList;
     }
 
     @Override
     public List<Personel> personelListesiDogumGunuNull() {
-        List<Personel> personelList=personelRepository.personelListesiDogumGunuNull();
+        List<Personel> personelList=personelNativeRepository.personelListesiDogumGunuNull();
         return personelList;
     }
 
     @Override
     public List<Personel> personelListesiDogumGunuNotNull() {
-        List<Personel> personelList=personelRepository.personelListesiDogumGunuNotNull();
+        List<Personel> personelList=personelNativeRepository.personelListesiDogumGunuNotNull();
         return personelList;
     }
 
