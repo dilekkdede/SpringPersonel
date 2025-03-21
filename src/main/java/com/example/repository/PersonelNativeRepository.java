@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import com.example.dto.dtoQuery.PersonelDtoIdIn;
 import com.example.entites.Personel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -47,4 +48,7 @@ public interface PersonelNativeRepository extends JpaRepository<Personel, Long> 
 
     @Query(value = "select count(*) from personel p" , nativeQuery = true)
     int personelListesiCount();
+
+    @Query(value = "select * from personel p where p.id in :dtoIdIn" , nativeQuery = true)
+    List<Personel> personelListesiInKullanimi(List<Long> dtoIdIn);
 }

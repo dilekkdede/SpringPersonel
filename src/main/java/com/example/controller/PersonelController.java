@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
+import com.example.dto.dtoQuery.PersonelDtoIdIn;
 import com.example.entites.Personel;
 import com.example.services.IPersonelServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,7 @@ public class PersonelController {
     public List<Personel> personelListesiDogumGunu(@RequestBody PersonelDtoDogumGunu dto) {
         return personelServices.personelListesiDogumGunu(dto);
     }
+
     @GetMapping(path = "/personel-listesi-dogum-gunu-null")
     public List<Personel> personelListesiDogumGunuNull() {
         return personelServices.personelListesiDogumGunuNull();
@@ -97,8 +99,15 @@ public class PersonelController {
     }
 
     @GetMapping(path = "personel-listesi-count")
-    public int personelListesiCount(){
+    public int personelListesiCount() {
         return personelServices.personelListesiCount();
     }
+
+
+    @PostMapping(path = "personel-listesi-id-in")
+    public List<Personel> personelListesiInKullanimi(@RequestBody List<PersonelDtoIdIn> dtoIdIn) {
+        return personelServices.personelListesiInKullanimi(dtoIdIn);
+    }
+
 
 }

@@ -3,6 +3,7 @@ package com.example.services;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
+import com.example.dto.dtoQuery.PersonelDtoIdIn;
 import com.example.entites.Personel;
 
 import java.util.Date;
@@ -41,5 +42,7 @@ public interface IPersonelServices {
     List<Personel> personelListesiDogumGunuNotNull();
 
     int personelListesiCount();
+
+    List<Personel> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn);
 
 }

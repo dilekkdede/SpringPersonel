@@ -3,6 +3,7 @@ package com.example.services.impl;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
+import com.example.dto.dtoQuery.PersonelDtoIdIn;
 import com.example.entites.Personel;
 import com.example.repository.PersonelNativeRepository;
 import com.example.repository.PersonelRepository;
@@ -169,6 +170,17 @@ public class PersonelServicesImpl implements IPersonelServices {
     public int personelListesiCount() {
       int count=personelNativeRepository.personelListesiCount();
       return count;
+    }
+
+    @Override
+    public List<Personel> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn) {
+        List<Long> idList=new ArrayList<>();
+        for (PersonelDtoIdIn personelDtoIdIn : dtoIdIn) {
+            idList.add(personelDtoIdIn.getId());
+        }
+        List<Personel> personelList=personelNativeRepository.personelListesiInKullanimi(idList);
+
+        return personelList;
     }
 
 
