@@ -47,4 +47,10 @@ public interface IPersonelServices {
 
     int personelListesiCountvestatus(int status);
 
+
+
+    //JPA QUERYS
+
+    List<Personel> personelListesiJpa();
+
 }

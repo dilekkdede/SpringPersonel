@@ -115,4 +115,12 @@ public class PersonelController {
     }
 
 
+    //JPA QUERYS
+
+    @GetMapping(path = "/personel-listesi-jpa")
+    public List<Personel> personelListesiJpa() {
+        return personelServices.personelListesiJpa();
+    }
+
+
 }
