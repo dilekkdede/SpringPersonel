@@ -242,5 +242,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return list;
     }
 
+    @Override
+    public List<Personel> personelListesiDogumGunuIsNotNullJpa() {
+        List<Personel> list=personelJPARepository.personelListesiDogumGunuIsNotNullJpa();
+        return list;
+    }
+
 
 }

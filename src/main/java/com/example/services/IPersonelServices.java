@@ -67,5 +67,7 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto);
 
+    List<Personel> personelListesiDogumGunuIsNotNullJpa();
+
 
 }

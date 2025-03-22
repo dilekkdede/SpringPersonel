@@ -40,7 +40,8 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     @Query(value = "select p from Personel p where p.birthDate =:dogumGunu  ")
     List<Personel> personelListesiDogumGunuJpa(Date dogumGunu);
 
-
+    @Query(value = "select p from Personel p where p.birthDate is not null ")
+    List<Personel> personelListesiDogumGunuIsNotNullJpa();
 
 
 

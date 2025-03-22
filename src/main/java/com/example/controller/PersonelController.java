@@ -158,4 +158,9 @@ public class PersonelController {
         return personelServices.personelListesiDogumGunuJpa(dto);
     }
 
+    @GetMapping(path = "/personel-listesi-dogum-not-null-jpa")
+    public List<Personel>personelListesiDogumGunuIsNotNullJpa() {
+        return personelServices.personelListesiDogumGunuIsNotNullJpa();
+    }
+
 }
