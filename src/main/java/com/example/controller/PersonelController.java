@@ -195,4 +195,9 @@ public class PersonelController {
         return personelServices.personelListesiAdSoyadBolumKucukEsit4();
     }
 
+    @GetMapping(path = "/personel-listesi-birth-day-not-olana-sistem-tarihini-setleme-jpa")
+    public List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme(){
+        return personelServices.personelListesiBirthDayNotOlanaSistemTarihiSetleme();
+    }
+
 }

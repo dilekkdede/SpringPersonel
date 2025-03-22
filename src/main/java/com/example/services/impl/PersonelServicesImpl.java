@@ -343,5 +343,27 @@ public class PersonelServicesImpl implements IPersonelServices {
         return response;
     }
 
+    @Override
+    public List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme() {
+        List<Personel> response = new ArrayList<>();
+
+        List<Personel> personelListesi = personelJPARepository.personelListesi();
+        if (personelListesi != null) {
+            for (Personel personel : personelListesi) {
+                if (personel.getBirthDate() == null) {
+                    Date newDate = new Date();
+                    personel.setBirthDate(newDate);
+
+                }
+
+                response.add(personel);
+            }
+        }
+
+
+        return response;
+
+    }
+
 
 }

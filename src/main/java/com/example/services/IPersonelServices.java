@@ -83,5 +83,7 @@ public interface IPersonelServices {
 
     List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolumKucukEsit4();
 
+    List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme();
+
 
 }
