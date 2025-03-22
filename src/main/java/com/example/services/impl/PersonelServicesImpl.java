@@ -206,5 +206,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return list;
     }
 
+    @Override
+    public List<Personel> personelListesiStatusJpa(int status) {
+        List<Personel> list= personelJPARepository.personelListesiStatusJpa(status);
+        return list;
+    }
+
 
 }
