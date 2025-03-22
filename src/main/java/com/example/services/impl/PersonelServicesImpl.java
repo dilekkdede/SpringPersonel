@@ -251,7 +251,7 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     @Override
     public int personelListesiCountJpa() {
-       int liste=personelJPARepository.personelListesiCountJpa();
+        int liste = personelJPARepository.personelListesiCountJpa();
         return liste;
     }
 
@@ -262,19 +262,43 @@ public class PersonelServicesImpl implements IPersonelServices {
         for (PersonelDtoIdIn personelDtoIdIn : dtoIdIn) {
             idList.add(personelDtoIdIn.getId());
         }
-        List<Personel> response= personelJPARepository.personelListesiInKullanimiJpa(idList);
+        List<Personel> response = personelJPARepository.personelListesiInKullanimiJpa(idList);
         return response;
     }
 
     @Override
     public List<Personel> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn) {
-        List<String> bosListe= new ArrayList<>();
-        for(PersonelDtoCreateByIn str:dtoIn){
+        List<String> bosListe = new ArrayList<>();
+        for (PersonelDtoCreateByIn str : dtoIn) {
             bosListe.add(str.getCreateBy());
         }
 
-        List<Personel> liste=personelJPARepository.personelListesiInCreateByJpa(bosListe);
+        List<Personel> liste = personelJPARepository.personelListesiInCreateByJpa(bosListe);
         return liste;
+    }
+
+    @Override
+    public List<Personel> personelListesiIsimVeSoyisimHaricDigerleriNull() {
+        List<Personel> response = new ArrayList<>();
+        List<Personel> islem = personelJPARepository.personelListesi();
+
+        if (islem != null) {
+            for (Personel personel : islem) {
+                personel.setBirthDate(null);
+                personel.setCreateBy(null);
+                personel.setCreateDate(null);
+                personel.setCreateBy(null);
+                personel.setBolum(null);
+                personel.setUnitId(null);
+                personel.setDescription(null);
+                personel.setUserName(null);
+                personel.setCityId(null);
+                response.add(personel);
+
+            }
+
+        }
+        return response;
     }
 
 

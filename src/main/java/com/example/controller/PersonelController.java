@@ -179,4 +179,9 @@ public class PersonelController {
         return personelServices.personelListesiInCreateByJpa(dto);
     }
 
+    @GetMapping(path = "/personel-listesi-isim-ve-soyisim-haric-null")
+    public List<Personel>  personelListesiIsimVeSoyisimHaricDigerleriNull(){
+        return personelServices.personelListesiIsimVeSoyisimHaricDigerleriNull();
+    }
+
 }

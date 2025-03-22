@@ -76,5 +76,7 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn);
 
+    List<Personel> personelListesiIsimVeSoyisimHaricDigerleriNull();
+
 
 }
