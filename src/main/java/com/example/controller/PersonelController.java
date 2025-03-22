@@ -122,5 +122,10 @@ public class PersonelController {
         return personelServices.personelListesiJpa();
     }
 
+    @GetMapping(path = "/personel-listesi-id-jpa/{id2}/{id11}")
+    public List<Personel> personelListesiid2veyaid11jpa(@PathVariable(name = "id2") long id2 , @PathVariable(name = "id11")long id11) {
+        return personelServices.personelListesiid2veyaid11jpa(id2, id11);
+    }
+
 
 }

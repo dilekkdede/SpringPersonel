@@ -17,6 +17,10 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     @Query(value = "select p from Personel p")
     List<Personel> personelListesi();
 
+    @Query(value = "select p from Personel p where p.id =:id2 or p.id =:id11")
+    List<Personel> personelListesiid2veyaid11jpa(long id2 , long id11);
+
+
 
 
 

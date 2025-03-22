@@ -53,4 +53,6 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiJpa();
 
+    List<Personel> personelListesiid2veyaid11jpa(long id2 , long id11);
+
 }

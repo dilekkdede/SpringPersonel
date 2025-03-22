@@ -192,12 +192,18 @@ public class PersonelServicesImpl implements IPersonelServices {
         int count = personelNativeRepository.personelListesiCountvestatus(status);
         return count;
     }
- //JPA QUERYS
+    //JPA QUERYS
 
     @Override
     public List<Personel> personelListesiJpa() {
-        List<Personel>  liste= personelJPARepository.personelListesi();
+        List<Personel> liste = personelJPARepository.personelListesi();
         return liste;
+    }
+
+    @Override
+    public List<Personel> personelListesiid2veyaid11jpa(long id2, long id11) {
+        List<Personel> list = personelJPARepository.personelListesiid2veyaid11jpa(id2, id11);
+        return list;
     }
 
 
