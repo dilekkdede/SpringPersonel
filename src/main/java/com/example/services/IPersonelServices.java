@@ -2,12 +2,10 @@ package com.example.services;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
-import com.example.dto.dtoQuery.PersonelDtoAdSoyadBolum;
-import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
-import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
-import com.example.dto.dtoQuery.PersonelDtoIdIn;
+import com.example.dto.dtoQuery.*;
 import com.example.entites.Personel;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -84,6 +82,8 @@ public interface IPersonelServices {
     List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolumKucukEsit4();
 
     List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme();
+
+    List<Personel> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException;
 
 
 }

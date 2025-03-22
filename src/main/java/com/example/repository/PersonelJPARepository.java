@@ -52,6 +52,9 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     @Query(value = "select p from Personel p where p.createBy in :dtoIn")
     List<Personel> personelListesiInCreateByJpa(List<String> dtoIn);
 
+    @Query(value = "select p from Personel p where p.birthDate between to_date(:dateBas,'YYYY-MM-DD') and to_date(:dateSon,'YYYY-MM-DD')")
+    List<Personel> personelListesiIkiTarihAraliginiDondurme(Date dateBas, Date dateSon);
+
 
 
 }

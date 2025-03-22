@@ -2,10 +2,7 @@ package com.example.services.impl;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
-import com.example.dto.dtoQuery.PersonelDtoAdSoyadBolum;
-import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
-import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
-import com.example.dto.dtoQuery.PersonelDtoIdIn;
+import com.example.dto.dtoQuery.*;
 import com.example.entites.Personel;
 import com.example.repository.PersonelJPARepository;
 import com.example.repository.PersonelNativeRepository;
@@ -16,10 +13,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -362,6 +358,22 @@ public class PersonelServicesImpl implements IPersonelServices {
 
 
         return response;
+
+    }
+
+    @Override
+    public List<Personel> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/M/dd", Locale.ENGLISH);
+        formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+
+        Date dateBas = formatter.parse(dto.getDateBas());
+        Date daetSon = formatter.parse(dto.getDateSon());
+
+
+        List<Personel> response = personelJPARepository.personelListesiIkiTarihAraliginiDondurme(dateBas, daetSon);
+        return response;
+
 
     }
 

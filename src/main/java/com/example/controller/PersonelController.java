@@ -2,16 +2,14 @@ package com.example.controller;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
-import com.example.dto.dtoQuery.PersonelDtoAdSoyadBolum;
-import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
-import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
-import com.example.dto.dtoQuery.PersonelDtoIdIn;
+import com.example.dto.dtoQuery.*;
 import com.example.entites.Personel;
 import com.example.services.IPersonelServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.NamingEnumeration;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -198,6 +196,11 @@ public class PersonelController {
     @GetMapping(path = "/personel-listesi-birth-day-not-olana-sistem-tarihini-setleme-jpa")
     public List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme(){
         return personelServices.personelListesiBirthDayNotOlanaSistemTarihiSetleme();
+    }
+
+    @PostMapping(path = "/personel-listesi-tarih-araligi-dondurme")
+    public List<Personel> personelListesiIkiTarihAraliginiDondurme(@RequestBody PersonelDtoTarihAraligi dto) throws ParseException {
+        return personelServices.personelListesiIkiTarihAraliginiDondurme(dto);
     }
 
 }
