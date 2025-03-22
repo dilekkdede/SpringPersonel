@@ -24,7 +24,8 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     List<Personel> personelListesiStatusJpa(int status);
 
 
-
+    @Query(value = "select p from Personel p where p.firstName like %:karakter%")
+    List<Personel> personelListesiLikeJpa(String karakter);
 
 
 }

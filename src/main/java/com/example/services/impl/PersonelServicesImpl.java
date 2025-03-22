@@ -212,5 +212,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return list;
     }
 
+    @Override
+    public List<Personel> personelListesiLikeJpa(String karakter) {
+        List<Personel> list=personelJPARepository.personelListesiLikeJpa(karakter);
+        return list;
+    }
+
 
 }

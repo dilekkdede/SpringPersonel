@@ -123,16 +123,19 @@ public class PersonelController {
     }
 
     @GetMapping(path = "/personel-listesi-id-jpa/{id2}/{id11}")
-    public List<Personel> personelListesiid2veyaid11jpa(@PathVariable(name = "id2") long id2 , @PathVariable(name = "id11")long id11) {
+    public List<Personel> personelListesiid2veyaid11jpa(@PathVariable(name = "id2") long id2, @PathVariable(name = "id11") long id11) {
         return personelServices.personelListesiid2veyaid11jpa(id2, id11);
     }
 
     @GetMapping(path = "/personel-listesi-status-jpa/{status}")
-    public List<Personel>personelListesiStatusJpa(@PathVariable(name = "status") int status ) {
+    public List<Personel> personelListesiStatusJpa(@PathVariable(name = "status") int status) {
         return personelServices.personelListesiStatusJpa(status);
     }
 
-
+    @GetMapping(path = "/personel-listesi-like-jpa/{karakter}")
+    public List<Personel> personelListesiLikeJpa(@PathVariable(name = "karakter") String karakter) {
+        return personelServices.personelListesiLikeJpa(karakter);
+    }
 
 
 }
