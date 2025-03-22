@@ -2,6 +2,7 @@ package com.example.services;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoAdSoyadBolum;
 import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.dto.dtoQuery.PersonelDtoIdIn;
@@ -77,6 +78,8 @@ public interface IPersonelServices {
     List<Personel> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn);
 
     List<Personel> personelListesiIsimVeSoyisimHaricDigerleriNull();
+
+    List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolum();
 
 
 }

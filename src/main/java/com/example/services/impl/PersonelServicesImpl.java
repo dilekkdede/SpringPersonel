@@ -2,6 +2,7 @@ package com.example.services.impl;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoAdSoyadBolum;
 import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.dto.dtoQuery.PersonelDtoIdIn;
@@ -299,6 +300,25 @@ public class PersonelServicesImpl implements IPersonelServices {
 
         }
         return response;
+    }
+
+    @Override
+    public List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolum() {
+        List<PersonelDtoAdSoyadBolum> response = new ArrayList<>();
+
+        List<Personel> personelList = personelJPARepository.personelListesiDogumGunuIsNotNullJpa();
+        if (personelList != null) {
+            for (Personel personel : personelList) {
+                PersonelDtoAdSoyadBolum personelDto = new PersonelDtoAdSoyadBolum();
+                personelDto.setAd(personel.getFirstName());
+                personelDto.setSoyad(personel.getLastName());
+                personelDto.setBolum(personel.getBolum());
+                personelDto.setAdSoyad(personel.getFirstName()+" "+personel.getLastName());
+                response.add(personelDto);
+            }
+
+        }
+        return  response;
     }
 
 

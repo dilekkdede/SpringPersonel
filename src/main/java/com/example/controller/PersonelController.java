@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoAdSoyadBolum;
 import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.dto.dtoQuery.PersonelDtoIdIn;
@@ -180,8 +181,13 @@ public class PersonelController {
     }
 
     @GetMapping(path = "/personel-listesi-isim-ve-soyisim-haric-null")
-    public List<Personel>  personelListesiIsimVeSoyisimHaricDigerleriNull(){
+    public List<Personel> personelListesiIsimVeSoyisimHaricDigerleriNull() {
         return personelServices.personelListesiIsimVeSoyisimHaricDigerleriNull();
+    }
+
+    @GetMapping(path = "/personel-listesi-ad-soyad-bolum-jpa")
+    public List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolum() {
+        return personelServices.personelListesiAdSoyadBolum();
     }
 
 }
