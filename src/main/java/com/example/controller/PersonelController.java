@@ -137,5 +137,10 @@ public class PersonelController {
         return personelServices.personelListesiLikeJpa(karakter);
     }
 
+    @GetMapping(path = "/personel-listesi-bolum-jpa/{bolum}")
+    public List<Personel> personelListesiBolumJpa(@PathVariable(name = "bolum") String bolum) {
+        return personelServices.personelListesibolumJpa(bolum);
+    }
+
 
 }

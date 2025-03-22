@@ -59,4 +59,6 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiLikeJpa(String karakter);
 
+    List<Personel> personelListesibolumJpa(String bolum);
+
 }
