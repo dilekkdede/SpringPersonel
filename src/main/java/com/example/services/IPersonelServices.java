@@ -71,5 +71,7 @@ public interface IPersonelServices {
 
   int personelListesiCountJpa();
 
+    List<Personel> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn);
+
 
 }

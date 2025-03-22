@@ -46,6 +46,9 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     @Query(value = "select count (p) from Personel p")
     int  personelListesiCountJpa();
 
+    @Query(value = "select p from Personel p where p.id in :dtoIdIn")
+    List<Personel> personelListesiInKullanimiJpa(List<Long> dtoIdIn);
+
 
 
 }

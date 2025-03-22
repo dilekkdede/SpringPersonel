@@ -159,13 +159,19 @@ public class PersonelController {
     }
 
     @GetMapping(path = "/personel-listesi-dogum-not-null-jpa")
-    public List<Personel>personelListesiDogumGunuIsNotNullJpa() {
+    public List<Personel> personelListesiDogumGunuIsNotNullJpa() {
         return personelServices.personelListesiDogumGunuIsNotNullJpa();
     }
 
     @GetMapping(path = "/personel-listesi-count-jpa")
     public int personelListesiCountJpa() {
         return personelServices.personelListesiCountJpa();
+    }
+
+    @PostMapping(path = "/personel-listesi-in-jpa")
+    public List<Personel> personelListesiInKullanimiJpa(@RequestBody List<PersonelDtoIdIn> dto) {
+
+        return personelServices.personelListesiInKullanimiJpa(dto);
     }
 
 }

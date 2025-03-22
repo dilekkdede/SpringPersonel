@@ -254,5 +254,16 @@ public class PersonelServicesImpl implements IPersonelServices {
         return liste;
     }
 
+    @Override
+    public List<Personel> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn) {
+
+        List<Long> idList = new ArrayList<>();
+        for (PersonelDtoIdIn personelDtoIdIn : dtoIdIn) {
+            idList.add(personelDtoIdIn.getId());
+        }
+        List<Personel> response= personelJPARepository.personelListesiInKullanimiJpa(idList);
+        return response;
+    }
+
 
 }
