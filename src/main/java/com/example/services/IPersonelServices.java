@@ -81,5 +81,7 @@ public interface IPersonelServices {
 
     List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolum();
 
+    List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolumKucukEsit4();
+
 
 }

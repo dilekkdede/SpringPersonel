@@ -190,4 +190,9 @@ public class PersonelController {
         return personelServices.personelListesiAdSoyadBolum();
     }
 
+    @GetMapping(path = "/personel-listesi-ad-soyad-bolum-kucuk-esit-jpa")
+    public List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolumKucukEsit4() {
+        return personelServices.personelListesiAdSoyadBolumKucukEsit4();
+    }
+
 }

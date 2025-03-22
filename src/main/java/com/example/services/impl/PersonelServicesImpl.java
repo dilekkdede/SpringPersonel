@@ -313,12 +313,34 @@ public class PersonelServicesImpl implements IPersonelServices {
                 personelDto.setAd(personel.getFirstName());
                 personelDto.setSoyad(personel.getLastName());
                 personelDto.setBolum(personel.getBolum());
-                personelDto.setAdSoyad(personel.getFirstName()+" "+personel.getLastName());
+                personelDto.setAdSoyad(personel.getFirstName() + " " + personel.getLastName());
                 response.add(personelDto);
             }
 
         }
-        return  response;
+        return response;
+    }
+
+    @Override
+    public List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolumKucukEsit4() {
+        List<PersonelDtoAdSoyadBolum> response = new ArrayList<>();
+
+        List<Personel> personelList = personelJPARepository.personelListesiDogumGunuIsNotNullJpa();
+        if (personelList != null) {
+            for (Personel personel : personelList) {
+                PersonelDtoAdSoyadBolum personelDto = new PersonelDtoAdSoyadBolum();
+                if (personel.getFirstName().length() <= 4) {
+                    personelDto.setAd(personel.getFirstName());
+                    personelDto.setSoyad(personel.getLastName());
+                    personelDto.setBolum(personel.getBolum());
+                    personelDto.setAdSoyad(personel.getFirstName() + " " + personel.getLastName());
+                    response.add(personelDto);
+                }
+
+            }
+
+        }
+        return response;
     }
 
 
