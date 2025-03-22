@@ -2,6 +2,7 @@ package com.example.services;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.dto.dtoQuery.PersonelDtoIdIn;
 import com.example.entites.Personel;
@@ -72,6 +73,8 @@ public interface IPersonelServices {
   int personelListesiCountJpa();
 
     List<Personel> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn);
+
+    List<Personel> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn);
 
 
 }

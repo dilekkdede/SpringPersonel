@@ -2,6 +2,7 @@ package com.example.services.impl;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.dto.dtoQuery.PersonelDtoIdIn;
 import com.example.entites.Personel;
@@ -263,6 +264,17 @@ public class PersonelServicesImpl implements IPersonelServices {
         }
         List<Personel> response= personelJPARepository.personelListesiInKullanimiJpa(idList);
         return response;
+    }
+
+    @Override
+    public List<Personel> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn) {
+        List<String> bosListe= new ArrayList<>();
+        for(PersonelDtoCreateByIn str:dtoIn){
+            bosListe.add(str.getCreateBy());
+        }
+
+        List<Personel> liste=personelJPARepository.personelListesiInCreateByJpa(bosListe);
+        return liste;
     }
 
 

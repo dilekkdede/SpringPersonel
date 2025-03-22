@@ -49,6 +49,9 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     @Query(value = "select p from Personel p where p.id in :dtoIdIn")
     List<Personel> personelListesiInKullanimiJpa(List<Long> dtoIdIn);
 
+    @Query(value = "select p from Personel p where p.createBy in :dtoIn")
+    List<Personel> personelListesiInCreateByJpa(List<String> dtoIn);
+
 
 
 }

@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoQuery.PersonelDtoCreateByIn;
 import com.example.dto.dtoQuery.PersonelDtoDogumGunu;
 import com.example.dto.dtoQuery.PersonelDtoIdIn;
 import com.example.entites.Personel;
@@ -170,8 +171,12 @@ public class PersonelController {
 
     @PostMapping(path = "/personel-listesi-in-jpa")
     public List<Personel> personelListesiInKullanimiJpa(@RequestBody List<PersonelDtoIdIn> dto) {
-
         return personelServices.personelListesiInKullanimiJpa(dto);
+    }
+
+    @PostMapping(path = "/personel-listesi-in-createBy-jpa")
+    public List<Personel> personelListesiInCreateByJpa(@RequestBody List<PersonelDtoCreateByIn> dto) {
+        return personelServices.personelListesiInCreateByJpa(dto);
     }
 
 }
