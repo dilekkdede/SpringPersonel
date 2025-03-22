@@ -61,4 +61,6 @@ public interface IPersonelServices {
 
     List<Personel> personelListesibolumJpa(String bolum);
 
+    List<Personel> personelListesibolumUpperJpa(String bolum);
+
 }

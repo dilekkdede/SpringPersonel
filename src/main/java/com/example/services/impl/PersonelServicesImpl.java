@@ -224,5 +224,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return list;
     }
 
+    @Override
+    public List<Personel> personelListesibolumUpperJpa(String bolum) {
+        List<Personel> list= personelJPARepository.personelListesibolumUpperJpa(bolum);
+        return list;
+    }
+
 
 }
