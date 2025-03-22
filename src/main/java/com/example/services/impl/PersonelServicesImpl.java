@@ -236,5 +236,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return list;
     }
 
+    @Override
+    public List<Personel> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto) {
+        List<Personel> list=personelJPARepository.personelListesiDogumGunuJpa(dto.getDogumGunu());
+        return list;
+    }
+
 
 }

@@ -153,4 +153,9 @@ public class PersonelController {
         return personelServices.personelListesibolumLowerJpa(bolum);
     }
 
+    @PostMapping(path = "/personel-listesi-dogum-gunu-jpa")
+    public List<Personel> personelListesiDogumGunuJpa(@RequestBody PersonelDtoDogumGunu dto) {
+        return personelServices.personelListesiDogumGunuJpa(dto);
+    }
+
 }
