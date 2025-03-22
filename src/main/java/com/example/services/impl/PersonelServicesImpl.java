@@ -230,5 +230,11 @@ public class PersonelServicesImpl implements IPersonelServices {
         return list;
     }
 
+    @Override
+    public List<Personel> personelListesibolumLowerJpa(String bolum) {
+        List<Personel> list=personelJPARepository.personelListesibolumLowerJpa(bolum);
+        return list;
+    }
+
 
 }

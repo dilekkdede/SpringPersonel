@@ -33,6 +33,10 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     @Query(value = "select p from Personel p where upper(p.bolum) =upper(:bolum) ")
     List<Personel> personelListesibolumUpperJpa(String bolum);
 
+    @Query(value = "select p from Personel p where lower(p.bolum) =lower(:bolum) ")
+    List<Personel> personelListesibolumLowerJpa(String bolum);
+
+
 
 
 
