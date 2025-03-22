@@ -163,4 +163,9 @@ public class PersonelController {
         return personelServices.personelListesiDogumGunuIsNotNullJpa();
     }
 
+    @GetMapping(path = "/personel-listesi-count-jpa")
+    public int personelListesiCountJpa() {
+        return personelServices.personelListesiCountJpa();
+    }
+
 }

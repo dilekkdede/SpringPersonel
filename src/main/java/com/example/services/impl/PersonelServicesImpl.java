@@ -208,44 +208,50 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     @Override
     public List<Personel> personelListesiStatusJpa(int status) {
-        List<Personel> list= personelJPARepository.personelListesiStatusJpa(status);
+        List<Personel> list = personelJPARepository.personelListesiStatusJpa(status);
         return list;
     }
 
     @Override
     public List<Personel> personelListesiLikeJpa(String karakter) {
-        List<Personel> list=personelJPARepository.personelListesiLikeJpa(karakter);
+        List<Personel> list = personelJPARepository.personelListesiLikeJpa(karakter);
         return list;
     }
 
     @Override
     public List<Personel> personelListesibolumJpa(String bolum) {
-        List<Personel> list= personelJPARepository.personelListesibolumJpa(bolum);
+        List<Personel> list = personelJPARepository.personelListesibolumJpa(bolum);
         return list;
     }
 
     @Override
     public List<Personel> personelListesibolumUpperJpa(String bolum) {
-        List<Personel> list= personelJPARepository.personelListesibolumUpperJpa(bolum);
+        List<Personel> list = personelJPARepository.personelListesibolumUpperJpa(bolum);
         return list;
     }
 
     @Override
     public List<Personel> personelListesibolumLowerJpa(String bolum) {
-        List<Personel> list=personelJPARepository.personelListesibolumLowerJpa(bolum);
+        List<Personel> list = personelJPARepository.personelListesibolumLowerJpa(bolum);
         return list;
     }
 
     @Override
     public List<Personel> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto) {
-        List<Personel> list=personelJPARepository.personelListesiDogumGunuJpa(dto.getDogumGunu());
+        List<Personel> list = personelJPARepository.personelListesiDogumGunuJpa(dto.getDogumGunu());
         return list;
     }
 
     @Override
     public List<Personel> personelListesiDogumGunuIsNotNullJpa() {
-        List<Personel> list=personelJPARepository.personelListesiDogumGunuIsNotNullJpa();
+        List<Personel> list = personelJPARepository.personelListesiDogumGunuIsNotNullJpa();
         return list;
+    }
+
+    @Override
+    public int personelListesiCountJpa() {
+       int liste=personelJPARepository.personelListesiCountJpa();
+        return liste;
     }
 
 
