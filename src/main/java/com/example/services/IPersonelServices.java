@@ -85,5 +85,7 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException;
 
+    List<Personel> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto ) throws ParseException;
+
 
 }

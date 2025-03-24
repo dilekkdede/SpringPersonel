@@ -21,6 +21,8 @@ import java.util.*;
 @Service
 public class PersonelServicesImpl implements IPersonelServices {
 
+    private static SimpleDateFormat dF = new SimpleDateFormat("yyyy/M/dd", Locale.ENGLISH);
+
     @Autowired
     private PersonelRepository personelRepository;
 
@@ -364,15 +366,25 @@ public class PersonelServicesImpl implements IPersonelServices {
     @Override
     public List<Personel> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/M/dd", Locale.ENGLISH);
-        formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        dF.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
-        Date dateBas = formatter.parse(dto.getDateBas());
-        Date daetSon = formatter.parse(dto.getDateSon());
+        Date dateBas = dF.parse(dto.getDateBas());
+        Date dateSon = dF.parse(dto.getDateSon());
 
-
-        List<Personel> response = personelJPARepository.personelListesiIkiTarihAraliginiDondurme(dateBas, daetSon);
+        List<Personel> response = personelJPARepository.personelListesiIkiTarihAraliginiDondurme(dateBas, dateSon);
         return response;
+
+    }
+
+    @Override
+    public List<Personel> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException {
+        dF.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+
+        Date dateBas = dF.parse(dto.getDateBas());
+        Date dateSon = dF.parse(dto.getDateSon());
+
+        List<Personel> personelList = personelJPARepository.personelListesiIkiTarihAraligindakiCreateDate(dateBas, dateSon);
+        return personelList;
 
 
     }

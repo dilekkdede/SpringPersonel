@@ -19,7 +19,7 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     List<Personel> personelListesi();
 
     @Query(value = "select p from Personel p where p.id =:id2 or p.id =:id11")
-    List<Personel> personelListesiid2veyaid11jpa(long id2 , long id11);
+    List<Personel> personelListesiid2veyaid11jpa(long id2, long id11);
 
     @Query(value = "select p from Personel p where p.status =:status")
     List<Personel> personelListesiStatusJpa(int status);
@@ -44,7 +44,7 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     List<Personel> personelListesiDogumGunuIsNotNullJpa();
 
     @Query(value = "select count (p) from Personel p")
-    int  personelListesiCountJpa();
+    int personelListesiCountJpa();
 
     @Query(value = "select p from Personel p where p.id in :dtoIdIn")
     List<Personel> personelListesiInKullanimiJpa(List<Long> dtoIdIn);
@@ -55,6 +55,9 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     @Query(value = "select p from Personel p where p.birthDate between to_date(:dateBas,'YYYY-MM-DD') and to_date(:dateSon,'YYYY-MM-DD')")
     List<Personel> personelListesiIkiTarihAraliginiDondurme(Date dateBas, Date dateSon);
 
+
+    @Query(value = "select p from Personel p where p.createDate between to_date(:dateBas,'YYYY-MM-DD') and to_date(:dateSon,'YYYY-MM-DD')")
+    List<Personel> personelListesiIkiTarihAraligindakiCreateDate(Date dateBas, Date dateSon);
 
 
 }

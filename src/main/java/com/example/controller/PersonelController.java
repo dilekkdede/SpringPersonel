@@ -194,7 +194,7 @@ public class PersonelController {
     }
 
     @GetMapping(path = "/personel-listesi-birth-day-not-olana-sistem-tarihini-setleme-jpa")
-    public List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme(){
+    public List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme() {
         return personelServices.personelListesiBirthDayNotOlanaSistemTarihiSetleme();
     }
 
@@ -202,5 +202,11 @@ public class PersonelController {
     public List<Personel> personelListesiIkiTarihAraliginiDondurme(@RequestBody PersonelDtoTarihAraligi dto) throws ParseException {
         return personelServices.personelListesiIkiTarihAraliginiDondurme(dto);
     }
+
+    @PostMapping(path = "/personel-listesi-tarih-araligi-createDate-dondurme")
+    public List<Personel> personelListesiIkiTarihAraligindakiCreateDate(@RequestBody PersonelDtoTarihAraligi dto) throws ParseException {
+        return personelServices.personelListesiIkiTarihAraligindakiCreateDate(dto);
+    }
+
 
 }
