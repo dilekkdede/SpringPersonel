@@ -23,6 +23,8 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     private static SimpleDateFormat dF = new SimpleDateFormat("yyyy/M/dd", Locale.ENGLISH);
 
+    private static Calendar calendar = Calendar.getInstance();  // STATİC YAPMAMIZIN NEDENİ BİR KERE TANIMLAYIP DEFALARCA KULLANIYORUZ.DEĞİŞMİYOR
+
     @Autowired
     private PersonelRepository personelRepository;
 
@@ -387,6 +389,21 @@ public class PersonelServicesImpl implements IPersonelServices {
         return personelList;
 
 
+    }
+
+    @Override
+    public List<Personel> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
+
+        Date dateBas = new Date(); // SİSTEM TARİHİ ALMA
+        int eklenecekGun = 14;
+
+
+        calendar.setTime(dateBas);
+        calendar.add(Calendar.DAY_OF_YEAR, eklenecekGun);
+        Date dateSon = calendar.getTime();
+
+        List<Personel> personelList = personelJPARepository.personelListesiIkiTarihAraligindakiCreateDate(dateBas, dateSon);
+        return personelList;
     }
 
 

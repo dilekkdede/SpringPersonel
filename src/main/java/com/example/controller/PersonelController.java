@@ -208,5 +208,10 @@ public class PersonelController {
         return personelServices.personelListesiIkiTarihAraligindakiCreateDate(dto);
     }
 
+    @GetMapping(path = "/personel-listesi-createDate-with-sistem-tarihi")
+    public List<Personel> personelIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
+        return personelServices.personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi();
+    }
+
 
 }

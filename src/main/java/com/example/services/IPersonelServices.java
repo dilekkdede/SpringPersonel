@@ -23,7 +23,7 @@ public interface IPersonelServices {
 
     List<Personel> personelListesi();
 
-    List<Personel> personelListsiID2ve11(long id2,long id11);
+    List<Personel> personelListsiID2ve11(long id2, long id11);
 
     List<Personel> personelListesistatus(int status);
 
@@ -48,12 +48,11 @@ public interface IPersonelServices {
     int personelListesiCountvestatus(int status);
 
 
-
     //JPA QUERYS
 
     List<Personel> personelListesiJpa();
 
-    List<Personel> personelListesiid2veyaid11jpa(long id2 , long id11);
+    List<Personel> personelListesiid2veyaid11jpa(long id2, long id11);
 
     List<Personel> personelListesiStatusJpa(int status);
 
@@ -69,7 +68,7 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiDogumGunuIsNotNullJpa();
 
-  int personelListesiCountJpa();
+    int personelListesiCountJpa();
 
     List<Personel> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn);
 
@@ -85,7 +84,7 @@ public interface IPersonelServices {
 
     List<Personel> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException;
 
-    List<Personel> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto ) throws ParseException;
+    List<Personel> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException;
 
-
+    List<Personel> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException;
 }
