@@ -4,10 +4,10 @@ import com.example.dto.dtoBase.PersonBaseResponse;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.*;
+import com.example.entites.City;
 import com.example.entites.Personel;
-import com.example.repository.PersonelJPARepository;
-import com.example.repository.PersonelNativeRepository;
-import com.example.repository.PersonelRepository;
+import com.example.entites.Unit;
+import com.example.repository.*;
 import com.example.services.IPersonelServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -36,10 +36,36 @@ public class PersonelServicesImpl implements IPersonelServices {
     @Autowired
     private PersonelJPARepository personelJPARepository;
 
+    @Autowired
+    private CityRepository cityRepository;
+
+    @Autowired
+    private UnitRepository unitRepository;
+
     @Override
     public PersonBaseResponse save(PersonelRequestDto dto) {
 
         PersonBaseResponse response = new PersonBaseResponse();
+
+        Optional<City> city = cityRepository.findById(dto.getCityId());
+        if (city.isEmpty()) {
+            response.setMessage("Şehir bulunamadı!");
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return response;
+        }
+
+        Optional<Unit> unit = unitRepository.findById(dto.getUnitId());
+        if(unit.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Unit Bulunamadı!");
+            return response;
+
+        }
+        if(dto.getFirstName()==null) {
+            response.setMessage("İsim alanı boş olamaz!");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return response;
+        }
 
         PersonelResponseDto personelResponseDto = new PersonelResponseDto();
         Personel personel = new Personel();
@@ -48,12 +74,9 @@ public class PersonelServicesImpl implements IPersonelServices {
         Personel dbPersonel = personelRepository.save(personel);
         BeanUtils.copyProperties(dbPersonel, personelResponseDto);
 
-
         response.setData(personelResponseDto);
         response.setStatus(HttpStatus.CREATED.value());
         response.setMessage("Personel kayıt edildi");
-
-
         return response;
 
 
