@@ -1,17 +1,17 @@
 package com.example.services;
 
+import com.example.dto.dtoBase.PersonBaseResponse;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.*;
 import com.example.entites.Personel;
 
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 public interface IPersonelServices {
 
-    PersonelResponseDto save(PersonelRequestDto dto);
+    PersonBaseResponse save(PersonelRequestDto dto);
 
     List<PersonelResponseDto> findAll();
 

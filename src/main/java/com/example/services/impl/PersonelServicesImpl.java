@@ -1,5 +1,6 @@
 package com.example.services.impl;
 
+import com.example.dto.dtoBase.PersonBaseResponse;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.*;
@@ -11,6 +12,7 @@ import com.example.services.IPersonelServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -35,7 +37,9 @@ public class PersonelServicesImpl implements IPersonelServices {
     private PersonelJPARepository personelJPARepository;
 
     @Override
-    public PersonelResponseDto save(PersonelRequestDto dto) {
+    public PersonBaseResponse save(PersonelRequestDto dto) {
+
+        PersonBaseResponse response = new PersonBaseResponse();
 
         PersonelResponseDto personelResponseDto = new PersonelResponseDto();
         Personel personel = new Personel();
@@ -44,7 +48,13 @@ public class PersonelServicesImpl implements IPersonelServices {
         Personel dbPersonel = personelRepository.save(personel);
         BeanUtils.copyProperties(dbPersonel, personelResponseDto);
 
-        return personelResponseDto;
+
+        response.setData(personelResponseDto);
+        response.setStatus(HttpStatus.CREATED.value());
+        response.setMessage("Personel kayıt edildi");
+
+
+        return response;
 
 
     }

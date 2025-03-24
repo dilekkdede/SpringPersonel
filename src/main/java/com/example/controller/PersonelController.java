@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.dto.dtoBase.PersonBaseResponse;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.*;
@@ -23,7 +24,7 @@ public class PersonelController {
 
 
     @PostMapping(path = "/save")
-    public PersonelResponseDto save(@RequestBody PersonelRequestDto personel) {
+    public PersonBaseResponse save(@RequestBody PersonelRequestDto personel) {
         return personelServices.save(personel);
     }
 

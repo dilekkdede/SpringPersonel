@@ -18,25 +18,20 @@ public class PersonelResponseDto {
 
     private String firstName;
 
-
     private String lastName;
 
+    //  private String userName;
 
-  //  private String userName;
-
-
-  //  private String createBy;
-
+    //  private String createBy;
 
     private String description;
 
     private Integer status;
-
 
     private Date createDate;
 
     private String bolum;
 
 
- //   private Date birthDate;
+    //   private Date birthDate;
 }
