@@ -221,65 +221,124 @@ public class PersonelServicesImpl implements IPersonelServices {
         return null;
     }
 
+    //QUERYIMPL
+
     @Override
-    public List<Personel> personelListesi() {
+    public List<PersonBaseResponse> personelListesi() {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+
         List<Personel> personelList = personelNativeRepository.personelListesi();
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListsiID2ve11(long id2, long id11) {
+    public List<PersonBaseResponse> personelListsiID2ve11(long id2, long id11) {
+        List<PersonBaseResponse> responseList = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.persnelListsiID2ve11(id2, id11);
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Girilen Id bilgileri");
+        responseList.add(response);
+        return responseList;
     }
 
     @Override
-    public List<Personel> personelListesistatus(int status) {
+    public List<PersonBaseResponse> personelListesistatus(int status) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
 
         List<Personel> personelList = personelNativeRepository.personelListesistatus(status);
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Girilen status bilgileri");
+        personelListesi.add(response);
+
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiLikeKullanimi(String isim) {
+    public List<PersonBaseResponse> personelListesiLikeKullanimi(String isim) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiLikeKullanimi(isim);
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiBolumBilgisi(String bolum) {
+    public List<PersonBaseResponse> personelListesiBolumBilgisi(String bolum) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiBolumBilgisi(bolum);
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiBolumBilgisiUpper(String bolum) {
+    public List<PersonBaseResponse> personelListesiBolumBilgisiUpper(String bolum) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiBolumBilgisiUpper(bolum);
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiBolumBilgisiLower(String bolum) {
+    public List<PersonBaseResponse> personelListesiBolumBilgisiLower(String bolum) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiBolumBilgisiLower(bolum);
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiDogumGunu(PersonelDtoDogumGunu dto) {
+    public List<PersonBaseResponse> personelListesiDogumGunu(PersonelDtoDogumGunu dto) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiDogumGunu(dto.getDogumGunu());
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiDogumGunuNull() {
+    public List<PersonBaseResponse> personelListesiDogumGunuNull() {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiDogumGunuNull();
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiDogumGunuNotNull() {
+    public List<PersonBaseResponse> personelListesiDogumGunuNotNull() {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiDogumGunuNotNull();
-        return personelList;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override

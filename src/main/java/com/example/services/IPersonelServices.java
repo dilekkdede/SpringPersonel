@@ -21,25 +21,25 @@ public interface IPersonelServices {
 
     PersonBaseResponse update(Long id, PersonelRequestDto dto);
 
-    List<Personel> personelListesi();
+    List<PersonBaseResponse> personelListesi();
 
-    List<Personel> personelListsiID2ve11(long id2, long id11);
+    List<PersonBaseResponse> personelListsiID2ve11(long id2, long id11);
 
-    List<Personel> personelListesistatus(int status);
+    List<PersonBaseResponse> personelListesistatus(int status);
 
-    List<Personel> personelListesiLikeKullanimi(String isim);
+    List<PersonBaseResponse> personelListesiLikeKullanimi(String isim);
 
-    List<Personel> personelListesiBolumBilgisi(String bolum);
+    List<PersonBaseResponse> personelListesiBolumBilgisi(String bolum);
 
-    List<Personel> personelListesiBolumBilgisiUpper(String bolum);
+    List<PersonBaseResponse> personelListesiBolumBilgisiUpper(String bolum);
 
-    List<Personel> personelListesiBolumBilgisiLower(String bolum);
+    List<PersonBaseResponse> personelListesiBolumBilgisiLower(String bolum);
 
-    List<Personel> personelListesiDogumGunu(PersonelDtoDogumGunu dto);
+    List<PersonBaseResponse> personelListesiDogumGunu(PersonelDtoDogumGunu dto);
 
-    List<Personel> personelListesiDogumGunuNull();
+    List<PersonBaseResponse> personelListesiDogumGunuNull();
 
-    List<Personel> personelListesiDogumGunuNotNull();
+    List<PersonBaseResponse> personelListesiDogumGunuNotNull();
 
     int personelListesiCount();
 

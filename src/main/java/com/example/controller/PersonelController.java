@@ -52,53 +52,53 @@ public class PersonelController {
     //@uery işlemleri
 
     @GetMapping(path = "/personel-listesi")
-    public List<Personel> personelListesi() {
+    public List<PersonBaseResponse> personelListesi() {
         return personelServices.personelListesi();
     }
 
     @GetMapping(path = "/personel-listesi-id2-id11/{id2}/{id11}")
-    public List<Personel> personelListsiID2ve11(@PathVariable(name = "id2") long id2, @PathVariable(name = "id11") long id11) {
+    public List<PersonBaseResponse> personelListsiID2ve11(@PathVariable(name = "id2") long id2, @PathVariable(name = "id11") long id11) {
         return personelServices.personelListsiID2ve11(id2, id11);
     }
 
 
     @GetMapping(path = "/personel-listesi-status/{status}")
-    public List<Personel> personelListsistatus(@PathVariable(name = "status") int status) {
+    public List<PersonBaseResponse> personelListsistatus(@PathVariable(name = "status") int status) {
         return personelServices.personelListesistatus(status);
     }
 
     @GetMapping(path = "/personel-listesi-like-kullanimi/{isim}")
-    public List<Personel> personelListsistatus(@PathVariable(name = "isim") String isim) {
+    public List<PersonBaseResponse> personelListsistatus(@PathVariable(name = "isim") String isim) {
         return personelServices.personelListesiLikeKullanimi(isim);
     }
 
     @GetMapping(path = "/personel-listesi-bolum/{bolum}")
-    public List<Personel> personelListesiBolumBilgisi(@PathVariable(name = "bolum") String bolum) {
+    public List<PersonBaseResponse> personelListesiBolumBilgisi(@PathVariable(name = "bolum") String bolum) {
         return personelServices.personelListesiBolumBilgisi(bolum);
     }
 
     @GetMapping(path = "/personel-listesi-bolum-upper/{bolum}")
-    public List<Personel> personelListesiBolumBilgisiUpper(@PathVariable(name = "bolum") String bolum) {
+    public List<PersonBaseResponse> personelListesiBolumBilgisiUpper(@PathVariable(name = "bolum") String bolum) {
         return personelServices.personelListesiBolumBilgisiUpper(bolum);
     }
 
     @GetMapping(path = "/personel-listesi-bolum-lower/{bolum}")
-    public List<Personel> personelListesiBolumBilgisiLower(@PathVariable(name = "bolum") String bolum) {
+    public List<PersonBaseResponse> personelListesiBolumBilgisiLower(@PathVariable(name = "bolum") String bolum) {
         return personelServices.personelListesiBolumBilgisiLower(bolum);
     }
 
     @PostMapping(path = "/personel-listesi-dogum-gunu")
-    public List<Personel> personelListesiDogumGunu(@RequestBody PersonelDtoDogumGunu dto) {
+    public List<PersonBaseResponse> personelListesiDogumGunu(@RequestBody PersonelDtoDogumGunu dto) {
         return personelServices.personelListesiDogumGunu(dto);
     }
 
     @GetMapping(path = "/personel-listesi-dogum-gunu-null")
-    public List<Personel> personelListesiDogumGunuNull() {
+    public List<PersonBaseResponse> personelListesiDogumGunuNull() {
         return personelServices.personelListesiDogumGunuNull();
     }
 
     @GetMapping(path = "/personel-listesi-dogum-gunu-not-null")
-    public List<Personel> personelListesiDogumGunuNotNull() {
+    public List<PersonBaseResponse> personelListesiDogumGunuNotNull() {
         return personelServices.personelListesiDogumGunuNotNull();
     }
 
