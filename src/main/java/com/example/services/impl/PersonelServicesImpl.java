@@ -342,113 +342,187 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public int personelListesiCount() {
+    public PersonBaseResponse personelListesiCount() {
+        PersonBaseResponse response = new PersonBaseResponse();
         int count = personelNativeRepository.personelListesiCount();
-        return count;
+        response.setData(count);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Peronel sayısı: " + count);
+        return response;
+
     }
 
     @Override
-    public List<Personel> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn) {
+    public List<PersonBaseResponse> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Long> idList = new ArrayList<>();
         for (PersonelDtoIdIn personelDtoIdIn : dtoIdIn) {
             idList.add(personelDtoIdIn.getId());
         }
         List<Personel> personelList = personelNativeRepository.personelListesiInKullanimi(idList);
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelList);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
 
-        return personelList;
+        return personelListesi;
     }
 
     @Override
-    public int personelListesiCountvestatus(int status) {
+    public PersonBaseResponse personelListesiCountvestatus(int status) {
         int count = personelNativeRepository.personelListesiCountvestatus(status);
-        return count;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(count);
+        response.setStatus(HttpStatus.OK.value());
+
+        return response;
     }
     //JPA QUERYS
 
     @Override
-    public List<Personel> personelListesiJpa() {
+    public List<PersonBaseResponse> personelListesiJpa() {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> liste = personelJPARepository.personelListesi();
-        return liste;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(liste);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiid2veyaid11jpa(long id2, long id11) {
+    public List<PersonBaseResponse> personelListesiid2veyaid11jpa(long id2, long id11) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiid2veyaid11jpa(id2, id11);
-        return list;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(list);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiStatusJpa(int status) {
+    public List<PersonBaseResponse> personelListesiStatusJpa(int status) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiStatusJpa(status);
-        return list;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(list);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiLikeJpa(String karakter) {
+    public List<PersonBaseResponse> personelListesiLikeJpa(String karakter) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiLikeJpa(karakter);
-        return list;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(list);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesibolumJpa(String bolum) {
+    public List<PersonBaseResponse> personelListesibolumJpa(String bolum) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesibolumJpa(bolum);
-        return list;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(list);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesibolumUpperJpa(String bolum) {
+    public List<PersonBaseResponse> personelListesibolumUpperJpa(String bolum) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesibolumUpperJpa(bolum);
-        return list;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(list);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesibolumLowerJpa(String bolum) {
+    public List<PersonBaseResponse> personelListesibolumLowerJpa(String bolum) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesibolumLowerJpa(bolum);
-        return list;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(list);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto) {
+    public List<PersonBaseResponse> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiDogumGunuJpa(dto.getDogumGunu());
-        return list;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(list);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiDogumGunuIsNotNullJpa() {
+    public List<PersonBaseResponse> personelListesiDogumGunuIsNotNullJpa() {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiDogumGunuIsNotNullJpa();
-        return list;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(list);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public int personelListesiCountJpa() {
+    public PersonBaseResponse personelListesiCountJpa() {
+        PersonBaseResponse response = new PersonBaseResponse();
         int liste = personelJPARepository.personelListesiCountJpa();
-        return liste;
+        response.setData(liste);
+        response.setStatus(HttpStatus.OK.value());
+
+        return response;
     }
 
     @Override
-    public List<Personel> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn) {
+    public List<PersonBaseResponse> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
 
         List<Long> idList = new ArrayList<>();
         for (PersonelDtoIdIn personelDtoIdIn : dtoIdIn) {
             idList.add(personelDtoIdIn.getId());
         }
         List<Personel> response = personelJPARepository.personelListesiInKullanimiJpa(idList);
-        return response;
+        PersonBaseResponse response1 = new PersonBaseResponse();
+        response1.setData(response);
+        response1.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response1);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn) {
+    public List<PersonBaseResponse> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn) {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<String> bosListe = new ArrayList<>();
         for (PersonelDtoCreateByIn str : dtoIn) {
             bosListe.add(str.getCreateBy());
         }
 
         List<Personel> liste = personelJPARepository.personelListesiInCreateByJpa(bosListe);
-        return liste;
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(liste);
+        response.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response);
+        return personelListesi;
     }
 
     @Override
-    public List<Personel> personelListesiIsimVeSoyisimHaricDigerleriNull() {
+    public List<PersonBaseResponse> personelListesiIsimVeSoyisimHaricDigerleriNull() {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         List<Personel> response = new ArrayList<>();
         List<Personel> islem = personelJPARepository.personelListesi();
 
@@ -466,9 +540,12 @@ public class PersonelServicesImpl implements IPersonelServices {
                 response.add(personel);
 
             }
-
         }
-        return response;
+        PersonBaseResponse response1 = new PersonBaseResponse();
+        response1.setData(response);
+        response1.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response1);
+        return personelListesi;
     }
 
     @Override
@@ -513,66 +590,79 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme() {
+    public List<PersonBaseResponse> personelListesiBirthDayNotOlanaSistemTarihiSetleme() {
+        List<PersonBaseResponse> responseList = new ArrayList<>();
         List<Personel> response = new ArrayList<>();
-
         List<Personel> personelListesi = personelJPARepository.personelListesi();
         if (personelListesi != null) {
             for (Personel personel : personelListesi) {
                 if (personel.getBirthDate() == null) {
                     Date newDate = new Date();
                     personel.setBirthDate(newDate);
-
                 }
-
                 response.add(personel);
             }
         }
-
-
-        return response;
+        PersonBaseResponse response1 = new PersonBaseResponse();
+        response1.setData(response);
+        response1.setStatus(HttpStatus.OK.value());
+        responseList.add(response1);
+        return responseList;
 
     }
 
     @Override
-    public List<Personel> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException {
+    public List<PersonBaseResponse> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException {
 
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         dF.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
         Date dateBas = dF.parse(dto.getDateBas());
         Date dateSon = dF.parse(dto.getDateSon());
 
         List<Personel> response = personelJPARepository.personelListesiIkiTarihAraliginiDondurme(dateBas, dateSon);
-        return response;
+        PersonBaseResponse response1 = new PersonBaseResponse();
+        response1.setData(response);
+        response1.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response1);
+        return personelListesi;
 
     }
 
     @Override
-    public List<Personel> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException {
+    public List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         dF.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
         Date dateBas = dF.parse(dto.getDateBas());
         Date dateSon = dF.parse(dto.getDateSon());
 
         List<Personel> personelList = personelJPARepository.personelListesiIkiTarihAraligindakiCreateDate(dateBas, dateSon);
-        return personelList;
+        PersonBaseResponse response1 = new PersonBaseResponse();
+        response1.setData(personelList);
+        response1.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response1);
+        return personelListesi;
 
 
     }
 
     @Override
-    public List<Personel> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
-
+    public List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
+        List<PersonBaseResponse> personelListesi = new ArrayList<>();
         Date dateBas = new Date(); // SİSTEM TARİHİ ALMA
         int eklenecekGun = 14;
-
 
         calendar.setTime(dateBas);
         calendar.add(Calendar.DAY_OF_YEAR, eklenecekGun);
         Date dateSon = calendar.getTime();
 
         List<Personel> personelList = personelJPARepository.personelListesiIkiTarihAraligindakiCreateDate(dateBas, dateSon);
-        return personelList;
+        PersonBaseResponse response1 = new PersonBaseResponse();
+        response1.setData(personelList);
+        response1.setStatus(HttpStatus.OK.value());
+        personelListesi.add(response1);
+        return personelListesi;
     }
 
 

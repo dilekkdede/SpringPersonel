@@ -103,18 +103,18 @@ public class PersonelController {
     }
 
     @GetMapping(path = "personel-listesi-count")
-    public int personelListesiCount() {
+    public PersonBaseResponse personelListesiCount() {
         return personelServices.personelListesiCount();
     }
 
 
     @PostMapping(path = "personel-listesi-id-in")
-    public List<Personel> personelListesiInKullanimi(@RequestBody List<PersonelDtoIdIn> dtoIdIn) {
+    public List<PersonBaseResponse> personelListesiInKullanimi(@RequestBody List<PersonelDtoIdIn> dtoIdIn) {
         return personelServices.personelListesiInKullanimi(dtoIdIn);
     }
 
     @GetMapping(path = "personel-listesi-count-status/{status}")
-    public int personelListesiCountvestatus(@PathVariable(name = "status") int status) {
+    public PersonBaseResponse personelListesiCountvestatus(@PathVariable(name = "status") int status) {
         return personelServices.personelListesiCountvestatus(status);
     }
 
@@ -122,68 +122,68 @@ public class PersonelController {
     //JPA QUERYS
 
     @GetMapping(path = "/personel-listesi-jpa")
-    public List<Personel> personelListesiJpa() {
+    public List<PersonBaseResponse> personelListesiJpa() {
         return personelServices.personelListesiJpa();
     }
 
     @GetMapping(path = "/personel-listesi-id-jpa/{id2}/{id11}")
-    public List<Personel> personelListesiid2veyaid11jpa(@PathVariable(name = "id2") long id2, @PathVariable(name = "id11") long id11) {
+    public List<PersonBaseResponse> personelListesiid2veyaid11jpa(@PathVariable(name = "id2") long id2, @PathVariable(name = "id11") long id11) {
         return personelServices.personelListesiid2veyaid11jpa(id2, id11);
     }
 
     @GetMapping(path = "/personel-listesi-status-jpa/{status}")
-    public List<Personel> personelListesiStatusJpa(@PathVariable(name = "status") int status) {
+    public List<PersonBaseResponse> personelListesiStatusJpa(@PathVariable(name = "status") int status) {
         return personelServices.personelListesiStatusJpa(status);
     }
 
     @GetMapping(path = "/personel-listesi-like-jpa/{karakter}")
-    public List<Personel> personelListesiLikeJpa(@PathVariable(name = "karakter") String karakter) {
+    public List<PersonBaseResponse> personelListesiLikeJpa(@PathVariable(name = "karakter") String karakter) {
         return personelServices.personelListesiLikeJpa(karakter);
     }
 
     @GetMapping(path = "/personel-listesi-bolum-jpa/{bolum}")
-    public List<Personel> personelListesiBolumJpa(@PathVariable(name = "bolum") String bolum) {
+    public List<PersonBaseResponse> personelListesiBolumJpa(@PathVariable(name = "bolum") String bolum) {
         return personelServices.personelListesibolumJpa(bolum);
     }
 
     @GetMapping(path = "/personel-listesi-upper-bolum-jpa/{bolum}")
-    public List<Personel> personelListesiUpperBolumJpa(@PathVariable(name = "bolum") String bolum) {
+    public List<PersonBaseResponse> personelListesiUpperBolumJpa(@PathVariable(name = "bolum") String bolum) {
         return personelServices.personelListesibolumUpperJpa(bolum);
     }
 
 
     @GetMapping(path = "/personel-listesi-lower-bolum-jpa/{bolum}")
-    public List<Personel> personelListesiLowerBolumJpa(@PathVariable(name = "bolum") String bolum) {
+    public List<PersonBaseResponse> personelListesiLowerBolumJpa(@PathVariable(name = "bolum") String bolum) {
         return personelServices.personelListesibolumLowerJpa(bolum);
     }
 
     @PostMapping(path = "/personel-listesi-dogum-gunu-jpa")
-    public List<Personel> personelListesiDogumGunuJpa(@RequestBody PersonelDtoDogumGunu dto) {
+    public List<PersonBaseResponse> personelListesiDogumGunuJpa(@RequestBody PersonelDtoDogumGunu dto) {
         return personelServices.personelListesiDogumGunuJpa(dto);
     }
 
     @GetMapping(path = "/personel-listesi-dogum-not-null-jpa")
-    public List<Personel> personelListesiDogumGunuIsNotNullJpa() {
+    public List<PersonBaseResponse> personelListesiDogumGunuIsNotNullJpa() {
         return personelServices.personelListesiDogumGunuIsNotNullJpa();
     }
 
     @GetMapping(path = "/personel-listesi-count-jpa")
-    public int personelListesiCountJpa() {
+    public PersonBaseResponse personelListesiCountJpa() {
         return personelServices.personelListesiCountJpa();
     }
 
     @PostMapping(path = "/personel-listesi-in-jpa")
-    public List<Personel> personelListesiInKullanimiJpa(@RequestBody List<PersonelDtoIdIn> dto) {
+    public List<PersonBaseResponse> personelListesiInKullanimiJpa(@RequestBody List<PersonelDtoIdIn> dto) {
         return personelServices.personelListesiInKullanimiJpa(dto);
     }
 
     @PostMapping(path = "/personel-listesi-in-createBy-jpa")
-    public List<Personel> personelListesiInCreateByJpa(@RequestBody List<PersonelDtoCreateByIn> dto) {
+    public List<PersonBaseResponse> personelListesiInCreateByJpa(@RequestBody List<PersonelDtoCreateByIn> dto) {
         return personelServices.personelListesiInCreateByJpa(dto);
     }
 
     @GetMapping(path = "/personel-listesi-isim-ve-soyisim-haric-null")
-    public List<Personel> personelListesiIsimVeSoyisimHaricDigerleriNull() {
+    public List<PersonBaseResponse> personelListesiIsimVeSoyisimHaricDigerleriNull() {
         return personelServices.personelListesiIsimVeSoyisimHaricDigerleriNull();
     }
 
@@ -198,22 +198,22 @@ public class PersonelController {
     }
 
     @GetMapping(path = "/personel-listesi-birth-day-not-olana-sistem-tarihini-setleme-jpa")
-    public List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme() {
+    public List<PersonBaseResponse> personelListesiBirthDayNotOlanaSistemTarihiSetleme() {
         return personelServices.personelListesiBirthDayNotOlanaSistemTarihiSetleme();
     }
 
     @PostMapping(path = "/personel-listesi-tarih-araligi-dondurme")
-    public List<Personel> personelListesiIkiTarihAraliginiDondurme(@RequestBody PersonelDtoTarihAraligi dto) throws ParseException {
+    public List<PersonBaseResponse> personelListesiIkiTarihAraliginiDondurme(@RequestBody PersonelDtoTarihAraligi dto) throws ParseException {
         return personelServices.personelListesiIkiTarihAraliginiDondurme(dto);
     }
 
     @PostMapping(path = "/personel-listesi-tarih-araligi-createDate-dondurme")
-    public List<Personel> personelListesiIkiTarihAraligindakiCreateDate(@RequestBody PersonelDtoTarihAraligi dto) throws ParseException {
+    public List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDate(@RequestBody PersonelDtoTarihAraligi dto) throws ParseException {
         return personelServices.personelListesiIkiTarihAraligindakiCreateDate(dto);
     }
 
     @GetMapping(path = "/personel-listesi-createDate-with-sistem-tarihi")
-    public List<Personel> personelIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
+    public List<PersonBaseResponse> personelIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
         return personelServices.personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi();
     }
 

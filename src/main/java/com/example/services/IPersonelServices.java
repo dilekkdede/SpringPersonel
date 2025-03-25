@@ -41,50 +41,50 @@ public interface IPersonelServices {
 
     List<PersonBaseResponse> personelListesiDogumGunuNotNull();
 
-    int personelListesiCount();
+    PersonBaseResponse personelListesiCount();
 
-    List<Personel> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn);
+    List<PersonBaseResponse> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn);
 
-    int personelListesiCountvestatus(int status);
+    PersonBaseResponse personelListesiCountvestatus(int status);
 
 
     //JPA QUERYS
 
-    List<Personel> personelListesiJpa();
+    List<PersonBaseResponse> personelListesiJpa();
 
-    List<Personel> personelListesiid2veyaid11jpa(long id2, long id11);
+    List<PersonBaseResponse> personelListesiid2veyaid11jpa(long id2, long id11);
 
-    List<Personel> personelListesiStatusJpa(int status);
+    List<PersonBaseResponse> personelListesiStatusJpa(int status);
 
-    List<Personel> personelListesiLikeJpa(String karakter);
+    List<PersonBaseResponse> personelListesiLikeJpa(String karakter);
 
-    List<Personel> personelListesibolumJpa(String bolum);
+    List<PersonBaseResponse> personelListesibolumJpa(String bolum);
 
-    List<Personel> personelListesibolumUpperJpa(String bolum);
+    List<PersonBaseResponse> personelListesibolumUpperJpa(String bolum);
 
-    List<Personel> personelListesibolumLowerJpa(String bolum);
+    List<PersonBaseResponse> personelListesibolumLowerJpa(String bolum);
 
-    List<Personel> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto);
+    List<PersonBaseResponse> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto);
 
-    List<Personel> personelListesiDogumGunuIsNotNullJpa();
+    List<PersonBaseResponse> personelListesiDogumGunuIsNotNullJpa();
 
-    int personelListesiCountJpa();
+    PersonBaseResponse personelListesiCountJpa();
 
-    List<Personel> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn);
+    List<PersonBaseResponse> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn);
 
-    List<Personel> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn);
+    List<PersonBaseResponse> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn);
 
-    List<Personel> personelListesiIsimVeSoyisimHaricDigerleriNull();
+    List<PersonBaseResponse> personelListesiIsimVeSoyisimHaricDigerleriNull();
 
     List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolum();
 
     List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolumKucukEsit4();
 
-    List<Personel> personelListesiBirthDayNotOlanaSistemTarihiSetleme();
+    List<PersonBaseResponse> personelListesiBirthDayNotOlanaSistemTarihiSetleme();
 
-    List<Personel> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException;
+    List<PersonBaseResponse> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException;
 
-    List<Personel> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException;
+    List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException;
 
-    List<Personel> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException;
+    List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException;
 }
