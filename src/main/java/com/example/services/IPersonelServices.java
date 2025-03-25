@@ -13,13 +13,13 @@ public interface IPersonelServices {
 
     PersonBaseResponse save(PersonelRequestDto dto);
 
-    List<PersonelResponseDto> findAll();
+    List<PersonBaseResponse> findAll();
 
-    PersonelResponseDto findById(Long id);
+    PersonBaseResponse findById(Long id);
 
-    void deleteById(Long id);
+    PersonBaseResponse deleteById(Long id);
 
-    PersonelResponseDto update(Long id, PersonelRequestDto dto);
+    PersonBaseResponse update(Long id, PersonelRequestDto dto);
 
     List<Personel> personelListesi();
 

@@ -55,14 +55,26 @@ public class PersonelServicesImpl implements IPersonelServices {
         }
 
         Optional<Unit> unit = unitRepository.findById(dto.getUnitId());
-        if(unit.isEmpty()) {
+        if (unit.isEmpty()) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
             response.setMessage("Unit Bulunamadı!");
             return response;
 
         }
-        if(dto.getFirstName()==null) {
+        if (dto.getFirstName() == null) {
             response.setMessage("İsim alanı boş olamaz!");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return response;
+        }
+
+        if (dto.getLastName() == null) {
+            response.setMessage("Soyisim alanı boş olamaz!");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return response;
+        }
+
+        if (dto.getUserName() == null) {
+            response.setMessage("Kullanıcı ismi alanı boş olamaz!");
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return response;
         }
@@ -83,9 +95,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonelResponseDto> findAll() {
+    public List<PersonBaseResponse> findAll() {
+        List<PersonBaseResponse> responseList = new ArrayList<>();
 
-        List<PersonelResponseDto> personelDtoList = new ArrayList<PersonelResponseDto>();
+        List<PersonelResponseDto> personelDtoList = new ArrayList<>();
         List<Personel> personelList = personelRepository.findAll();
 
         for (Personel personel : personelList) {
@@ -93,33 +106,94 @@ public class PersonelServicesImpl implements IPersonelServices {
             BeanUtils.copyProperties(personel, personelResponseDto);
             personelDtoList.add(personelResponseDto);
         }
-        log.info("Personel List: " + personelList.size());
-        return personelDtoList;
+
+        PersonBaseResponse response = new PersonBaseResponse();
+        response.setData(personelDtoList);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Personel listesi");
+
+        responseList.add(response);
+
+        return responseList;
     }
 
+
     @Override
-    public PersonelResponseDto findById(Long id) {
-        PersonelResponseDto personelResponseDto = new PersonelResponseDto();
+    public PersonBaseResponse findById(Long id) {
+        PersonBaseResponse response = new PersonBaseResponse();
         Optional<Personel> optional = personelRepository.findById(id);
-        if (optional.isPresent()) {
-            Personel dbPersonel = optional.get();
-            BeanUtils.copyProperties(dbPersonel, personelResponseDto);
+
+        if (optional.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Girilen Id değerine ait kayıt bulunamadı.");
+            return response;
         }
 
-        log.info("Personel not found with id: " + id);
-        return personelResponseDto;
+
+        Personel dbPersonel = optional.get();
+        PersonelResponseDto personelResponseDto = new PersonelResponseDto();
+        BeanUtils.copyProperties(dbPersonel, personelResponseDto);
+
+        response.setData(personelResponseDto);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Girilen Id bilgileri: " + id);
+
+        return response;
     }
 
-    @Override
-    public void deleteById(Long id) {
-        personelRepository.deleteById(id);
-        log.info("Personel deleted: " + id);
-    }
 
     @Override
-    public PersonelResponseDto update(Long id, PersonelRequestDto dto) {
-        PersonelResponseDto response = new PersonelResponseDto();
+    public PersonBaseResponse deleteById(Long id) {
+        PersonBaseResponse response = new PersonBaseResponse();
         Optional<Personel> optional = personelRepository.findById(id);
+
+        if (optional.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Girilen Id değerine ait kayıt bulunamadı.");
+            return response;
+        }
+
+        personelRepository.deleteById(id);
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Personel başarıyla silindi.");
+        response.setData(null);
+        return response;
+    }
+
+
+    @Override
+    public PersonBaseResponse update(Long id, PersonelRequestDto dto) {
+
+        PersonBaseResponse response = new PersonBaseResponse();
+
+        PersonelResponseDto personResponseDto = new PersonelResponseDto();
+        Optional<Personel> optional = personelRepository.findById(id);
+
+        if (optional.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Güncellenecek Id Bulunamadı");
+            return response;
+        }
+        if (dto.getFirstName() == null || dto.getLastName() == null) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("İsim ve soyisim alanları boş girilemez");
+            return response;
+        }
+
+        Optional<Unit> unitOptional = unitRepository.findById(dto.getUnitId());
+        if (unitOptional.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Girilen Unit Id geçersiz");
+            return response;
+        }
+
+        Optional<City> cityOptional = cityRepository.findById(dto.getCityId());
+        if (cityOptional.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Girilen City Id geçersiz");
+            return response;
+        }
 
         if (optional.isPresent()) {
             Personel dbPersonel = optional.get();
@@ -136,8 +210,11 @@ public class PersonelServicesImpl implements IPersonelServices {
             dbPersonel.setBirthDate(dto.getBirthDate());
 
             Personel updatedPersonel = personelRepository.save(dbPersonel);
-            BeanUtils.copyProperties(updatedPersonel, response);
+            BeanUtils.copyProperties(updatedPersonel, personResponseDto);
 
+            response.setData(personResponseDto);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage("Güncelleme işlemi başarılı");
             return response;
         }
 

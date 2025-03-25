@@ -29,24 +29,27 @@ public class PersonelController {
     }
 
     @GetMapping(path = "/list")
-    public List<PersonelResponseDto> findAll() {
+    public List<PersonBaseResponse> findAll() {
         return personelServices.findAll();
     }
 
     @GetMapping(path = "/get-id/{id}")
-    public PersonelResponseDto findById(@PathVariable(name = "id") Long id) {
+    public PersonBaseResponse findById(@PathVariable(name = "id") Long id) {
         return personelServices.findById(id);
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    public void deleteById(@PathVariable(name = "id") Long id) {
-        personelServices.deleteById(id);
+    public PersonBaseResponse deleteById(@PathVariable(name = "id") Long id) {
+        return personelServices.deleteById(id);
     }
 
+
     @PutMapping(path = "/update/{id}")
-    public PersonelResponseDto updatePersonel(@PathVariable(name = "id") Long id, @RequestBody PersonelRequestDto personel) {
+    public PersonBaseResponse updatePersonel(@PathVariable(name = "id") Long id, @RequestBody PersonelRequestDto personel) {
         return personelServices.update(id, personel);
     }
+
+    //@uery işlemleri
 
     @GetMapping(path = "/personel-listesi")
     public List<Personel> personelListesi() {
