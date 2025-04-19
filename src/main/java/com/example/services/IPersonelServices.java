@@ -1,9 +1,11 @@
 package com.example.services;
 
 import com.example.dto.dtoBase.PersonBaseResponse;
+import com.example.dto.dtoEntity.Bdto;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.*;
+import com.example.entites.B;
 import com.example.entites.Personel;
 
 import java.text.ParseException;
@@ -11,6 +13,14 @@ import java.util.List;
 
 public interface IPersonelServices {
 
+    String test();
+
+    B saveB (B b);
+
+    List<Bdto> findAllB();
+
+
+    /// ////////////CRUD İŞLEMLERİ //////////////////////////
     PersonBaseResponse save(PersonelRequestDto dto);
 
     List<PersonBaseResponse> findAll();
@@ -20,6 +30,9 @@ public interface IPersonelServices {
     PersonBaseResponse deleteById(Long id);
 
     PersonBaseResponse update(Long id, PersonelRequestDto dto);
+
+    /// ////////////////////////////////////////////////////////////////////////////////////////
+
 
     List<PersonBaseResponse> personelListesi();
 

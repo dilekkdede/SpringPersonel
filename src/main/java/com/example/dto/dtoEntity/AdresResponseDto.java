@@ -1,5 +1,6 @@
 package com.example.dto.dtoEntity;
 
+import com.example.entites.Personel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,6 @@ public class AdresResponseDto {
 
 
     private Date createDate;
+
+   // private PersonelResponseDto personel;
 }

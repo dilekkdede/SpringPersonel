@@ -53,4 +53,7 @@ public class Personel implements Serializable {
     @Column(name = "birth_day")
     private Date birthDate;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Adres adres;
+
 }

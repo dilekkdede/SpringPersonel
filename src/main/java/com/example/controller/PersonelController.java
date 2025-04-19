@@ -1,9 +1,11 @@
 package com.example.controller;
 
 import com.example.dto.dtoBase.PersonBaseResponse;
+import com.example.dto.dtoEntity.Bdto;
 import com.example.dto.dtoEntity.PersonelRequestDto;
 import com.example.dto.dtoEntity.PersonelResponseDto;
 import com.example.dto.dtoQuery.*;
+import com.example.entites.B;
 import com.example.entites.Personel;
 import com.example.services.IPersonelServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import javax.naming.NamingEnumeration;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/rest/api/personel")
@@ -215,6 +218,22 @@ public class PersonelController {
     @GetMapping(path = "/personel-listesi-createDate-with-sistem-tarihi")
     public List<PersonBaseResponse> personelIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
         return personelServices.personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi();
+    }
+
+    //Relaions
+    @GetMapping(path = "/test")
+    public String test() {
+        return personelServices.test();
+    }
+
+    @PostMapping(path = "/save-b")
+    public B saveB(@RequestBody B b) {
+        return personelServices.saveB(b);
+    }
+
+    @GetMapping(path = "/findAll-B")
+    public List<Bdto> findAllB() {
+        return personelServices.findAllB();
     }
 
 

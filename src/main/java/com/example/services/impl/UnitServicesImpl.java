@@ -5,6 +5,7 @@ import com.example.dto.dtoEntity.UnitResponseDto;
 import com.example.entites.Unit;
 import com.example.repository.UnitRepository;
 import com.example.services.IUnitServices;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UnitServicesImpl implements IUnitServices {
 
     @Autowired
@@ -29,6 +31,7 @@ public class UnitServicesImpl implements IUnitServices {
 
         Unit dbUnit = unitRepository.save(unit);
         BeanUtils.copyProperties(dbUnit, responseDto);
+        log.info("Unit kayıt edildi");
         return responseDto;
     }
 
@@ -43,6 +46,7 @@ public class UnitServicesImpl implements IUnitServices {
             BeanUtils.copyProperties(unit, responseDto);
             responseList.add(responseDto);
         }
+        log.info("Unitler çekildi");
         return responseList;
     }
 
@@ -54,11 +58,14 @@ public class UnitServicesImpl implements IUnitServices {
             Unit dbUnit = unitOptional.get();
             BeanUtils.copyProperties(dbUnit, responseDto);
         }
+        log.info("Unit bulundu");
         return responseDto;
     }
 
     @Override
     public void deleteById(Long id) {
+
+        log.info("Unit silindi");
         unitRepository.deleteById(id);
     }
 
@@ -76,11 +83,8 @@ public class UnitServicesImpl implements IUnitServices {
 
             Unit updatedUnit = unitRepository.save(dbUnit);
             BeanUtils.copyProperties(updatedUnit, responseDto);
+            log.info("Unit güncellendi");
             return responseDto;
-
-
-
-
 
 
         }

@@ -5,6 +5,7 @@ import com.example.dto.dtoEntity.AdresResponseDto;
 import com.example.entites.Adres;
 import com.example.repository.AdresRepository;
 import com.example.services.IAdresServices;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class AdresServicesImpl implements IAdresServices {
 
     @Autowired
@@ -28,6 +30,7 @@ public class AdresServicesImpl implements IAdresServices {
         Adres dbAdres = adresRepository.save(adres);
         BeanUtils.copyProperties(dbAdres, adresResponseDto);
 
+        log.info("Adres kayıt edildi");
         return adresResponseDto;
     }
 
@@ -43,6 +46,7 @@ public class AdresServicesImpl implements IAdresServices {
             adresResponseDtoList.add(adresResponseDto);
         }
 
+        log.info("Adresler çekildi");
         return adresResponseDtoList;
     }
 
@@ -56,11 +60,13 @@ public class AdresServicesImpl implements IAdresServices {
             BeanUtils.copyProperties(dbAdres, adresResponseDto);
         }
 
+        log.info("Adres bulundu");
         return adresResponseDto;
     }
 
     @Override
     public void deleteById(Long id) {
+        log.info("Adres silindi");
         adresRepository.deleteById(id);
 
     }
@@ -81,6 +87,7 @@ public class AdresServicesImpl implements IAdresServices {
             Adres updatedAdres = adresRepository.save(dbAdres);
             BeanUtils.copyProperties(updatedAdres, adresResponseDto);
 
+            log.info("Adres güncellendi");
             return adresResponseDto;
         }
         return null;

@@ -1,5 +1,6 @@
 package com.example.dto.dtoEntity;
 
+import com.example.entites.Adres;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,4 +44,7 @@ public class PersonelRequestDto {
     private Long unitId;
 
     private Date birthDate;
+
+    private AdresRequestDto adres;
+
 }

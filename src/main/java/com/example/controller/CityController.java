@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/city")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class CityController {
 
 

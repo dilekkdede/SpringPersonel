@@ -1,12 +1,9 @@
 package com.example.services.impl;
 
 import com.example.dto.dtoBase.PersonBaseResponse;
-import com.example.dto.dtoEntity.PersonelRequestDto;
-import com.example.dto.dtoEntity.PersonelResponseDto;
+import com.example.dto.dtoEntity.*;
 import com.example.dto.dtoQuery.*;
-import com.example.entites.City;
-import com.example.entites.Personel;
-import com.example.entites.Unit;
+import com.example.entites.*;
 import com.example.repository.*;
 import com.example.services.IPersonelServices;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +39,77 @@ public class PersonelServicesImpl implements IPersonelServices {
     @Autowired
     private UnitRepository unitRepository;
 
+    @Autowired
+    private AdresRepository adresRepository;
+
+    @Autowired
+    private ARepository aRepository;
+
+    @Autowired
+    private BRepository bRepository;
+
+    //Relations
+    @Override
+    public String test() {
+
+        for (int i = 10; i <= 304; i++) {
+            B b = new B();
+            b.setName("B" + i);
+            b.setCode("B Code" + i);
+            b.setA(aRepository.findById(Long.valueOf(i)).get());
+            bRepository.save(b);
+        }
+        return "Başarılı";
+
+    }
+
+    @Override
+    public B saveB(B b) {
+        Optional<A> a = aRepository.findById(b.getA().getId());
+        if (a.isPresent()) {
+            b.setA(a.get());
+        } else {
+            b.setA(null);
+        }
+        B response = bRepository.save(b);
+
+        return response;
+    }
+
+    @Override
+    public List<Bdto> findAllB() {
+        List<Bdto> dtos = new ArrayList<>();
+        List<B> responseList = bRepository.findAll();
+
+        for (B entity : responseList) {
+            Bdto bDto = new Bdto();
+            BeanUtils.copyProperties(entity, bDto);
+
+            if (entity.getA() != null) {
+                Adto adto = new Adto();
+                BeanUtils.copyProperties(entity.getA(), adto);
+
+                bDto.setA(adto);
+            }
+            dtos.add(bDto);
+
+            B bulunanB = bRepository.getByIdB(entity.getId());
+            System.out.println(bulunanB.getName());
+
+        }
+
+        for (Bdto dto : dtos) {
+            if (dto.getA() != null) {
+                //  System.out.println(dto.getA().getName());
+            }
+
+        }
+
+        return dtos;
+    }
+
+
+    /// CRUD İŞLEMLERİ////
     @Override
     public PersonBaseResponse save(PersonelRequestDto dto) {
 
@@ -79,16 +147,33 @@ public class PersonelServicesImpl implements IPersonelServices {
             return response;
         }
 
-        PersonelResponseDto personelResponseDto = new PersonelResponseDto();
         Personel personel = new Personel();
         BeanUtils.copyProperties(dto, personel);
 
+
+        if (dto.getAdres() != null) {
+            Adres adres = new Adres();
+            BeanUtils.copyProperties(dto.getAdres(), adres);
+
+            Adres dbAdres = adresRepository.save(adres);
+            personel.setAdres(dbAdres);
+        }
+
         Personel dbPersonel = personelRepository.save(personel);
+
+        PersonelResponseDto personelResponseDto = new PersonelResponseDto();
         BeanUtils.copyProperties(dbPersonel, personelResponseDto);
+
+        if (dbPersonel.getAdres() != null) {
+            AdresResponseDto adresResponseDto = new AdresResponseDto();
+            BeanUtils.copyProperties(dbPersonel.getAdres(), adresResponseDto);
+            personelResponseDto.setAdres(adresResponseDto);
+        }
 
         response.setData(personelResponseDto);
         response.setStatus(HttpStatus.CREATED.value());
         response.setMessage("Personel kayıt edildi");
+        log.info("Personel kayıt edildi");
         return response;
 
 
@@ -97,13 +182,21 @@ public class PersonelServicesImpl implements IPersonelServices {
     @Override
     public List<PersonBaseResponse> findAll() {
         List<PersonBaseResponse> responseList = new ArrayList<>();
-
         List<PersonelResponseDto> personelDtoList = new ArrayList<>();
         List<Personel> personelList = personelRepository.findAll();
 
         for (Personel personel : personelList) {
             PersonelResponseDto personelResponseDto = new PersonelResponseDto();
             BeanUtils.copyProperties(personel, personelResponseDto);
+
+            // Adres varsa DTO'ya çevir
+            if (personel.getAdres() != null) {
+                AdresResponseDto adresResponseDto = new AdresResponseDto();
+                BeanUtils.copyProperties(personel.getAdres(), adresResponseDto);
+                personelResponseDto.setAdres(adresResponseDto);
+            }
+
+            log.info("Personeller çekildi");
             personelDtoList.add(personelResponseDto);
         }
 
@@ -132,12 +225,17 @@ public class PersonelServicesImpl implements IPersonelServices {
 
         Personel dbPersonel = optional.get();
         PersonelResponseDto personelResponseDto = new PersonelResponseDto();
+        AdresResponseDto adresResponseDto = new AdresResponseDto();
+        Adres adres = dbPersonel.getAdres();
+        BeanUtils.copyProperties(adres, adresResponseDto);
         BeanUtils.copyProperties(dbPersonel, personelResponseDto);
+        personelResponseDto.setAdres(adresResponseDto);
 
         response.setData(personelResponseDto);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("Girilen Id bilgileri: " + id);
 
+        log.info("Personel bulundu");
         return response;
     }
 
@@ -158,6 +256,7 @@ public class PersonelServicesImpl implements IPersonelServices {
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("Personel başarıyla silindi.");
         response.setData(null);
+        log.info("Personel silindi");
         return response;
     }
 
@@ -215,13 +314,15 @@ public class PersonelServicesImpl implements IPersonelServices {
             response.setData(personResponseDto);
             response.setStatus(HttpStatus.OK.value());
             response.setMessage("Güncelleme işlemi başarılı");
+            log.info("Personel günceellendi");
             return response;
         }
 
         return null;
     }
 
-    //QUERYIMPL
+
+    /// ////////////QUERYIMPL
 
     @Override
     public List<PersonBaseResponse> personelListesi() {
@@ -377,6 +478,7 @@ public class PersonelServicesImpl implements IPersonelServices {
 
         return response;
     }
+
     //JPA QUERYS
 
     @Override

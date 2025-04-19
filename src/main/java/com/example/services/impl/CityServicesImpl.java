@@ -5,6 +5,7 @@ import com.example.dto.dtoEntity.CityResponseDto;
 import com.example.entites.City;
 import com.example.repository.CityRepository;
 import com.example.services.ICityServices;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class CityServicesImpl implements ICityServices {
 
@@ -26,6 +28,7 @@ public class CityServicesImpl implements ICityServices {
         BeanUtils.copyProperties(dto, city);
         City dbCity = cityRepository.save(city);
         BeanUtils.copyProperties(dbCity, cityResponseDto);
+        log.info("Şehir kayıt edildi");
         return cityResponseDto;
     }
 
@@ -40,6 +43,7 @@ public class CityServicesImpl implements ICityServices {
             BeanUtils.copyProperties(city, cityResponseDto);
             cityResponseDtos.add(cityResponseDto);
         }
+        log.info("şehir listesi çekildi");
         return cityResponseDtos;
     }
 
@@ -51,6 +55,7 @@ public class CityServicesImpl implements ICityServices {
             City dbCity = optional.get();
             BeanUtils.copyProperties(dbCity, cityResponseDto);
         }
+        log.info("Şehir bulundu");
         return cityResponseDto;
 
 
@@ -60,6 +65,7 @@ public class CityServicesImpl implements ICityServices {
     public void deleteById(Long id) {
 
         City findCity = cityRepository.findById(id).get();
+        log.info("Şehir silindi");
         cityRepository.delete(findCity);
 
     }
@@ -78,6 +84,7 @@ public class CityServicesImpl implements ICityServices {
             City updatedCity = cityRepository.save(dbCity);
             BeanUtils.copyProperties(updatedCity, cityResponseDto);
 
+            log.info("Şehir güncellendi");
             return cityResponseDto;
 
         }
