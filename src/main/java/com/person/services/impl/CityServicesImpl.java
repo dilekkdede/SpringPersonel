@@ -1,16 +1,20 @@
 package com.person.services.impl;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.CityRequestDto;
 import com.person.dto.dtoEntity.CityResponseDto;
 import com.person.entites.City;
+import com.person.enums.RecordStatus;
 import com.person.repository.CityRepository;
 import com.person.services.ICityServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,18 +26,24 @@ public class CityServicesImpl implements ICityServices {
     private CityRepository cityRepository;
 
     @Override
-    public CityResponseDto save(CityRequestDto dto) {
+    public BaseResponse save(CityRequestDto dto) {
         CityResponseDto cityResponseDto = new CityResponseDto();
         City city = new City();
         BeanUtils.copyProperties(dto, city);
+        city.setStatus(RecordStatus.ACTIVE.getValue());
+        city.setCreateDate(new Date());
         City dbCity = cityRepository.save(city);
         BeanUtils.copyProperties(dbCity, cityResponseDto);
         log.info("Şehir kayıt edildi");
-        return cityResponseDto;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setStatus(HttpStatus.CREATED.value());
+        baseResponse.setData(cityResponseDto);
+        baseResponse.setMessage("Şehir başarılı bir şekilde kayıt edildi");
+        return baseResponse;
     }
 
     @Override
-    public List<CityResponseDto> findAll() {
+    public BaseResponse findAll() {
 
         List<CityResponseDto> cityResponseDtos = new ArrayList<>();
         List<City> cityList = cityRepository.findAll();
@@ -43,8 +53,12 @@ public class CityServicesImpl implements ICityServices {
             BeanUtils.copyProperties(city, cityResponseDto);
             cityResponseDtos.add(cityResponseDto);
         }
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(cityResponseDtos);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Şehirler Listesi");
         log.info("şehir listesi çekildi");
-        return cityResponseDtos;
+        return baseResponse;
     }
 
     @Override

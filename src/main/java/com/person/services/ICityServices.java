@@ -1,5 +1,6 @@
 package com.person.services;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.CityRequestDto;
 import com.person.dto.dtoEntity.CityResponseDto;
 
@@ -7,9 +8,9 @@ import java.util.List;
 
 public interface ICityServices {
 
-    CityResponseDto save(CityRequestDto dto);
+    BaseResponse save(CityRequestDto dto);
 
-    List<CityResponseDto> findAll();
+    BaseResponse findAll();
 
     CityResponseDto findById(Long id);
 

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonBaseResponse implements Serializable {
+public class BaseResponse implements Serializable {
 
     //Buranın içerisinde tüm veriyi kapsayan tanımlamalar olur.
 

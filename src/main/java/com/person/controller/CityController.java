@@ -1,5 +1,6 @@
 package com.person.controller;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.CityRequestDto;
 import com.person.dto.dtoEntity.CityResponseDto;
 import com.person.services.ICityServices;
@@ -19,12 +20,13 @@ public class CityController {
 
 
     @PostMapping(path = "/save")
-    public CityResponseDto save(@RequestBody CityRequestDto dto) {
+    public BaseResponse save(@RequestBody CityRequestDto dto) {
         return cityService.save(dto);
     }
 
     @GetMapping(path = "/get-all")
-    public List<CityResponseDto> findAll() {
+    public BaseResponse findAll() {
+
         return cityService.findAll();
     }
 

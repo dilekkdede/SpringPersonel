@@ -1,6 +1,6 @@
 package com.person.services.impl;
 
-import com.person.dto.dtoBase.PersonBaseResponse;
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.*;
 import com.person.dto.dtoQuery.*;
 import com.person.entites.*;
@@ -45,9 +45,9 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     /// CRUD İŞLEMLERİ////
     @Override
-    public PersonBaseResponse save(PersonelRequestDto dto) {
+    public BaseResponse save(PersonelRequestDto dto) {
 
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
 
         Optional<City> city = cityRepository.findById(dto.getCityId());
         if (city.isEmpty()) {
@@ -114,8 +114,8 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> findAll() {
-        List<PersonBaseResponse> responseList = new ArrayList<>();
+    public List<BaseResponse> findAll() {
+        List<BaseResponse> responseList = new ArrayList<>();
         List<PersonelResponseDto> personelDtoList = new ArrayList<>();
         List<Personel> personelList = personelRepository.findAll();
 
@@ -134,7 +134,7 @@ public class PersonelServicesImpl implements IPersonelServices {
             personelDtoList.add(personelResponseDto);
         }
 
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelDtoList);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("Personel listesi");
@@ -146,8 +146,8 @@ public class PersonelServicesImpl implements IPersonelServices {
 
 
     @Override
-    public PersonBaseResponse findById(Long id) {
-        PersonBaseResponse response = new PersonBaseResponse();
+    public BaseResponse findById(Long id) {
+        BaseResponse response = new BaseResponse();
         Optional<Personel> optional = personelRepository.findById(id);
 
         if (optional.isEmpty()) {
@@ -175,8 +175,8 @@ public class PersonelServicesImpl implements IPersonelServices {
 
 
     @Override
-    public PersonBaseResponse deleteById(Long id) {
-        PersonBaseResponse response = new PersonBaseResponse();
+    public BaseResponse deleteById(Long id) {
+        BaseResponse response = new BaseResponse();
         Optional<Personel> optional = personelRepository.findById(id);
 
         if (optional.isEmpty()) {
@@ -196,9 +196,9 @@ public class PersonelServicesImpl implements IPersonelServices {
 
 
     @Override
-    public PersonBaseResponse update(Long id, PersonelRequestDto dto) {
+    public BaseResponse update(Long id, PersonelRequestDto dto) {
 
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
 
         PersonelResponseDto personResponseDto = new PersonelResponseDto();
         Optional<Personel> optional = personelRepository.findById(id);
@@ -259,11 +259,11 @@ public class PersonelServicesImpl implements IPersonelServices {
     /// ////////////QUERYIMPL
 
     @Override
-    public List<PersonBaseResponse> personelListesi() {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesi() {
+        List<BaseResponse> personelListesi = new ArrayList<>();
 
         List<Personel> personelList = personelNativeRepository.personelListesi();
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
 
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
@@ -273,10 +273,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListsiID2ve11(long id2, long id11) {
-        List<PersonBaseResponse> responseList = new ArrayList<>();
+    public List<BaseResponse> personelListsiID2ve11(long id2, long id11) {
+        List<BaseResponse> responseList = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.persnelListsiID2ve11(id2, id11);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("Girilen Id bilgileri");
@@ -285,11 +285,11 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesistatus(int status) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesistatus(int status) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
 
         List<Personel> personelList = personelNativeRepository.personelListesistatus(status);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("Girilen status bilgileri");
@@ -299,10 +299,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiLikeKullanimi(String isim) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiLikeKullanimi(String isim) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiLikeKullanimi(isim);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -310,10 +310,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiBolumBilgisi(String bolum) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiBolumBilgisi(String bolum) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiBolumBilgisi(bolum);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -321,10 +321,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiBolumBilgisiUpper(String bolum) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiBolumBilgisiUpper(String bolum) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiBolumBilgisiUpper(bolum);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -332,10 +332,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiBolumBilgisiLower(String bolum) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiBolumBilgisiLower(String bolum) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiBolumBilgisiLower(bolum);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -344,10 +344,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiDogumGunu(PersonelDtoDogumGunu dto) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiDogumGunu(PersonelDtoDogumGunu dto) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiDogumGunu(dto.getDogumGunu());
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -355,10 +355,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiDogumGunuNull() {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiDogumGunuNull() {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiDogumGunuNull();
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -366,10 +366,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiDogumGunuNotNull() {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiDogumGunuNotNull() {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> personelList = personelNativeRepository.personelListesiDogumGunuNotNull();
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -377,8 +377,8 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public PersonBaseResponse personelListesiCount() {
-        PersonBaseResponse response = new PersonBaseResponse();
+    public BaseResponse personelListesiCount() {
+        BaseResponse response = new BaseResponse();
         int count = personelNativeRepository.personelListesiCount();
         response.setData(count);
         response.setStatus(HttpStatus.OK.value());
@@ -388,14 +388,14 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Long> idList = new ArrayList<>();
         for (PersonelDtoIdIn personelDtoIdIn : dtoIdIn) {
             idList.add(personelDtoIdIn.getId());
         }
         List<Personel> personelList = personelNativeRepository.personelListesiInKullanimi(idList);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(personelList);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -404,9 +404,9 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public PersonBaseResponse personelListesiCountvestatus(int status) {
+    public BaseResponse personelListesiCountvestatus(int status) {
         int count = personelNativeRepository.personelListesiCountvestatus(status);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(count);
         response.setStatus(HttpStatus.OK.value());
 
@@ -416,10 +416,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     //JPA QUERYS
 
     @Override
-    public List<PersonBaseResponse> personelListesiJpa() {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiJpa() {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> liste = personelJPARepository.personelListesi();
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(liste);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -427,10 +427,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiid2veyaid11jpa(long id2, long id11) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiid2veyaid11jpa(long id2, long id11) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiid2veyaid11jpa(id2, id11);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(list);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -438,10 +438,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiStatusJpa(int status) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiStatusJpa(int status) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiStatusJpa(status);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(list);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -449,10 +449,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiLikeJpa(String karakter) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiLikeJpa(String karakter) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiLikeJpa(karakter);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(list);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -460,10 +460,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesibolumJpa(String bolum) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesibolumJpa(String bolum) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesibolumJpa(bolum);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(list);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -471,10 +471,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesibolumUpperJpa(String bolum) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesibolumUpperJpa(String bolum) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesibolumUpperJpa(bolum);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(list);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -482,10 +482,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesibolumLowerJpa(String bolum) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesibolumLowerJpa(String bolum) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesibolumLowerJpa(bolum);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(list);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -493,10 +493,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiDogumGunuJpa(dto.getDogumGunu());
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(list);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -504,10 +504,10 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiDogumGunuIsNotNullJpa() {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiDogumGunuIsNotNullJpa() {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> list = personelJPARepository.personelListesiDogumGunuIsNotNullJpa();
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(list);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -515,8 +515,8 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public PersonBaseResponse personelListesiCountJpa() {
-        PersonBaseResponse response = new PersonBaseResponse();
+    public BaseResponse personelListesiCountJpa() {
+        BaseResponse response = new BaseResponse();
         int liste = personelJPARepository.personelListesiCountJpa();
         response.setData(liste);
         response.setStatus(HttpStatus.OK.value());
@@ -525,15 +525,15 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
 
         List<Long> idList = new ArrayList<>();
         for (PersonelDtoIdIn personelDtoIdIn : dtoIdIn) {
             idList.add(personelDtoIdIn.getId());
         }
         List<Personel> response = personelJPARepository.personelListesiInKullanimiJpa(idList);
-        PersonBaseResponse response1 = new PersonBaseResponse();
+        BaseResponse response1 = new BaseResponse();
         response1.setData(response);
         response1.setStatus(HttpStatus.OK.value());
         personelListesi.add(response1);
@@ -541,15 +541,15 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn) {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn) {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<String> bosListe = new ArrayList<>();
         for (PersonelDtoCreateByIn str : dtoIn) {
             bosListe.add(str.getCreateBy());
         }
 
         List<Personel> liste = personelJPARepository.personelListesiInCreateByJpa(bosListe);
-        PersonBaseResponse response = new PersonBaseResponse();
+        BaseResponse response = new BaseResponse();
         response.setData(liste);
         response.setStatus(HttpStatus.OK.value());
         personelListesi.add(response);
@@ -557,8 +557,8 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiIsimVeSoyisimHaricDigerleriNull() {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiIsimVeSoyisimHaricDigerleriNull() {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         List<Personel> response = new ArrayList<>();
         List<Personel> islem = personelJPARepository.personelListesi();
 
@@ -577,7 +577,7 @@ public class PersonelServicesImpl implements IPersonelServices {
 
             }
         }
-        PersonBaseResponse response1 = new PersonBaseResponse();
+        BaseResponse response1 = new BaseResponse();
         response1.setData(response);
         response1.setStatus(HttpStatus.OK.value());
         personelListesi.add(response1);
@@ -626,8 +626,8 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiBirthDayNotOlanaSistemTarihiSetleme() {
-        List<PersonBaseResponse> responseList = new ArrayList<>();
+    public List<BaseResponse> personelListesiBirthDayNotOlanaSistemTarihiSetleme() {
+        List<BaseResponse> responseList = new ArrayList<>();
         List<Personel> response = new ArrayList<>();
         List<Personel> personelListesi = personelJPARepository.personelListesi();
         if (personelListesi != null) {
@@ -639,7 +639,7 @@ public class PersonelServicesImpl implements IPersonelServices {
                 response.add(personel);
             }
         }
-        PersonBaseResponse response1 = new PersonBaseResponse();
+        BaseResponse response1 = new BaseResponse();
         response1.setData(response);
         response1.setStatus(HttpStatus.OK.value());
         responseList.add(response1);
@@ -648,16 +648,16 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException {
+    public List<BaseResponse> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException {
 
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+        List<BaseResponse> personelListesi = new ArrayList<>();
         dF.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
         Date dateBas = dF.parse(dto.getDateBas());
         Date dateSon = dF.parse(dto.getDateSon());
 
         List<Personel> response = personelJPARepository.personelListesiIkiTarihAraliginiDondurme(dateBas, dateSon);
-        PersonBaseResponse response1 = new PersonBaseResponse();
+        BaseResponse response1 = new BaseResponse();
         response1.setData(response);
         response1.setStatus(HttpStatus.OK.value());
         personelListesi.add(response1);
@@ -666,15 +666,15 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         dF.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
         Date dateBas = dF.parse(dto.getDateBas());
         Date dateSon = dF.parse(dto.getDateSon());
 
         List<Personel> personelList = personelJPARepository.personelListesiIkiTarihAraligindakiCreateDate(dateBas, dateSon);
-        PersonBaseResponse response1 = new PersonBaseResponse();
+        BaseResponse response1 = new BaseResponse();
         response1.setData(personelList);
         response1.setStatus(HttpStatus.OK.value());
         personelListesi.add(response1);
@@ -684,8 +684,8 @@ public class PersonelServicesImpl implements IPersonelServices {
     }
 
     @Override
-    public List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
-        List<PersonBaseResponse> personelListesi = new ArrayList<>();
+    public List<BaseResponse> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
+        List<BaseResponse> personelListesi = new ArrayList<>();
         Date dateBas = new Date(); // SİSTEM TARİHİ ALMA
         int eklenecekGun = 14;
 
@@ -694,7 +694,7 @@ public class PersonelServicesImpl implements IPersonelServices {
         Date dateSon = calendar.getTime();
 
         List<Personel> personelList = personelJPARepository.personelListesiIkiTarihAraligindakiCreateDate(dateBas, dateSon);
-        PersonBaseResponse response1 = new PersonBaseResponse();
+        BaseResponse response1 = new BaseResponse();
         response1.setData(personelList);
         response1.setStatus(HttpStatus.OK.value());
         personelListesi.add(response1);

@@ -13,9 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class CityResponseDto {
 
-
+    private Long id;
     private String name;
-
 
     private String code;
 

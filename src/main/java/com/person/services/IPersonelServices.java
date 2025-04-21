@@ -1,6 +1,6 @@
 package com.person.services;
 
-import com.person.dto.dtoBase.PersonBaseResponse;
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.PersonelRequestDto;
 import com.person.dto.dtoQuery.*;
 
@@ -13,83 +13,83 @@ public interface IPersonelServices {
 
 
     /// ////////////CRUD İŞLEMLERİ //////////////////////////
-    PersonBaseResponse save(PersonelRequestDto dto);
+    BaseResponse save(PersonelRequestDto dto);
 
-    List<PersonBaseResponse> findAll();
+    List<BaseResponse> findAll();
 
-    PersonBaseResponse findById(Long id);
+    BaseResponse findById(Long id);
 
-    PersonBaseResponse deleteById(Long id);
+    BaseResponse deleteById(Long id);
 
-    PersonBaseResponse update(Long id, PersonelRequestDto dto);
+    BaseResponse update(Long id, PersonelRequestDto dto);
 
     /// ////////////////////////////////////////////////////////////////////////////////////////
 
 
-    List<PersonBaseResponse> personelListesi();
+    List<BaseResponse> personelListesi();
 
-    List<PersonBaseResponse> personelListsiID2ve11(long id2, long id11);
+    List<BaseResponse> personelListsiID2ve11(long id2, long id11);
 
-    List<PersonBaseResponse> personelListesistatus(int status);
+    List<BaseResponse> personelListesistatus(int status);
 
-    List<PersonBaseResponse> personelListesiLikeKullanimi(String isim);
+    List<BaseResponse> personelListesiLikeKullanimi(String isim);
 
-    List<PersonBaseResponse> personelListesiBolumBilgisi(String bolum);
+    List<BaseResponse> personelListesiBolumBilgisi(String bolum);
 
-    List<PersonBaseResponse> personelListesiBolumBilgisiUpper(String bolum);
+    List<BaseResponse> personelListesiBolumBilgisiUpper(String bolum);
 
-    List<PersonBaseResponse> personelListesiBolumBilgisiLower(String bolum);
+    List<BaseResponse> personelListesiBolumBilgisiLower(String bolum);
 
-    List<PersonBaseResponse> personelListesiDogumGunu(PersonelDtoDogumGunu dto);
+    List<BaseResponse> personelListesiDogumGunu(PersonelDtoDogumGunu dto);
 
-    List<PersonBaseResponse> personelListesiDogumGunuNull();
+    List<BaseResponse> personelListesiDogumGunuNull();
 
-    List<PersonBaseResponse> personelListesiDogumGunuNotNull();
+    List<BaseResponse> personelListesiDogumGunuNotNull();
 
-    PersonBaseResponse personelListesiCount();
+    BaseResponse personelListesiCount();
 
-    List<PersonBaseResponse> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn);
+    List<BaseResponse> personelListesiInKullanimi(List<PersonelDtoIdIn> dtoIdIn);
 
-    PersonBaseResponse personelListesiCountvestatus(int status);
+    BaseResponse personelListesiCountvestatus(int status);
 
 
     //JPA QUERYS
 
-    List<PersonBaseResponse> personelListesiJpa();
+    List<BaseResponse> personelListesiJpa();
 
-    List<PersonBaseResponse> personelListesiid2veyaid11jpa(long id2, long id11);
+    List<BaseResponse> personelListesiid2veyaid11jpa(long id2, long id11);
 
-    List<PersonBaseResponse> personelListesiStatusJpa(int status);
+    List<BaseResponse> personelListesiStatusJpa(int status);
 
-    List<PersonBaseResponse> personelListesiLikeJpa(String karakter);
+    List<BaseResponse> personelListesiLikeJpa(String karakter);
 
-    List<PersonBaseResponse> personelListesibolumJpa(String bolum);
+    List<BaseResponse> personelListesibolumJpa(String bolum);
 
-    List<PersonBaseResponse> personelListesibolumUpperJpa(String bolum);
+    List<BaseResponse> personelListesibolumUpperJpa(String bolum);
 
-    List<PersonBaseResponse> personelListesibolumLowerJpa(String bolum);
+    List<BaseResponse> personelListesibolumLowerJpa(String bolum);
 
-    List<PersonBaseResponse> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto);
+    List<BaseResponse> personelListesiDogumGunuJpa(PersonelDtoDogumGunu dto);
 
-    List<PersonBaseResponse> personelListesiDogumGunuIsNotNullJpa();
+    List<BaseResponse> personelListesiDogumGunuIsNotNullJpa();
 
-    PersonBaseResponse personelListesiCountJpa();
+    BaseResponse personelListesiCountJpa();
 
-    List<PersonBaseResponse> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn);
+    List<BaseResponse> personelListesiInKullanimiJpa(List<PersonelDtoIdIn> dtoIdIn);
 
-    List<PersonBaseResponse> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn);
+    List<BaseResponse> personelListesiInCreateByJpa(List<PersonelDtoCreateByIn> dtoIn);
 
-    List<PersonBaseResponse> personelListesiIsimVeSoyisimHaricDigerleriNull();
+    List<BaseResponse> personelListesiIsimVeSoyisimHaricDigerleriNull();
 
     List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolum();
 
     List<PersonelDtoAdSoyadBolum> personelListesiAdSoyadBolumKucukEsit4();
 
-    List<PersonBaseResponse> personelListesiBirthDayNotOlanaSistemTarihiSetleme();
+    List<BaseResponse> personelListesiBirthDayNotOlanaSistemTarihiSetleme();
 
-    List<PersonBaseResponse> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException;
+    List<BaseResponse> personelListesiIkiTarihAraliginiDondurme(PersonelDtoTarihAraligi dto) throws ParseException;
 
-    List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException;
+    List<BaseResponse> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException;
 
-    List<PersonBaseResponse> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException;
+    List<BaseResponse> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException;
 }
