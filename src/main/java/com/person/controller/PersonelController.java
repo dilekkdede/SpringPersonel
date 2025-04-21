@@ -1,10 +1,8 @@
 package com.person.controller;
 
 import com.person.dto.dtoBase.PersonBaseResponse;
-import com.person.dto.dtoEntity.Bdto;
 import com.person.dto.dtoEntity.PersonelRequestDto;
 import com.person.dto.dtoQuery.*;
-import com.person.entites.B;
 import com.person.services.IPersonelServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -213,22 +211,6 @@ public class PersonelController {
     @GetMapping(path = "/personel-listesi-createDate-with-sistem-tarihi")
     public List<PersonBaseResponse> personelIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
         return personelServices.personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi();
-    }
-
-    //Relaions
-    @GetMapping(path = "/test")
-    public String test() {
-        return personelServices.test();
-    }
-
-    @PostMapping(path = "/save-b")
-    public B saveB(@RequestBody B b) {
-        return personelServices.saveB(b);
-    }
-
-    @GetMapping(path = "/findAll-B")
-    public List<Bdto> findAllB() {
-        return personelServices.findAllB();
     }
 
 

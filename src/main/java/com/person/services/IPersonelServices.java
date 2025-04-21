@@ -1,21 +1,15 @@
 package com.person.services;
 
 import com.person.dto.dtoBase.PersonBaseResponse;
-import com.person.dto.dtoEntity.Bdto;
 import com.person.dto.dtoEntity.PersonelRequestDto;
 import com.person.dto.dtoQuery.*;
-import com.person.entites.B;
 
 import java.text.ParseException;
 import java.util.List;
 
 public interface IPersonelServices {
 
-    String test();
 
-    B saveB (B b);
-
-    List<Bdto> findAllB();
 
 
     /// ////////////CRUD İŞLEMLERİ //////////////////////////
