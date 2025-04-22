@@ -27,6 +27,17 @@ public class CityServicesImpl implements ICityServices {
 
     @Override
     public BaseResponse save(CityRequestDto dto) {
+        BaseResponse baseResponse = new BaseResponse();
+        if (dto.getName() == null) {
+            baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("İsim alanı boş geçilemez");
+            return baseResponse;
+        }
+        if (dto.getCode() == null) {
+            baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("Şehir kodu boş geçilemez");
+            return baseResponse;
+        }
         CityResponseDto cityResponseDto = new CityResponseDto();
         City city = new City();
         BeanUtils.copyProperties(dto, city);
@@ -35,7 +46,7 @@ public class CityServicesImpl implements ICityServices {
         City dbCity = cityRepository.save(city);
         BeanUtils.copyProperties(dbCity, cityResponseDto);
         log.info("Şehir kayıt edildi");
-        BaseResponse baseResponse = new BaseResponse();
+
         baseResponse.setStatus(HttpStatus.CREATED.value());
         baseResponse.setData(cityResponseDto);
         baseResponse.setMessage("Şehir başarılı bir şekilde kayıt edildi");
@@ -98,6 +109,8 @@ public class CityServicesImpl implements ICityServices {
             dbCity.setCode(dto.getCode());
             dbCity.setStatus(dto.getStatus());
             dbCity.setCreateDate(dto.getCreateDate());
+            dbCity.setStatus(RecordStatus.ACTIVE.getValue());
+            dbCity.setCreateDate(new Date());
 
             City updatedCity = cityRepository.save(dbCity);
             BeanUtils.copyProperties(updatedCity, cityResponseDto);
