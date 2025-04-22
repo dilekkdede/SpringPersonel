@@ -1,5 +1,6 @@
 package com.person.services.impl;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.AdresRequestDto;
 import com.person.dto.dtoEntity.AdresResponseDto;
 import com.person.entites.Adres;
@@ -8,6 +9,7 @@ import com.person.services.IAdresServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class AdresServicesImpl implements IAdresServices {
     private AdresRepository adresRepository;
 
     @Override
-    public AdresResponseDto save(AdresRequestDto dto) {
+    public BaseResponse save(AdresRequestDto dto) {
 
         AdresResponseDto adresResponseDto = new AdresResponseDto();
         Adres adres = new Adres();
@@ -31,11 +33,15 @@ public class AdresServicesImpl implements IAdresServices {
         BeanUtils.copyProperties(dbAdres, adresResponseDto);
 
         log.info("Adres kayıt edildi");
-        return adresResponseDto;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(adresResponseDto);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Adres Kayıt Başarılı");
+        return baseResponse;
     }
 
     @Override
-    public List<AdresResponseDto> findAll() {
+    public BaseResponse findAll() {
 
         List<AdresResponseDto> adresResponseDtoList = new ArrayList<>();
         List<Adres> adresList = adresRepository.findAll();
@@ -47,11 +53,16 @@ public class AdresServicesImpl implements IAdresServices {
         }
 
         log.info("Adresler çekildi");
-        return adresResponseDtoList;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(adresResponseDtoList);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Adres Listesi Çekildi");
+        return baseResponse;
+
     }
 
     @Override
-    public AdresResponseDto findById(Long id) {
+    public BaseResponse findById(Long id) {
         AdresResponseDto adresResponseDto = new AdresResponseDto();
         Optional<Adres> optional = adresRepository.findById(id);
 
@@ -61,7 +72,14 @@ public class AdresServicesImpl implements IAdresServices {
         }
 
         log.info("Adres bulundu");
-        return adresResponseDto;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(adresResponseDto);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Girilen Id'ye ait adres bulundu");
+
+
+        return baseResponse;
+
     }
 
     @Override
@@ -72,7 +90,7 @@ public class AdresServicesImpl implements IAdresServices {
     }
 
     @Override
-    public AdresResponseDto update(Long id, AdresRequestDto dto) {
+    public BaseResponse update(Long id, AdresRequestDto dto) {
         AdresResponseDto adresResponseDto = new AdresResponseDto();
         Optional<Adres> optional = adresRepository.findById(id);
         if (optional.isPresent()) {
@@ -88,7 +106,11 @@ public class AdresServicesImpl implements IAdresServices {
             BeanUtils.copyProperties(updatedAdres, adresResponseDto);
 
             log.info("Adres güncellendi");
-            return adresResponseDto;
+            BaseResponse baseResponse = new BaseResponse();
+            baseResponse.setData(adresResponseDto);
+            baseResponse.setStatus(HttpStatus.OK.value());
+            baseResponse.setMessage("Adres Güncelleme Başarılı");
+            return baseResponse;
         }
         return null;
     }

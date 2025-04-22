@@ -1,5 +1,6 @@
 package com.person.services.impl;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.ContactRequestDto;
 import com.person.dto.dtoEntity.ContactResponseDto;
 import com.person.entites.Contact;
@@ -8,6 +9,7 @@ import com.person.services.IContactServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,19 +24,25 @@ public class ContactServicesImpl implements IContactServices {
     private ContactRepository contactRepository;
 
     @Override
-    public ContactResponseDto save(ContactRequestDto dto) {
+    public BaseResponse save(ContactRequestDto dto) {
         ContactResponseDto contactResponseDto = new ContactResponseDto();
         Contact contact = new Contact();
         BeanUtils.copyProperties(dto, contact);
         Contact dbContact = contactRepository.save(contact);
         BeanUtils.copyProperties(dbContact, contactResponseDto);
         log.info("Contact kayıt edildi");
-        return contactResponseDto;
+
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(contactResponseDto);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("İletişim bilgisi kayıt edildi");
+        return baseResponse;
+
 
     }
 
     @Override
-    public List<ContactResponseDto> findAll() {
+    public BaseResponse findAll() {
         List<ContactResponseDto> contactResponseDtos = new ArrayList<>();
         List<Contact> contactList = contactRepository.findAll();
 
@@ -44,11 +52,16 @@ public class ContactServicesImpl implements IContactServices {
             contactResponseDtos.add(contactResponseDto);
         }
         log.info("Contact çekildi");
-        return contactResponseDtos;
+
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(contactResponseDtos);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("İletişim bilgileri listelendi");
+        return baseResponse;
     }
 
     @Override
-    public ContactResponseDto findById(Long id) {
+    public BaseResponse findById(Long id) {
         ContactResponseDto contactResponseDto = new ContactResponseDto();
         Optional<Contact> optinol = contactRepository.findById(id);
         if (optinol.isPresent()) {
@@ -56,7 +69,12 @@ public class ContactServicesImpl implements IContactServices {
             BeanUtils.copyProperties(dbContact, contactResponseDto);
         }
         log.info("Contact bulundu");
-        return contactResponseDto;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(contactResponseDto);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Girilen Id'ye ait iletişim bilgisi bulundu");
+        return baseResponse;
+
     }
 
     @Override
@@ -68,7 +86,7 @@ public class ContactServicesImpl implements IContactServices {
     }
 
     @Override
-    public ContactResponseDto update(Long id, ContactRequestDto dto) {
+    public BaseResponse update(Long id, ContactRequestDto dto) {
         ContactResponseDto contactResponseDto = new ContactResponseDto();
         Optional<Contact> optinol = contactRepository.findById(id);
         if (optinol.isPresent()) {
@@ -82,7 +100,12 @@ public class ContactServicesImpl implements IContactServices {
             Contact updatedContact = contactRepository.save(dbContact);
             BeanUtils.copyProperties(updatedContact, contactResponseDto);
             log.info("Contact güncellendi");
-            return contactResponseDto;
+
+            BaseResponse baseResponse = new BaseResponse();
+            baseResponse.setData(contactResponseDto);
+            baseResponse.setStatus(HttpStatus.OK.value());
+            baseResponse.setMessage("İletişim bilgisi güncellendi");
+            return baseResponse;
         }
         return null;
     }

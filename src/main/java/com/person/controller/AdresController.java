@@ -1,6 +1,7 @@
 package com.person.controller;
 
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.AdresRequestDto;
 import com.person.dto.dtoEntity.AdresResponseDto;
 import com.person.services.IAdresServices;
@@ -19,17 +20,17 @@ public class AdresController {
     private IAdresServices adresService;
 
     @PostMapping(path = "/save")
-    public AdresResponseDto save(@RequestBody AdresRequestDto dto) {
+    public BaseResponse save(@RequestBody AdresRequestDto dto) {
         return adresService.save(dto);
     }
 
     @GetMapping(path = "get-all")
-    public List<AdresResponseDto> findAll() {
+    public BaseResponse findAll() {
         return adresService.findAll();
     }
 
     @GetMapping(path = "/get-id/{id}")
-    public AdresResponseDto findById(@PathVariable(name = "id") Long id) {
+    public BaseResponse findById(@PathVariable(name = "id") Long id) {
         return adresService.findById(id);
     }
 
@@ -39,9 +40,9 @@ public class AdresController {
     }
 
     @PutMapping(path = "update/{id}")
-    public AdresResponseDto updateAdres(@PathVariable(name = "id") Long id,@RequestBody AdresRequestDto dto) {
-        AdresResponseDto updatedAdres = adresService.update(id, dto);
-        return updatedAdres;
+    public BaseResponse updateAdres(@PathVariable(name = "id") Long id, @RequestBody AdresRequestDto dto) {
+        BaseResponse baseResponse = adresService.update(id, dto);
+        return baseResponse;
 
     }
 

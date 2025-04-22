@@ -1,19 +1,17 @@
 package com.person.services;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.AdresRequestDto;
-import com.person.dto.dtoEntity.AdresResponseDto;
-
-import java.util.List;
 
 public interface IAdresServices {
 
-    AdresResponseDto save(AdresRequestDto dto);
+    BaseResponse save(AdresRequestDto dto);
 
-    List<AdresResponseDto> findAll();
+    BaseResponse findAll();
 
-    AdresResponseDto findById(Long id);
+    BaseResponse findById(Long id);
 
     void deleteById(Long id);
 
-    AdresResponseDto update(Long id, AdresRequestDto dto);
+    BaseResponse update(Long id, AdresRequestDto dto);
 }

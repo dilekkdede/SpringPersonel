@@ -1,5 +1,6 @@
 package com.person.controller;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.ContactRequestDto;
 import com.person.dto.dtoEntity.ContactResponseDto;
 import com.person.services.IContactServices;
@@ -17,17 +18,17 @@ public class ContactController {
     private IContactServices contactServices;
 
     @PostMapping(path = "/save")
-    public ContactResponseDto save(@RequestBody ContactRequestDto dto) {
+    public BaseResponse save(@RequestBody ContactRequestDto dto) {
         return contactServices.save(dto);
     }
 
     @GetMapping(path = "/get-all")
-    public List<ContactResponseDto> findAll() {
+    public BaseResponse findAll() {
         return contactServices.findAll();
     }
 
     @GetMapping(path = "/find-id/{id}")
-    public ContactResponseDto findById(@PathVariable(name = "id") Long id) {
+    public BaseResponse findById(@PathVariable(name = "id") Long id) {
         return contactServices.findById(id);
     }
 
@@ -37,7 +38,7 @@ public class ContactController {
     }
 
     @PutMapping(path = "/update/{id}")
-    public ContactResponseDto update(@PathVariable(name = "id") Long id, @RequestBody ContactRequestDto dto) {
+    public BaseResponse update(@PathVariable(name = "id") Long id, @RequestBody ContactRequestDto dto) {
         return contactServices.update(id, dto
         );
 

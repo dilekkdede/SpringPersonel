@@ -1,19 +1,17 @@
 package com.person.services;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.UnitRequestDto;
-import com.person.dto.dtoEntity.UnitResponseDto;
-
-import java.util.List;
 
 public interface IUnitServices {
 
-    UnitResponseDto save(UnitRequestDto dto);
+    BaseResponse save(UnitRequestDto dto);
 
-    List<UnitResponseDto> findAll();
+  BaseResponse findAll();
 
-    UnitResponseDto findById(Long id);
+    BaseResponse findById(Long id);
 
     void deleteById(Long id);
 
-    UnitResponseDto update(Long id, UnitRequestDto dto);
+    BaseResponse update(Long id, UnitRequestDto dto);
 }

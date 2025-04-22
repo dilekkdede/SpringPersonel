@@ -1,5 +1,6 @@
 package com.person.services.impl;
 
+import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.UnitRequestDto;
 import com.person.dto.dtoEntity.UnitResponseDto;
 import com.person.entites.Unit;
@@ -8,6 +9,7 @@ import com.person.services.IUnitServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class UnitServicesImpl implements IUnitServices {
 
 
     @Override
-    public UnitResponseDto save(UnitRequestDto dto) {
+    public BaseResponse save(UnitRequestDto dto) {
 
         UnitResponseDto responseDto = new UnitResponseDto();
         Unit unit = new Unit();
@@ -32,11 +34,16 @@ public class UnitServicesImpl implements IUnitServices {
         Unit dbUnit = unitRepository.save(unit);
         BeanUtils.copyProperties(dbUnit, responseDto);
         log.info("Unit kayıt edildi");
-        return responseDto;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(responseDto);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Unit kayıt edildi");
+        return baseResponse;
+
     }
 
     @Override
-    public List<UnitResponseDto> findAll() {
+    public BaseResponse findAll() {
 
         List<UnitResponseDto> responseList = new ArrayList<>();
         List<Unit> units = unitRepository.findAll();
@@ -47,11 +54,16 @@ public class UnitServicesImpl implements IUnitServices {
             responseList.add(responseDto);
         }
         log.info("Unitler çekildi");
-        return responseList;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(responseList);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Unitler Listesi Başarılı");
+        return baseResponse;
+
     }
 
     @Override
-    public UnitResponseDto findById(Long id) {
+    public BaseResponse findById(Long id) {
         UnitResponseDto responseDto = new UnitResponseDto();
         Optional<Unit> unitOptional = unitRepository.findById(id);
         if (unitOptional.isPresent()) {
@@ -59,7 +71,12 @@ public class UnitServicesImpl implements IUnitServices {
             BeanUtils.copyProperties(dbUnit, responseDto);
         }
         log.info("Unit bulundu");
-        return responseDto;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(responseDto);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Girilen Id'ye ait Unit bulundu");
+
+        return baseResponse;
     }
 
     @Override
@@ -70,7 +87,7 @@ public class UnitServicesImpl implements IUnitServices {
     }
 
     @Override
-    public UnitResponseDto update(Long id, UnitRequestDto dto) {
+    public BaseResponse update(Long id, UnitRequestDto dto) {
         UnitResponseDto responseDto = new UnitResponseDto();
         Optional<Unit> optinol = unitRepository.findById(id);
         if (optinol.isPresent()) {
@@ -84,7 +101,13 @@ public class UnitServicesImpl implements IUnitServices {
             Unit updatedUnit = unitRepository.save(dbUnit);
             BeanUtils.copyProperties(updatedUnit, responseDto);
             log.info("Unit güncellendi");
-            return responseDto;
+
+            BaseResponse baseResponse = new BaseResponse();
+            baseResponse.setData(responseDto);
+            baseResponse.setStatus(HttpStatus.OK.value());
+            baseResponse.setMessage("Unit Güncelleme başarılı");
+
+            return baseResponse;
 
 
         }

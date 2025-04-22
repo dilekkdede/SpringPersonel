@@ -62,7 +62,7 @@ public class CityServicesImpl implements ICityServices {
     }
 
     @Override
-    public CityResponseDto findById(Long id) {
+    public BaseResponse findById(Long id) {
         CityResponseDto cityResponseDto = new CityResponseDto();
         Optional<City> optional = cityRepository.findById(id);
         if (optional.isPresent()) {
@@ -70,7 +70,11 @@ public class CityServicesImpl implements ICityServices {
             BeanUtils.copyProperties(dbCity, cityResponseDto);
         }
         log.info("Şehir bulundu");
-        return cityResponseDto;
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setData(cityResponseDto);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Girilen Id'ye ait şehir bulundu");
+        return baseResponse;
 
 
     }
@@ -85,7 +89,7 @@ public class CityServicesImpl implements ICityServices {
     }
 
     @Override
-    public CityResponseDto update(Long id, CityRequestDto dto) {
+    public BaseResponse update(Long id, CityRequestDto dto) {
         CityResponseDto cityResponseDto = new CityResponseDto();
         Optional<City> optional = cityRepository.findById(id);
         if (optional.isPresent()) {
@@ -99,7 +103,12 @@ public class CityServicesImpl implements ICityServices {
             BeanUtils.copyProperties(updatedCity, cityResponseDto);
 
             log.info("Şehir güncellendi");
-            return cityResponseDto;
+            BaseResponse baseResponse = new BaseResponse();
+            baseResponse.setStatus(HttpStatus.OK.value());
+            baseResponse.setData(cityResponseDto);
+            baseResponse.setMessage("Şehir güncelleme başarılı");
+            return baseResponse;
+
 
         }
         return null;

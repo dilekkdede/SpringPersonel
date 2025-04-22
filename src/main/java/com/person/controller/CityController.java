@@ -31,7 +31,7 @@ public class CityController {
     }
 
     @GetMapping(path = "/find-id/{id}")
-    public CityResponseDto findById(@PathVariable(name = "id") Long id) {
+    public BaseResponse findById(@PathVariable(name = "id") Long id) {
         return cityService.findById(id);
 
     }
@@ -42,7 +42,7 @@ public class CityController {
     }
 
     @PutMapping(path = "/update/{id}")
-    public CityResponseDto update(@PathVariable(name = "id") Long id, @RequestBody CityRequestDto dto) {
+    public BaseResponse update(@PathVariable(name = "id") Long id, @RequestBody CityRequestDto dto) {
         return cityService.update(id, dto);
     }
 
