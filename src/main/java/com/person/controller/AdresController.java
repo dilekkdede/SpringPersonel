@@ -35,8 +35,9 @@ public class AdresController {
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    public void deleteById(@PathVariable(name = "id") Long id) {
-        adresService.deleteById(id);
+    public BaseResponse deleteById(@PathVariable(name = "id") Long id) {
+
+        return adresService.deleteById(id);
     }
 
     @PutMapping(path = "update/{id}")

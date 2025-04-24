@@ -83,9 +83,15 @@ public class AdresServicesImpl implements IAdresServices {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public BaseResponse deleteById(Long id) {
+
+        BaseResponse baseResponse = new BaseResponse();
         log.info("Adres silindi");
         adresRepository.deleteById(id);
+
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Adres başarılı bir şekilde silindi");
+        return baseResponse;
 
     }
 

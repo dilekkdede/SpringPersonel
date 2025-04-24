@@ -78,10 +78,13 @@ public class ContactServicesImpl implements IContactServices {
     }
 
     @Override
-    public void deleteById(Long id) {
-
+    public BaseResponse deleteById(Long id) {
+        BaseResponse baseResponse = new BaseResponse();
         log.info("Contact silindi");
         contactRepository.deleteById(id);
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Contact başarılı bir şekilde silindi");
+        return baseResponse;
 
     }
 

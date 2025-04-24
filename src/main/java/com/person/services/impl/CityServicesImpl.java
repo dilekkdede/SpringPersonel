@@ -91,16 +91,32 @@ public class CityServicesImpl implements ICityServices {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public BaseResponse deleteById(Long id) {
 
-        City findCity = cityRepository.findById(id).get();
-        log.info("Şehir silindi");
-        cityRepository.delete(findCity);
+        BaseResponse baseResponse = new BaseResponse();
+        cityRepository.deleteById(id);
+        log.info("şehir silindi");
+
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("City başarılı bir şekilde silindi");
+        return baseResponse;
 
     }
 
     @Override
     public BaseResponse update(Long id, CityRequestDto dto) {
+        BaseResponse baseResponse = new BaseResponse();
+
+        if (dto.getName() == null || dto.getName().isEmpty()) {
+            baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("İsim alanı boş geçilemez");
+            return baseResponse;
+        }
+        if (dto.getCode() == null || dto.getCode().isEmpty()) {
+            baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("Kod alanı boş geçilemez");
+            return baseResponse;
+        }
         CityResponseDto cityResponseDto = new CityResponseDto();
         Optional<City> optional = cityRepository.findById(id);
         if (optional.isPresent()) {
@@ -116,7 +132,6 @@ public class CityServicesImpl implements ICityServices {
             BeanUtils.copyProperties(updatedCity, cityResponseDto);
 
             log.info("Şehir güncellendi");
-            BaseResponse baseResponse = new BaseResponse();
             baseResponse.setStatus(HttpStatus.OK.value());
             baseResponse.setData(cityResponseDto);
             baseResponse.setMessage("Şehir güncelleme başarılı");

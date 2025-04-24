@@ -37,8 +37,8 @@ public class CityController {
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    void deleteById(@PathVariable(name = "id") Long id) {
-        cityService.deleteById(id);
+    BaseResponse deleteById(@PathVariable(name = "id") Long id) {
+        return cityService.deleteById(id);
     }
 
     @PutMapping(path = "/update/{id}")

@@ -33,8 +33,8 @@ public class ContactController {
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    void deleteById(@PathVariable(name = "id") Long id) {
-        contactServices.deleteById(id);
+    BaseResponse deleteById(@PathVariable(name = "id") Long id) {
+        return contactServices.deleteById(id);
     }
 
     @PutMapping(path = "/update/{id}")

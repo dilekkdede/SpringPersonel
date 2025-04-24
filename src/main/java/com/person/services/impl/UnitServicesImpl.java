@@ -80,10 +80,15 @@ public class UnitServicesImpl implements IUnitServices {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public BaseResponse deleteById(Long id) {
 
+        BaseResponse baseResponse = new BaseResponse();
         log.info("Unit silindi");
         unitRepository.deleteById(id);
+
+        baseResponse.setStatus(HttpStatus.OK.value());
+        baseResponse.setMessage("Unit başarılı bir şekilde silindi");
+        return baseResponse;
     }
 
     @Override

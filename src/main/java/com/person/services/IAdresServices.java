@@ -11,7 +11,7 @@ public interface IAdresServices {
 
     BaseResponse findById(Long id);
 
-    void deleteById(Long id);
+    BaseResponse deleteById(Long id);
 
     BaseResponse update(Long id, AdresRequestDto dto);
 }

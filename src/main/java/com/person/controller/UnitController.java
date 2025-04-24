@@ -37,8 +37,9 @@ public class UnitController {
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    void deleteById(@PathVariable(name = "id") Long id) {
-        unitServices.deleteById(id);
+    BaseResponse deleteById(@PathVariable(name = "id") Long id) {
+
+        return unitServices.deleteById(id);
     }
 
     @PutMapping(path = "/update/{id}")
