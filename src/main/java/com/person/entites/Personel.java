@@ -44,9 +44,6 @@ public class Personel implements Serializable {
     private String bolum;
 
 
-    @Column(name = "unit_id")
-    private Long unitId;
-
     @Column(name = "birth_day")
     private Date birthDate;
 
@@ -55,5 +52,8 @@ public class Personel implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private City city;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Unit unit;
 
 }

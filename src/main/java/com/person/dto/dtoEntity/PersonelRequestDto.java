@@ -48,4 +48,7 @@ public class PersonelRequestDto {
 
     private CityRequestSaveDto city;
 
+    private UnitRequestSaveDto unit;
+
+
 }

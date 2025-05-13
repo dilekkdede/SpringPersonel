@@ -36,6 +36,8 @@ public class PersonelResponseDto {
 
     private CityResponseDto city;
 
+    private UnitResponseDto unit;
+
 
     //   private Date birthDate;
 }
