@@ -7,6 +7,8 @@ public interface UserService {
 
     BaseResponse save(UserSaveDto dto);
 
+    BaseResponse update(Long id, UserSaveDto dto);
+
     BaseResponse findAll();
 
 }

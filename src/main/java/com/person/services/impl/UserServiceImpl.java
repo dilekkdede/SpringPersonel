@@ -1,6 +1,5 @@
 package com.person.services.impl;
 
-import com.person.dto.CityInfoDto;
 import com.person.dto.UserDto;
 import com.person.dto.UserSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
@@ -16,7 +15,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -63,11 +61,38 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public BaseResponse update(Long id, UserSaveDto dto) {
+        BaseResponse response = new BaseResponse();
+
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            user.get().setFirstName(dto.getFirstName());
+            user.get().setLastName(dto.getLastName());
+            user.get().setUserName(dto.getUserName());
+
+            Optional<City> city = cityRepository.findById(dto.getCity().getId());
+            if (city.isPresent()) {
+                user.get().setCity(city.get());
+            }
+
+            User newUser = userRepository.save(user.get());
+            UserDto userDto = modelMapper.map(newUser, UserDto.class);
+
+            response.setData(userDto);
+            response.setStatus(200);
+        }
+
+        log.info("User updated with id " + id);
+        return response;
+    }
+
+    @Override
     public BaseResponse findAll() {
         BaseResponse response = new BaseResponse();
 
         List<User> listUser = userRepository.findAll();
-        List<UserDto> dtoList = modelMapper.map(listUser, new TypeToken<List<UserDto>>(){}.getType());
+        List<UserDto> dtoList = modelMapper.map(listUser, new TypeToken<List<UserDto>>() {
+        }.getType());
 
         response.setData(dtoList);
         response.setStatus(200);

@@ -23,6 +23,11 @@ public class UserController {
         return service.save(dto);
     }
 
+    @PutMapping(path = "/update/{id}")
+    public BaseResponse update(@PathVariable("id") Long id, @RequestBody UserSaveDto dto) {
+        return service.update(id, dto);
+    }
+
     @GetMapping(path = "/get-all")
     public BaseResponse findAll() {
         return service.findAll();
