@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setUserName(dto.getUserName());
+        user.setTcNo(dto.getTcNo());
 
         Optional<City> city = cityRepository.findById(dto.getCity().getId());
         if (city.isPresent()) {

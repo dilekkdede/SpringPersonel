@@ -17,6 +17,8 @@ public class UserSaveDto implements Serializable {
     private String lastName;
     @Schema(example = "dilekdd")
     private String userName;
+    @Schema(example = "12345678955")
+    private Long tcNo;
     private CityIdDto city;
 
 }

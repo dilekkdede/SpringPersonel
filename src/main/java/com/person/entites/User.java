@@ -41,4 +41,7 @@ public class User implements Serializable {
     @JoinColumn(name = "CITY_ID", referencedColumnName = "ID")
     private City city;
 
+    @Column(name = "TC_NO", length = 11)
+    private Long tcNo;
+
 }
