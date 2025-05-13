@@ -43,8 +43,6 @@ public class Personel implements Serializable {
     @Column(name = "bolum")
     private String bolum;
 
-    @Column(name = "city_id")
-    private Long cityId;
 
     @Column(name = "unit_id")
     private Long unitId;
@@ -52,7 +50,10 @@ public class Personel implements Serializable {
     @Column(name = "birth_day")
     private Date birthDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Adres adres;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private City city;
 
 }

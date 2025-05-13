@@ -37,13 +37,15 @@ public class PersonelRequestDto {
     private String bolum;
 
 
-    private Long cityId;
+    //  private Long cityId;
 
 
     private Long unitId;
 
     private Date birthDate;
 
-    private AdresRequestDto adres;
+    private AdresRequestSaveDto adres;
+
+    private CityRequestSaveDto city;
 
 }

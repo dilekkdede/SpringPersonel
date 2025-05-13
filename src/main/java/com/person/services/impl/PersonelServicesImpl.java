@@ -49,20 +49,7 @@ public class PersonelServicesImpl implements IPersonelServices {
 
         BaseResponse response = new BaseResponse();
 
-        Optional<City> city = cityRepository.findById(dto.getCityId());
-        if (city.isEmpty()) {
-            response.setMessage("Şehir bulunamadı!");
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            return response;
-        }
 
-        Optional<Unit> unit = unitRepository.findById(dto.getUnitId());
-        if (unit.isEmpty()) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            response.setMessage("Unit Bulunamadı!");
-            return response;
-
-        }
         if (dto.getFirstName() == null) {
             response.setMessage("İsim alanı boş olamaz!");
             response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -84,14 +71,29 @@ public class PersonelServicesImpl implements IPersonelServices {
         Personel personel = new Personel();
         BeanUtils.copyProperties(dto, personel);
 
+        Optional<City> city = cityRepository.findById(dto.getCity().getId());
+        if (city.isEmpty()) {
+            response.setMessage("Şehir bulunamadı!");
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return response;
+        } else {
+            personel.setCity(city.get());
+        }
+
+        Optional<Unit> unit = unitRepository.findById(dto.getUnitId());
+        if (unit.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Unit Bulunamadı!");
+            return response;
+        } else {
+            personel.setUnitId(dto.getUnitId());
+        }
 
         if (dto.getAdres() != null) {
-            Adres adres = new Adres();
-            BeanUtils.copyProperties(dto.getAdres(), adres);
-
-            Adres dbAdres = adresRepository.save(adres);
-            personel.setAdres(dbAdres);
+            Optional<Adres> findAdres = adresRepository.findById(dto.getAdres().getId());
+            findAdres.ifPresent(personel::setAdres);
         }
+
 
         Personel dbPersonel = personelRepository.save(personel);
 
@@ -102,6 +104,12 @@ public class PersonelServicesImpl implements IPersonelServices {
             AdresResponseDto adresResponseDto = new AdresResponseDto();
             BeanUtils.copyProperties(dbPersonel.getAdres(), adresResponseDto);
             personelResponseDto.setAdres(adresResponseDto);
+        }
+
+        if (dbPersonel.getCity() != null) {
+            CityResponseDto cityResponseDto = new CityResponseDto();
+            BeanUtils.copyProperties(dbPersonel.getCity(), cityResponseDto);
+            personelResponseDto.setCity(cityResponseDto);
         }
 
         response.setData(personelResponseDto);
@@ -128,6 +136,12 @@ public class PersonelServicesImpl implements IPersonelServices {
                 AdresResponseDto adresResponseDto = new AdresResponseDto();
                 BeanUtils.copyProperties(personel.getAdres(), adresResponseDto);
                 personelResponseDto.setAdres(adresResponseDto);
+            }
+
+            if (personel.getCity() != null) {
+                CityResponseDto cityResponseDto = new CityResponseDto();
+                BeanUtils.copyProperties(personel.getCity(), cityResponseDto);
+                personelResponseDto.setCity(cityResponseDto);
             }
 
             log.info("Personeller çekildi");
@@ -161,9 +175,15 @@ public class PersonelServicesImpl implements IPersonelServices {
         PersonelResponseDto personelResponseDto = new PersonelResponseDto();
         AdresResponseDto adresResponseDto = new AdresResponseDto();
         Adres adres = dbPersonel.getAdres();
+
+        CityResponseDto cityResponseDto = new CityResponseDto();
+        City city = dbPersonel.getCity();
+
         BeanUtils.copyProperties(adres, adresResponseDto);
+        BeanUtils.copyProperties(city, cityResponseDto);
         BeanUtils.copyProperties(dbPersonel, personelResponseDto);
         personelResponseDto.setAdres(adresResponseDto);
+        personelResponseDto.setCity(cityResponseDto);
 
         response.setData(personelResponseDto);
         response.setStatus(HttpStatus.OK.value());
@@ -221,12 +241,15 @@ public class PersonelServicesImpl implements IPersonelServices {
             return response;
         }
 
-        Optional<City> cityOptional = cityRepository.findById(dto.getCityId());
+        Optional<City> cityOptional = cityRepository.findById(dto.getCity().getId());
         if (cityOptional.isEmpty()) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
             response.setMessage("Girilen City Id geçersiz");
             return response;
         }
+
+        Optional<Adres> adresOptional = adresRepository.findById(dto.getAdres().getId());
+        Optional<City> cityOptional1 = cityRepository.findById(dto.getCity().getId());
 
         if (optional.isPresent()) {
             Personel dbPersonel = optional.get();
@@ -234,15 +257,31 @@ public class PersonelServicesImpl implements IPersonelServices {
             dbPersonel.setLastName(dto.getLastName());
             dbPersonel.setUserName(dto.getUserName());
             dbPersonel.setCreateBy(dbPersonel.getUserName());
+            dbPersonel.setAdres(adresOptional.get());
+            dbPersonel.setCity(cityOptional1.get());
             dbPersonel.setDescription(dto.getDescription());
             dbPersonel.setStatus(dto.getStatus());
             dbPersonel.setCreateDate(dto.getCreateDate());
             dbPersonel.setBolum(dto.getBolum());
-            dbPersonel.setCityId(dto.getCityId());
             dbPersonel.setUnitId(dto.getUnitId());
             dbPersonel.setBirthDate(dto.getBirthDate());
 
             Personel updatedPersonel = personelRepository.save(dbPersonel);
+
+
+            if (dbPersonel.getAdres() != null) {
+                AdresResponseDto adresResponseDto = new AdresResponseDto();
+                BeanUtils.copyProperties(dbPersonel.getAdres(), adresResponseDto);
+                personResponseDto.setAdres(adresResponseDto);
+            }
+
+            if (dbPersonel.getCity() != null) {
+                CityResponseDto cityResponseDto = new CityResponseDto();
+                BeanUtils.copyProperties(dbPersonel.getCity(), cityResponseDto);
+                personResponseDto.setCity(cityResponseDto);
+            }
+
+
             BeanUtils.copyProperties(updatedPersonel, personResponseDto);
 
             response.setData(personResponseDto);
@@ -572,7 +611,7 @@ public class PersonelServicesImpl implements IPersonelServices {
                 personel.setUnitId(null);
                 personel.setDescription(null);
                 personel.setUserName(null);
-                personel.setCityId(null);
+                //    personel.setCityId(null);
                 response.add(personel);
 
             }

@@ -34,4 +34,6 @@ public class City implements Serializable {
 
     @Column(name = "create_date")
     private Date createDate;
+
+
 }
