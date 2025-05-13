@@ -1,5 +1,7 @@
 package com.person.services.impl;
 
+import com.person.dto.CityInfoDto;
+import com.person.dto.UserDto;
 import com.person.dto.UserSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
 import com.person.entites.City;
@@ -9,9 +11,12 @@ import com.person.repository.CityRepository;
 import com.person.repository.UserRepository;
 import com.person.services.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public BaseResponse save(UserSaveDto dto) {
@@ -44,8 +52,10 @@ public class UserServiceImpl implements UserService {
         user.setStatus(RecordStatus.ACTIVE.getValue());
         User newUser = userRepository.save(user);
 
+        UserDto userDto = modelMapper.map(newUser, UserDto.class);
+
         BaseResponse response = new BaseResponse();
-        response.setData(newUser);
+        response.setData(userDto);
         response.setStatus(201);
 
         log.info("User saved with id " + newUser.getId());
@@ -57,9 +67,10 @@ public class UserServiceImpl implements UserService {
         BaseResponse response = new BaseResponse();
 
         List<User> listUser = userRepository.findAll();
-        response.setData(listUser);
-        response.setStatus(200);
+        List<UserDto> dtoList = modelMapper.map(listUser, new TypeToken<List<UserDto>>(){}.getType());
 
+        response.setData(dtoList);
+        response.setStatus(200);
         log.info("UserServiceImpl.findAll");
         return response;
     }
