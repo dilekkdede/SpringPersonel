@@ -1,13 +1,10 @@
 package com.person.controller;
 
+import com.person.dto.CitySaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.CityRequestDto;
-import com.person.dto.dtoEntity.CityResponseDto;
 import com.person.services.ICityServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/city")
@@ -20,7 +17,7 @@ public class CityController {
 
 
     @PostMapping(path = "/save")
-    public BaseResponse save(@RequestBody CityRequestDto dto) {
+    public BaseResponse save(@RequestBody CitySaveDto dto) {
         return cityService.save(dto);
     }
 
@@ -42,7 +39,7 @@ public class CityController {
     }
 
     @PutMapping(path = "/update/{id}")
-    public BaseResponse update(@PathVariable(name = "id") Long id, @RequestBody CityRequestDto dto) {
+    public BaseResponse update(@PathVariable(name = "id") Long id, @RequestBody CitySaveDto dto) {
         return cityService.update(id, dto);
     }
 

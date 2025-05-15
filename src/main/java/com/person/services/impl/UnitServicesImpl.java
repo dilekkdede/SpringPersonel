@@ -1,18 +1,20 @@
 package com.person.services.impl;
 
+import com.person.dto.UnitDto;
+import com.person.dto.UnitSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.UnitRequestDto;
-import com.person.dto.dtoEntity.UnitResponseDto;
 import com.person.entites.Unit;
+import com.person.enums.RecordStatus;
 import com.person.repository.UnitRepository;
 import com.person.services.IUnitServices;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,61 +24,58 @@ public class UnitServicesImpl implements IUnitServices {
 
     @Autowired
     private UnitRepository unitRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @Override
-    public BaseResponse save(UnitRequestDto dto) {
+    public BaseResponse save(UnitSaveDto dto) {
+        BaseResponse response = new BaseResponse();
 
-        UnitResponseDto responseDto = new UnitResponseDto();
         Unit unit = new Unit();
-        BeanUtils.copyProperties(dto, unit);
+        unit.setName(dto.getName());
+        unit.setCode(dto.getCode());
+        unit.setStatus(RecordStatus.ACTIVE.getValue());
+        unit.setCreateDate(new Date());
 
         Unit dbUnit = unitRepository.save(unit);
-        BeanUtils.copyProperties(dbUnit, responseDto);
-        log.info("Unit kayıt edildi");
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setData(responseDto);
-        baseResponse.setStatus(HttpStatus.OK.value());
-        baseResponse.setMessage("Unit kayıt edildi");
-        return baseResponse;
 
+        UnitDto dtoUnit = modelMapper.map(dbUnit, UnitDto.class);
+
+        response.setStatus(HttpStatus.CREATED.value());
+        response.setData(dtoUnit);
+        response.setMessage("Unit saved Successfully");
+        return response;
     }
 
     @Override
     public BaseResponse findAll() {
 
-        List<UnitResponseDto> responseList = new ArrayList<>();
+        BaseResponse response = new BaseResponse();
+
         List<Unit> units = unitRepository.findAll();
 
-        for (Unit unit : units) {
-            UnitResponseDto responseDto = new UnitResponseDto();
-            BeanUtils.copyProperties(unit, responseDto);
-            responseList.add(responseDto);
-        }
-        log.info("Unitler çekildi");
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setData(responseList);
-        baseResponse.setStatus(HttpStatus.OK.value());
-        baseResponse.setMessage("Unitler Listesi Başarılı");
-        return baseResponse;
+        List<UnitDto> dtoUnits = modelMapper.map(units, new TypeToken<List<UnitDto>>() {
+        }.getType());
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setData(dtoUnits);
+        response.setMessage("All units found");
+        return response;
 
     }
 
     @Override
     public BaseResponse findById(Long id) {
-        UnitResponseDto responseDto = new UnitResponseDto();
-        Optional<Unit> unitOptional = unitRepository.findById(id);
-        if (unitOptional.isPresent()) {
-            Unit dbUnit = unitOptional.get();
-            BeanUtils.copyProperties(dbUnit, responseDto);
+        BaseResponse response = new BaseResponse();
+        Optional<Unit> findUnit = unitRepository.findById(id);
+        if (findUnit.isPresent()) {
+            UnitDto dtoUnit = modelMapper.map(findUnit.get(), UnitDto.class);
+            response.setStatus(HttpStatus.OK.value());
+            response.setData(dtoUnit);
+            response.setMessage("Unit found Successfully");
         }
-        log.info("Unit bulundu");
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setData(responseDto);
-        baseResponse.setStatus(HttpStatus.OK.value());
-        baseResponse.setMessage("Girilen Id'ye ait Unit bulundu");
-
-        return baseResponse;
+        return response;
     }
 
     @Override
@@ -92,30 +91,22 @@ public class UnitServicesImpl implements IUnitServices {
     }
 
     @Override
-    public BaseResponse update(Long id, UnitRequestDto dto) {
-        UnitResponseDto responseDto = new UnitResponseDto();
-        Optional<Unit> optinol = unitRepository.findById(id);
-        if (optinol.isPresent()) {
+    public BaseResponse update(Long id, UnitSaveDto dto) {
 
-            Unit dbUnit = optinol.get();
-            dbUnit.setName(dto.getName());
-            dbUnit.setCode(dto.getCode());
-            dbUnit.setStatus(dto.getStatus());
-            dbUnit.setCreateDate(dto.getCreateDate());
+        BaseResponse response = new BaseResponse();
 
-            Unit updatedUnit = unitRepository.save(dbUnit);
-            BeanUtils.copyProperties(updatedUnit, responseDto);
-            log.info("Unit güncellendi");
-
-            BaseResponse baseResponse = new BaseResponse();
-            baseResponse.setData(responseDto);
-            baseResponse.setStatus(HttpStatus.OK.value());
-            baseResponse.setMessage("Unit Güncelleme başarılı");
-
-            return baseResponse;
-
-
+        Optional<Unit> findUnit = unitRepository.findById(id);
+        if (findUnit.isPresent()) {
+            findUnit.get().setName(dto.getName());
+            findUnit.get().setCode(dto.getCode());
         }
-        return null;
+
+        Unit dbUnit = unitRepository.save(findUnit.get());
+        UnitDto dtoUnit = modelMapper.map(dbUnit, UnitDto.class);
+        response.setStatus(HttpStatus.OK.value());
+        response.setData(dtoUnit);
+        response.setMessage("Unit update Successfully");
+
+        return response;
     }
 }

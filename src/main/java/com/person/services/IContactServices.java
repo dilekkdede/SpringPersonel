@@ -1,11 +1,11 @@
 package com.person.services;
 
+import com.person.dto.ContactSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.ContactRequestDto;
 
 public interface IContactServices {
 
-    BaseResponse save(ContactRequestDto dto);
+    BaseResponse save(ContactSaveDto dto);
 
     BaseResponse findAll();
 
@@ -13,5 +13,5 @@ public interface IContactServices {
 
     BaseResponse deleteById(Long id);
 
-    BaseResponse update(Long id, ContactRequestDto dto);
+    BaseResponse update(Long id, ContactSaveDto dto);
 }

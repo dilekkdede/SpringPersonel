@@ -1,14 +1,11 @@
 package com.person.controller;
 
 
+import com.person.dto.UnitSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.UnitRequestDto;
-import com.person.dto.dtoEntity.UnitResponseDto;
 import com.person.services.IUnitServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/unit")
@@ -21,8 +18,8 @@ public class UnitController {
 
 
     @PostMapping(path = "/save")
-    public BaseResponse save(@RequestBody UnitRequestDto unit) {
-        return unitServices.save(unit);
+    public BaseResponse save(@RequestBody UnitSaveDto dto) {
+        return unitServices.save(dto);
     }
 
     @GetMapping(path = "/get-all")
@@ -43,7 +40,7 @@ public class UnitController {
     }
 
     @PutMapping(path = "/update/{id}")
-    public BaseResponse update(@PathVariable(name = "id") Long id, @RequestBody UnitRequestDto dto) {
+    public BaseResponse update(@PathVariable(name = "id") Long id, @RequestBody UnitSaveDto dto) {
         return unitServices.update(id, dto);
     }
 

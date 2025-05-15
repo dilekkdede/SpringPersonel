@@ -1,11 +1,11 @@
 package com.person.services;
 
+import com.person.dto.AdresSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.AdresRequestDto;
 
 public interface IAdresServices {
 
-    BaseResponse save(AdresRequestDto dto);
+    BaseResponse save(AdresSaveDto dto);
 
     BaseResponse findAll();
 
@@ -13,5 +13,5 @@ public interface IAdresServices {
 
     BaseResponse deleteById(Long id);
 
-    BaseResponse update(Long id, AdresRequestDto dto);
+    BaseResponse update(Long id, AdresSaveDto dto);
 }

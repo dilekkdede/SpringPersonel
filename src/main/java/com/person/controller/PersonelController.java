@@ -1,7 +1,7 @@
 package com.person.controller;
 
+import com.person.dto.PersonelSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.PersonelRequestDto;
 import com.person.dto.dtoQuery.*;
 import com.person.services.IPersonelServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,12 @@ public class PersonelController {
 
 
     @PostMapping(path = "/save")
-    public BaseResponse save(@RequestBody PersonelRequestDto personel) {
+    public BaseResponse save(@RequestBody PersonelSaveDto personel) {
         return personelServices.save(personel);
     }
 
     @GetMapping(path = "/list")
-    public List<BaseResponse> findAll() {
+    public BaseResponse findAll() {
         return personelServices.findAll();
     }
 
@@ -41,7 +41,7 @@ public class PersonelController {
 
 
     @PutMapping(path = "/update/{id}")
-    public BaseResponse updatePersonel(@PathVariable(name = "id") Long id, @RequestBody PersonelRequestDto personel) {
+    public BaseResponse updatePersonel(@PathVariable(name = "id") Long id, @RequestBody PersonelSaveDto personel) {
         return personelServices.update(id, personel);
     }
 

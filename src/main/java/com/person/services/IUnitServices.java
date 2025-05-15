@@ -1,11 +1,11 @@
 package com.person.services;
 
+import com.person.dto.UnitSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.UnitRequestDto;
 
 public interface IUnitServices {
 
-    BaseResponse save(UnitRequestDto dto);
+    BaseResponse save(UnitSaveDto dto);
 
   BaseResponse findAll();
 
@@ -13,5 +13,5 @@ public interface IUnitServices {
 
     BaseResponse deleteById(Long id);
 
-    BaseResponse update(Long id, UnitRequestDto dto);
+    BaseResponse update(Long id, UnitSaveDto dto);
 }

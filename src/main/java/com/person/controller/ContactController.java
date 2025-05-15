@@ -1,13 +1,10 @@
 package com.person.controller;
 
+import com.person.dto.ContactSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.ContactRequestDto;
-import com.person.dto.dtoEntity.ContactResponseDto;
 import com.person.services.IContactServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/contact")
@@ -18,7 +15,7 @@ public class ContactController {
     private IContactServices contactServices;
 
     @PostMapping(path = "/save")
-    public BaseResponse save(@RequestBody ContactRequestDto dto) {
+    public BaseResponse save(@RequestBody ContactSaveDto dto) {
         return contactServices.save(dto);
     }
 
@@ -38,7 +35,7 @@ public class ContactController {
     }
 
     @PutMapping(path = "/update/{id}")
-    public BaseResponse update(@PathVariable(name = "id") Long id, @RequestBody ContactRequestDto dto) {
+    public BaseResponse update(@PathVariable(name = "id") Long id, @RequestBody ContactSaveDto dto) {
         return contactServices.update(id, dto
         );
 

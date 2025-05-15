@@ -1,14 +1,11 @@
 package com.person.controller;
 
 
+import com.person.dto.AdresSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.AdresRequestDto;
-import com.person.dto.dtoEntity.AdresResponseDto;
 import com.person.services.IAdresServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/adres")
@@ -20,7 +17,7 @@ public class AdresController {
     private IAdresServices adresService;
 
     @PostMapping(path = "/save")
-    public BaseResponse save(@RequestBody AdresRequestDto dto) {
+    public BaseResponse save(@RequestBody AdresSaveDto dto) {
         return adresService.save(dto);
     }
 
@@ -41,7 +38,7 @@ public class AdresController {
     }
 
     @PutMapping(path = "update/{id}")
-    public BaseResponse updateAdres(@PathVariable(name = "id") Long id, @RequestBody AdresRequestDto dto) {
+    public BaseResponse updateAdres(@PathVariable(name = "id") Long id, @RequestBody AdresSaveDto dto) {
         BaseResponse baseResponse = adresService.update(id, dto);
         return baseResponse;
 

@@ -1,7 +1,7 @@
 package com.person.services;
 
+import com.person.dto.PersonelSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.PersonelRequestDto;
 import com.person.dto.dtoQuery.*;
 
 import java.text.ParseException;
@@ -13,15 +13,14 @@ public interface IPersonelServices {
 
 
     /// ////////////CRUD İŞLEMLERİ //////////////////////////
-    BaseResponse save(PersonelRequestDto dto);
-
-    List<BaseResponse> findAll();
+    BaseResponse save(PersonelSaveDto dto);
+    BaseResponse findAll();
 
     BaseResponse findById(Long id);
 
     BaseResponse deleteById(Long id);
 
-    BaseResponse update(Long id, PersonelRequestDto dto);
+    BaseResponse update(Long id, PersonelSaveDto dto);
 
     /// ////////////////////////////////////////////////////////////////////////////////////////
 

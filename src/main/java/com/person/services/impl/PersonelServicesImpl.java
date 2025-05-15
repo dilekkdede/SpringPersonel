@@ -1,12 +1,18 @@
 package com.person.services.impl;
 
+import com.person.dto.PersonelDto;
+import com.person.dto.PersonelSaveDto;
+import com.person.dto.UserDto;
 import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoEntity.*;
 import com.person.dto.dtoQuery.*;
 import com.person.entites.*;
+import com.person.enums.RecordStatus;
 import com.person.repository.*;
 import com.person.services.IPersonelServices;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,167 +47,80 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     @Autowired
     private AdresRepository adresRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     /// CRUD İŞLEMLERİ////
     @Override
-    public BaseResponse save(PersonelRequestDto dto) {
+    public BaseResponse save(PersonelSaveDto dto) {
 
         BaseResponse response = new BaseResponse();
 
-
-        if (dto.getFirstName() == null) {
-            response.setMessage("İsim alanı boş olamaz!");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            return response;
-        }
-
-        if (dto.getLastName() == null) {
-            response.setMessage("Soyisim alanı boş olamaz!");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            return response;
-        }
-
-        if (dto.getUserName() == null) {
-            response.setMessage("Kullanıcı ismi alanı boş olamaz!");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            return response;
-        }
-
         Personel personel = new Personel();
-        BeanUtils.copyProperties(dto, personel);
+        personel.setFirstName(dto.getFirstName());
+        personel.setLastName(dto.getLastName());
+        personel.setUserName(dto.getUserName());
+        personel.setCreateBy("Dilek");
+        personel.setDescription(dto.getDescription());
+        personel.setStatus(RecordStatus.ACTIVE.getValue());
+        personel.setCreateDate(new Date());
+        personel.setBolum(dto.getBolum());
+        personel.setBirthDate(dto.getBirthDate());
 
-        Optional<City> city = cityRepository.findById(dto.getCity().getId());
-        if (city.isEmpty()) {
-            response.setMessage("Şehir bulunamadı!");
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            return response;
-        } else {
-            personel.setCity(city.get());
+        Optional<City> findyCity = cityRepository.findById(dto.getCity().getId());
+        if (findyCity.isPresent()) {
+            personel.setCity(findyCity.get());
         }
 
-        Optional<Unit> unit = unitRepository.findById(dto.getUnit().getId());
-        if (unit.isEmpty()) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            response.setMessage("Unit Bulunamadı!");
-            return response;
-        } else {
-            personel.setUnit(unit.get());
+        Optional<Adres> findAdres = adresRepository.findById(dto.getAdres().getId());
+        if (findAdres.isPresent()) {
+            personel.setAdres(findAdres.get());
         }
 
-        if (dto.getAdres() != null) {
-            Optional<Adres> findAdres = adresRepository.findById(dto.getAdres().getId());
-            findAdres.ifPresent(personel::setAdres);
+        Optional<Unit> findUnit = unitRepository.findById(dto.getUnit().getId());
+        if (findUnit.isPresent()) {
+            personel.setUnit(findUnit.get());
         }
-
 
         Personel dbPersonel = personelRepository.save(personel);
+        PersonelDto dtoPersonel = modelMapper.map(dbPersonel, PersonelDto.class);
 
-        PersonelResponseDto personelResponseDto = new PersonelResponseDto();
-        BeanUtils.copyProperties(dbPersonel, personelResponseDto);
-
-        if (dbPersonel.getAdres() != null) {
-            AdresResponseDto adresResponseDto = new AdresResponseDto();
-            BeanUtils.copyProperties(dbPersonel.getAdres(), adresResponseDto);
-            personelResponseDto.setAdres(adresResponseDto);
-        }
-
-        if (dbPersonel.getCity() != null) {
-            CityResponseDto cityResponseDto = new CityResponseDto();
-            BeanUtils.copyProperties(dbPersonel.getCity(), cityResponseDto);
-            personelResponseDto.setCity(cityResponseDto);
-        }
-
-        if (dbPersonel.getUnit() != null) {
-            UnitResponseDto unitResponseDto = new UnitResponseDto();
-            BeanUtils.copyProperties(dbPersonel.getUnit(), unitResponseDto);
-            personelResponseDto.setUnit(unitResponseDto);
-        }
-
-        response.setData(personelResponseDto);
         response.setStatus(HttpStatus.CREATED.value());
-        response.setMessage("Personel kayıt edildi");
-        log.info("Personel kayıt edildi");
+        response.setMessage("Personel saved successfully");
+        response.setData(dtoPersonel);
         return response;
-
 
     }
 
     @Override
-    public List<BaseResponse> findAll() {
-        List<BaseResponse> responseList = new ArrayList<>();
-        List<PersonelResponseDto> personelDtoList = new ArrayList<>();
-        List<Personel> personelList = personelRepository.findAll();
-
-        for (Personel personel : personelList) {
-            PersonelResponseDto personelResponseDto = new PersonelResponseDto();
-            BeanUtils.copyProperties(personel, personelResponseDto);
-
-            // Adres varsa DTO'ya çevir
-            if (personel.getAdres() != null) {
-                AdresResponseDto adresResponseDto = new AdresResponseDto();
-                BeanUtils.copyProperties(personel.getAdres(), adresResponseDto);
-                personelResponseDto.setAdres(adresResponseDto);
-            }
-
-            if (personel.getCity() != null) {
-                CityResponseDto cityResponseDto = new CityResponseDto();
-                BeanUtils.copyProperties(personel.getCity(), cityResponseDto);
-                personelResponseDto.setCity(cityResponseDto);
-            }
-
-
-            if (personel.getUnit() != null) {
-                UnitResponseDto unitResponseDto = new UnitResponseDto();
-                BeanUtils.copyProperties(personel.getUnit(), unitResponseDto);
-                personelResponseDto.setUnit(unitResponseDto);
-            }
-
-            log.info("Personeller çekildi");
-            personelDtoList.add(personelResponseDto);
-        }
+    public BaseResponse findAll() {
 
         BaseResponse response = new BaseResponse();
-        response.setData(personelDtoList);
+
+        List<Personel> personelList = personelRepository.findAll();
+
+        List<PersonelDto> dtoList = modelMapper.map(personelList, new TypeToken<List<PersonelDto>>() {
+        }.getType());
+
         response.setStatus(HttpStatus.OK.value());
-        response.setMessage("Personel listesi");
-
-        responseList.add(response);
-
-        return responseList;
+        response.setData(dtoList);
+        response.setMessage("Personels found successfully");
+        return response;
     }
 
 
     @Override
     public BaseResponse findById(Long id) {
+
         BaseResponse response = new BaseResponse();
-        Optional<Personel> optional = personelRepository.findById(id);
-
-        if (optional.isEmpty()) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            response.setMessage("Girilen Id değerine ait kayıt bulunamadı.");
-            return response;
+        Optional<Personel> findPersonel = personelRepository.findById(id);
+        if (findPersonel.isPresent()) {
+            PersonelDto personelDto = modelMapper.map(findPersonel.get(), PersonelDto.class);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage("Personel found successfully");
+            response.setData(personelDto);
         }
-
-
-        Personel dbPersonel = optional.get();
-        PersonelResponseDto personelResponseDto = new PersonelResponseDto();
-        AdresResponseDto adresResponseDto = new AdresResponseDto();
-        Adres adres = dbPersonel.getAdres();
-
-        CityResponseDto cityResponseDto = new CityResponseDto();
-        City city = dbPersonel.getCity();
-        BeanUtils.copyProperties(adres, adresResponseDto);
-        BeanUtils.copyProperties(city, cityResponseDto);
-        BeanUtils.copyProperties(dbPersonel, personelResponseDto);
-        personelResponseDto.setAdres(adresResponseDto);
-        personelResponseDto.setCity(cityResponseDto);
-
-        response.setData(personelResponseDto);
-        response.setStatus(HttpStatus.OK.value());
-        response.setMessage("Girilen Id bilgileri: " + id);
-
-        log.info("Personel bulundu");
         return response;
     }
 
@@ -228,81 +147,47 @@ public class PersonelServicesImpl implements IPersonelServices {
 
 
     @Override
-    public BaseResponse update(Long id, PersonelRequestDto dto) {
+    public BaseResponse update(Long id, PersonelSaveDto dto) {
 
         BaseResponse response = new BaseResponse();
 
-        PersonelResponseDto personResponseDto = new PersonelResponseDto();
-        Optional<Personel> optional = personelRepository.findById(id);
+        Optional<Personel> findPersonel = personelRepository.findById(id);
+        if (findPersonel.isPresent()) {
+            findPersonel.get().setFirstName(dto.getFirstName());
+            findPersonel.get().setLastName(dto.getLastName());
+            findPersonel.get().setUserName(dto.getUserName());
+            findPersonel.get().setCreateBy("Dilek");
+            findPersonel.get().setDescription(dto.getDescription());
+            findPersonel.get().setBolum(dto.getBolum());
+            findPersonel.get().setBirthDate(dto.getBirthDate());
 
-        if (optional.isEmpty()) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            response.setMessage("Güncellenecek Id Bulunamadı");
-            return response;
-        }
-        if (dto.getFirstName() == null || dto.getLastName() == null) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage("İsim ve soyisim alanları boş girilemez");
-            return response;
-        }
-
-        Optional<Unit> unitOptional = unitRepository.findById(dto.getUnitId());
-        if (unitOptional.isEmpty()) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            response.setMessage("Girilen Unit Id geçersiz");
-            return response;
-        }
-
-        Optional<City> cityOptional = cityRepository.findById(dto.getCity().getId());
-        if (cityOptional.isEmpty()) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            response.setMessage("Girilen City Id geçersiz");
-            return response;
-        }
-
-        Optional<Adres> adresOptional = adresRepository.findById(dto.getAdres().getId());
-        Optional<City> cityOptional1 = cityRepository.findById(dto.getCity().getId());
-
-        if (optional.isPresent()) {
-            Personel dbPersonel = optional.get();
-            dbPersonel.setFirstName(dto.getFirstName());
-            dbPersonel.setLastName(dto.getLastName());
-            dbPersonel.setUserName(dto.getUserName());
-            dbPersonel.setCreateBy(dbPersonel.getUserName());
-            dbPersonel.setAdres(adresOptional.get());
-            dbPersonel.setCity(cityOptional1.get());
-            dbPersonel.setDescription(dto.getDescription());
-            dbPersonel.setStatus(dto.getStatus());
-            dbPersonel.setCreateDate(dto.getCreateDate());
-            dbPersonel.setBolum(dto.getBolum());
-            dbPersonel.setBirthDate(dto.getBirthDate());
-
-            Personel updatedPersonel = personelRepository.save(dbPersonel);
-
-
-            if (dbPersonel.getAdres() != null) {
-                AdresResponseDto adresResponseDto = new AdresResponseDto();
-                BeanUtils.copyProperties(dbPersonel.getAdres(), adresResponseDto);
-                personResponseDto.setAdres(adresResponseDto);
+            Optional<Unit> findUnit = unitRepository.findById(dto.getUnit().getId());
+            if (findUnit.isPresent()) {
+                findPersonel.get().setUnit(findUnit.get());
             }
 
-            if (dbPersonel.getCity() != null) {
-                CityResponseDto cityResponseDto = new CityResponseDto();
-                BeanUtils.copyProperties(dbPersonel.getCity(), cityResponseDto);
-                personResponseDto.setCity(cityResponseDto);
+            Optional<City> findCity = cityRepository.findById(dto.getCity().getId());
+            if (findCity.isPresent()) {
+                findPersonel.get().setCity(findCity.get());
             }
 
+            Optional<Adres> findAdres = adresRepository.findById(dto.getAdres().getId());
+            if (findAdres.isPresent()) {
+                findPersonel.get().setAdres(findAdres.get());
+            }
 
-            BeanUtils.copyProperties(updatedPersonel, personResponseDto);
+            Personel dbPersonel = personelRepository.save(findPersonel.get());
+            PersonelDto dtoPersonel = modelMapper.map(dbPersonel, PersonelDto.class);
 
-            response.setData(personResponseDto);
             response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Güncelleme işlemi başarılı");
-            log.info("Personel günceellendi");
-            return response;
-        }
+            response.setMessage("Personel update successfully");
+            response.setData(dtoPersonel);
 
-        return null;
+        }
+        return response;
+
+
+
     }
 
 

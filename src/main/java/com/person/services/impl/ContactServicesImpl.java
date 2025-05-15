@@ -1,18 +1,19 @@
 package com.person.services.impl;
 
+import com.person.dto.ContactDto;
+import com.person.dto.ContactSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.ContactRequestDto;
-import com.person.dto.dtoEntity.ContactResponseDto;
 import com.person.entites.Contact;
+import com.person.enums.RecordStatus;
 import com.person.repository.ContactRepository;
 import com.person.services.IContactServices;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,58 +23,55 @@ public class ContactServicesImpl implements IContactServices {
 
     @Autowired
     private ContactRepository contactRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
-    public BaseResponse save(ContactRequestDto dto) {
-        ContactResponseDto contactResponseDto = new ContactResponseDto();
-        Contact contact = new Contact();
-        BeanUtils.copyProperties(dto, contact);
-        Contact dbContact = contactRepository.save(contact);
-        BeanUtils.copyProperties(dbContact, contactResponseDto);
-        log.info("Contact kayıt edildi");
+    public BaseResponse save(ContactSaveDto dto) {
+        BaseResponse response = new BaseResponse();
 
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setData(contactResponseDto);
-        baseResponse.setStatus(HttpStatus.OK.value());
-        baseResponse.setMessage("İletişim bilgisi kayıt edildi");
-        return baseResponse;
+        Contact contact = new Contact();
+        contact.setPersonelId(dto.getPersonelId());
+        contact.setType(dto.getType());
+        contact.setContact(dto.getContact());
+        contact.setStatus(RecordStatus.ACTIVE.getValue());
+        contact.setCreateDate(new Date());
+
+        Contact dbContact = contactRepository.save(contact);
+
+        ContactDto contactDto = modelMapper.map(dbContact, ContactDto.class);
+        response.setStatus(HttpStatus.CREATED.value());
+        response.setData(contactDto);
+        response.setMessage("Contact saved successfully");
+        return response;
 
 
     }
 
     @Override
     public BaseResponse findAll() {
-        List<ContactResponseDto> contactResponseDtos = new ArrayList<>();
-        List<Contact> contactList = contactRepository.findAll();
-
-        for (Contact contact : contactList) {
-            ContactResponseDto contactResponseDto = new ContactResponseDto();
-            BeanUtils.copyProperties(contact, contactResponseDto);
-            contactResponseDtos.add(contactResponseDto);
-        }
-        log.info("Contact çekildi");
-
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setData(contactResponseDtos);
-        baseResponse.setStatus(HttpStatus.OK.value());
-        baseResponse.setMessage("İletişim bilgileri listelendi");
-        return baseResponse;
+        BaseResponse response = new BaseResponse();
+        List<Contact> contacts = contactRepository.findAll();
+        List<ContactDto> dtoList = modelMapper.map(contacts, List.class);
+        response.setStatus(HttpStatus.OK.value());
+        response.setData(dtoList);
+        response.setMessage("All contacts saved successfully");
+        return response;
     }
 
     @Override
     public BaseResponse findById(Long id) {
-        ContactResponseDto contactResponseDto = new ContactResponseDto();
-        Optional<Contact> optinol = contactRepository.findById(id);
-        if (optinol.isPresent()) {
-            Contact dbContact = optinol.get();
-            BeanUtils.copyProperties(dbContact, contactResponseDto);
+
+        BaseResponse response = new BaseResponse();
+        Optional<Contact> optionalContact = contactRepository.findById(id);
+        if (optionalContact.isPresent()) {
+            ContactDto contactDto = modelMapper.map(optionalContact.get(), ContactDto.class);
+            response.setStatus(HttpStatus.OK.value());
+            response.setData(contactDto);
+            response.setMessage("Contact found successfully");
+
         }
-        log.info("Contact bulundu");
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setData(contactResponseDto);
-        baseResponse.setStatus(HttpStatus.OK.value());
-        baseResponse.setMessage("Girilen Id'ye ait iletişim bilgisi bulundu");
-        return baseResponse;
+        return response;
 
     }
 
@@ -89,27 +87,23 @@ public class ContactServicesImpl implements IContactServices {
     }
 
     @Override
-    public BaseResponse update(Long id, ContactRequestDto dto) {
-        ContactResponseDto contactResponseDto = new ContactResponseDto();
-        Optional<Contact> optinol = contactRepository.findById(id);
-        if (optinol.isPresent()) {
-            Contact dbContact = optinol.get();
-            dbContact.setPersonelId(dto.getPersonelId());
-            dbContact.setStatus(dto.getStatus());
-            dbContact.setCreateDate(dto.getCreateDate());
-            dbContact.setContact(dto.getContact());
-            dbContact.setType(dto.getType());
+    public BaseResponse update(Long id, ContactSaveDto dto) {
 
-            Contact updatedContact = contactRepository.save(dbContact);
-            BeanUtils.copyProperties(updatedContact, contactResponseDto);
-            log.info("Contact güncellendi");
+        BaseResponse response = new BaseResponse();
+        Optional<Contact> findContact = contactRepository.findById(id);
+        if (findContact.isPresent()) {
+            findContact.get().setPersonelId(dto.getPersonelId());
+            findContact.get().setType(dto.getType());
+            findContact.get().setContact(dto.getContact());
 
-            BaseResponse baseResponse = new BaseResponse();
-            baseResponse.setData(contactResponseDto);
-            baseResponse.setStatus(HttpStatus.OK.value());
-            baseResponse.setMessage("İletişim bilgisi güncellendi");
-            return baseResponse;
+            Contact dbContact = contactRepository.save(findContact.get());
+            ContactDto contactDto = modelMapper.map(dbContact, ContactDto.class);
+            response.setStatus(HttpStatus.OK.value());
+            response.setData(contactDto);
+            response.setMessage("Contact updated successfully");
+
         }
-        return null;
+
+        return response;
     }
 }

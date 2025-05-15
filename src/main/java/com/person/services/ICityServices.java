@@ -1,11 +1,11 @@
 package com.person.services;
 
+import com.person.dto.CitySaveDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.CityRequestDto;
 
 public interface ICityServices {
 
-    BaseResponse save(CityRequestDto dto);
+    BaseResponse save(CitySaveDto dto);
 
     BaseResponse findAll();
 
@@ -13,5 +13,5 @@ public interface ICityServices {
 
     BaseResponse deleteById(Long id);
 
-    BaseResponse update(Long id, CityRequestDto dto);
+    BaseResponse update(Long id, CitySaveDto dto);
 }
