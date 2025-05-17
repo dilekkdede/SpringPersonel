@@ -32,6 +32,19 @@ public class CityServicesImpl implements ICityServices {
     public BaseResponse save(CitySaveDto dto) {
 
         BaseResponse response = new BaseResponse();
+        if (dto.getName() == null || dto.getName().isEmpty()) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("İsim alanı boş geçilemez");
+            response.setData(null);
+            return response;
+        }
+
+        if (dto.getCode() == null || dto.getCode().isEmpty()) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Şehir kodu boş geçilemez");
+            response.setData(null);
+            return response;
+        }
 
         City city = new City();
         city.setName(dto.getName());
@@ -70,13 +83,20 @@ public class CityServicesImpl implements ICityServices {
         BaseResponse response = new BaseResponse();
         Optional<City> city = cityRepository.findById(id);
 
-        if (city.isPresent()) {
-            CityDto cityDto = modelMapper.map(city.get(), CityDto.class);
-            response.setData(cityDto);
-            response.setStatus(200);
-            response.setMessage("City findById success");
-
+        if (city.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("City not found");
+            response.setData(null);
+            return response;
         }
+
+
+        CityDto cityDto = modelMapper.map(city.get(), CityDto.class);
+        response.setData(cityDto);
+        response.setStatus(200);
+        response.setMessage("City findById success");
+
+
         return response;
 
 
@@ -86,12 +106,20 @@ public class CityServicesImpl implements ICityServices {
     public BaseResponse deleteById(Long id) {
 
         BaseResponse baseResponse = new BaseResponse();
-        cityRepository.deleteById(id);
-        log.info("şehir silindi");
+        Optional<City> city = cityRepository.findById(id);
+        if (city.isEmpty()) {
+            baseResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("City not found");
+            baseResponse.setData(null);
+            return baseResponse;
+        } else {
+            cityRepository.delete(city.get());
+            baseResponse.setStatus(200);
+            baseResponse.setMessage("City delete success");
+            return baseResponse;
 
-        baseResponse.setStatus(HttpStatus.OK.value());
-        baseResponse.setMessage("City başarılı bir şekilde silindi");
-        return baseResponse;
+        }
+        
 
     }
 

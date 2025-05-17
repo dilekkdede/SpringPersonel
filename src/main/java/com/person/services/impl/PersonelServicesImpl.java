@@ -2,18 +2,18 @@ package com.person.services.impl;
 
 import com.person.dto.PersonelDto;
 import com.person.dto.PersonelSaveDto;
-import com.person.dto.UserDto;
 import com.person.dto.dtoBase.BaseResponse;
-import com.person.dto.dtoEntity.*;
 import com.person.dto.dtoQuery.*;
-import com.person.entites.*;
+import com.person.entites.Adres;
+import com.person.entites.City;
+import com.person.entites.Personel;
+import com.person.entites.Unit;
 import com.person.enums.RecordStatus;
 import com.person.repository.*;
 import com.person.services.IPersonelServices;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -56,6 +56,30 @@ public class PersonelServicesImpl implements IPersonelServices {
     public BaseResponse save(PersonelSaveDto dto) {
 
         BaseResponse response = new BaseResponse();
+
+
+        //KONTROLLER
+        if (dto.getFirstName() == null || dto.getLastName() == null) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("İsim/Soyisim alanları boş geçilemez!");
+            response.setData(null);
+            return response;
+        }
+
+        if (dto.getBolum() == null) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Bölüm bilgisi giriniz!");
+            response.setData(null);
+            return response;
+        }
+
+        if (dto.getUnit().getId() == null || dto.getCity().getId() == null || dto.getAdres().getId() == null) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Unit ıd / City ıd / Adres ıd alanları boş geçilemez!");
+            response.setData(null);
+            return response;
+        }
+
 
         Personel personel = new Personel();
         personel.setFirstName(dto.getFirstName());
@@ -115,12 +139,18 @@ public class PersonelServicesImpl implements IPersonelServices {
 
         BaseResponse response = new BaseResponse();
         Optional<Personel> findPersonel = personelRepository.findById(id);
-        if (findPersonel.isPresent()) {
-            PersonelDto personelDto = modelMapper.map(findPersonel.get(), PersonelDto.class);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage("Personel found successfully");
-            response.setData(personelDto);
+
+        if (findPersonel.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Personel not found");
+            response.setData(null);
+            return response;
         }
+
+        PersonelDto personelDto = modelMapper.map(findPersonel.get(), PersonelDto.class);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Personel found successfully");
+        response.setData(personelDto);
         return response;
     }
 
@@ -153,28 +183,44 @@ public class PersonelServicesImpl implements IPersonelServices {
 
         Optional<Personel> findPersonel = personelRepository.findById(id);
         if (findPersonel.isPresent()) {
-            findPersonel.get().setFirstName(dto.getFirstName());
-            findPersonel.get().setLastName(dto.getLastName());
-            findPersonel.get().setUserName(dto.getUserName());
-            findPersonel.get().setCreateBy("Dilek");
-            findPersonel.get().setDescription(dto.getDescription());
-            findPersonel.get().setBolum(dto.getBolum());
-            findPersonel.get().setBirthDate(dto.getBirthDate());
 
-            Optional<Unit> findUnit = unitRepository.findById(dto.getUnit().getId());
-            if (findUnit.isPresent()) {
-                findPersonel.get().setUnit(findUnit.get());
+            if (dto.getFirstName() != null) {
+                findPersonel.get().setFirstName(dto.getFirstName());
+            }
+            if (dto.getLastName() != null) {
+                findPersonel.get().setLastName(dto.getLastName());
+            }
+            if (dto.getUserName() != null) {
+                findPersonel.get().setUserName(dto.getUserName());
+            }
+            if (dto.getDescription() != null) {
+                findPersonel.get().setDescription(dto.getDescription());
+            }
+            if (dto.getBolum() != null) {
+                findPersonel.get().setBolum(dto.getBolum());
             }
 
-            Optional<City> findCity = cityRepository.findById(dto.getCity().getId());
-            if (findCity.isPresent()) {
+            if (dto.getBirthDate() != null) {
+                findPersonel.get().setBirthDate(dto.getBirthDate());
+            }
+
+            if (dto.getUnit() != null && dto.getUnit().getId() != null) {
+                Optional<Unit> findUnit = unitRepository.findById(dto.getUnit().getId());
+                findPersonel.get().setUnit(findUnit.get());
+
+            }
+
+            if (dto.getCity() != null && dto.getCity().getId() != null) {
+                Optional<City> findCity = cityRepository.findById(dto.getCity().getId());
                 findPersonel.get().setCity(findCity.get());
             }
 
-            Optional<Adres> findAdres = adresRepository.findById(dto.getAdres().getId());
-            if (findAdres.isPresent()) {
+            if (dto.getAdres() != null && dto.getAdres().getId() != null) {
+                Optional<Adres> findAdres = adresRepository.findById(dto.getAdres().getId());
                 findPersonel.get().setAdres(findAdres.get());
+
             }
+
 
             Personel dbPersonel = personelRepository.save(findPersonel.get());
             PersonelDto dtoPersonel = modelMapper.map(dbPersonel, PersonelDto.class);
@@ -182,10 +228,13 @@ public class PersonelServicesImpl implements IPersonelServices {
             response.setStatus(HttpStatus.OK.value());
             response.setMessage("Personel update successfully");
             response.setData(dtoPersonel);
-
+            return response;
         }
-        return response;
 
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        response.setMessage("Güncelleneck Id bulunamadı");
+        response.setData(null);
+        return response;
 
 
     }

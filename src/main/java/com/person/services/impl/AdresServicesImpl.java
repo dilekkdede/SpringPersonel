@@ -29,8 +29,23 @@ public class AdresServicesImpl implements IAdresServices {
 
     @Override
     public BaseResponse save(AdresSaveDto dto) {
-
         BaseResponse response = new BaseResponse();
+
+        //Kontroller
+        if (dto.getPersonelId() == null) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Personel Id is required");
+            response.setData(null);
+            return response;
+        }
+
+        if (dto.getDescription() == null) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Description is required");
+            response.setData(null);
+            return response;
+        }
+
         Adres adres = new Adres();
         adres.setPersonelId(dto.getPersonelId());
         adres.setDescription(dto.getDescription());
@@ -70,6 +85,13 @@ public class AdresServicesImpl implements IAdresServices {
         BaseResponse response = new BaseResponse();
         Optional<Adres> adresOptional = adresRepository.findById(id);
 
+        if (adresOptional.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Adres not found");
+            response.setData(null);
+            response.setData(null);
+        }
+
         if (adresOptional.isPresent()) {
             AdresDto adresDto = modelMapper.map(adresOptional.get(), AdresDto.class);
             response.setStatus(HttpStatus.OK.value());
@@ -83,13 +105,22 @@ public class AdresServicesImpl implements IAdresServices {
     @Override
     public BaseResponse deleteById(Long id) {
 
-        BaseResponse baseResponse = new BaseResponse();
-        log.info("Adres silindi");
-        adresRepository.deleteById(id);
 
-        baseResponse.setStatus(HttpStatus.OK.value());
-        baseResponse.setMessage("Adres başarılı bir şekilde silindi");
-        return baseResponse;
+        BaseResponse baseResponse = new BaseResponse();
+        Optional<Adres> adresOptional = adresRepository.findById(id);
+        if (adresOptional.isEmpty()) {
+            baseResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            baseResponse.setMessage("Adres  id not found");
+            baseResponse.setData(null);
+            return baseResponse;
+        } else {
+            adresRepository.deleteById(id);
+
+            baseResponse.setStatus(HttpStatus.OK.value());
+            baseResponse.setMessage("Adres başarılı bir şekilde silindi");
+            return baseResponse;
+        }
+
 
     }
 
@@ -98,18 +129,29 @@ public class AdresServicesImpl implements IAdresServices {
 
         BaseResponse response = new BaseResponse();
         Optional<Adres> adresOptional = adresRepository.findById(id);
-        if (adresOptional.isPresent()) {
-            Adres adres = adresOptional.get();
+
+        if (adresOptional.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Adres not found");
+            response.setData(null);
+            return response;
+        }
+
+        Adres adres = adresOptional.get();
+        if (dto.getPersonelId() != null) {
             adres.setPersonelId(dto.getPersonelId());
+        }
+
+        if (dto.getDescription() != null) {
             adres.setDescription(dto.getDescription());
 
-            Adres dbAdres = adresRepository.save(adres);
-            AdresDto adresDto = modelMapper.map(dbAdres, AdresDto.class);
-            response.setStatus(HttpStatus.OK.value());
-            response.setData(adresDto);
-            response.setMessage("Adress update sucessfully");
-
         }
+
+        Adres dbAdres = adresRepository.save(adres);
+        AdresDto adresDto = modelMapper.map(dbAdres, AdresDto.class);
+        response.setStatus(HttpStatus.OK.value());
+        response.setData(adresDto);
+        response.setMessage("Adress update sucessfully");
 
 
         return response;
