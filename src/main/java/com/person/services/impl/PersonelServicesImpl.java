@@ -4,10 +4,7 @@ import com.person.dto.PersonelDto;
 import com.person.dto.PersonelSaveDto;
 import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoQuery.*;
-import com.person.entites.Adres;
-import com.person.entites.City;
-import com.person.entites.Personel;
-import com.person.entites.Unit;
+import com.person.entites.*;
 import com.person.enums.RecordStatus;
 import com.person.repository.*;
 import com.person.services.IPersonelServices;
@@ -18,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -44,6 +42,9 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     @Autowired
     private UnitRepository unitRepository;
+
+    @Autowired
+    private ContactRepository contactRepository;
 
     @Autowired
     private AdresRepository adresRepository;
@@ -154,8 +155,7 @@ public class PersonelServicesImpl implements IPersonelServices {
         return response;
     }
 
-
-    @Override
+    @Transactional
     public BaseResponse deleteById(Long id) {
         BaseResponse response = new BaseResponse();
         Optional<Personel> optional = personelRepository.findById(id);
@@ -166,7 +166,33 @@ public class PersonelServicesImpl implements IPersonelServices {
             return response;
         }
 
-        personelRepository.deleteById(id);
+        Personel personel = optional.get();
+
+        // Adres bağlantılarını kopar
+        List<Adres> adresList = adresRepository.findAll();
+        for (Adres adres : adresList) {
+            if (adres.getPersonelId() != null && adres.getPersonelId().equals(id.intValue())) {
+                adres.setPersonelId(null);
+                adresRepository.save(adres);
+            }
+        }
+
+        // Contact bağlantılarını kopar (örnek)
+        List<Contact> contactList = contactRepository.findAll();
+        for (Contact contact : contactList) {
+            if (contact.getPersonelId() != null && contact.getPersonelId().equals(id)) {
+                contact.setPersonelId(null);
+                contactRepository.save(contact);
+            }
+        }
+
+        // City ve Unit ilişkilerini kopar
+        personel.setCity(null);
+        personel.setUnit(null);
+        personel.setAdres(null);
+
+        // Personel silinir
+        personelRepository.delete(personel);
 
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("Personel başarıyla silindi.");

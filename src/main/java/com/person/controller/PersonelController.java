@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
 
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RestController
 @RequestMapping("/rest/api/personel")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class PersonelController {
 
     @Autowired
@@ -34,6 +34,7 @@ public class PersonelController {
         return personelServices.findById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(path = "/delete/{id}")
     public BaseResponse deleteById(@PathVariable(name = "id") Long id) {
         return personelServices.deleteById(id);
@@ -113,8 +114,7 @@ public class PersonelController {
     public BaseResponse personelListesiCountvestatus(@PathVariable(name = "status") int status) {
         return personelServices.personelListesiCountvestatus(status);
     }
-
-
+    
     //JPA QUERYS
 
     @GetMapping(path = "/personel-listesi-jpa")
