@@ -6,12 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CityIdDto {
+public class AdresdescriptionDto {
 
-    @Schema(example = "2")
-    private Long id;
 
-    @Schema(example = "Ankara")
-    private String cityName;
+    @Schema(example = "İstanbul Bebek")
+    private String description;
 
 }

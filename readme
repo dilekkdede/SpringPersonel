@@ -1,6 +1,7 @@
 
-1)Şehir, birim vs. eklemede dropDown ile listeleme yapılacak
-2)Silme işlemlerine uyarı getirt
+1)Şehir, birim vs. eklemede dropDown ile listeleme yapılacak (+)
+2)Silme işlemlerine uyarı getir
+
 2)dÜZENLE kısmında birim şehir. vs isim olarak gelisn. o ekran daha büyük olsun
 2)Main copmanenet oluşturulacak. Menüde Anasafa olacak. Uygulama ilk açıldığıda anasayfa g4elecek
 3)Birim adı birim kodu ve toplam personel sayısı.( querisi yazılacak- postmnden çekilecek (Parametreriz) primeNg
@@ -12,5 +13,6 @@
 7)Personel düzenle kısmı açıldığında saya büyük olsun. En alt kısma üç tab eklenecek(PrimeNg)-> bir tab: öğrenim bilgisi , ikinci tab:Adres bilgisi
 üçncü tab:Contact.
 Tablar açıldığında;
+
 
 !!BİTİRTİKCE İŞRATLE CE COMİTLEMEYİ UNUTMA

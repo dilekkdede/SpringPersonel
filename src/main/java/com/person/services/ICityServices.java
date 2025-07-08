@@ -2,6 +2,7 @@ package com.person.services;
 
 import com.person.dto.CitySaveDto;
 import com.person.dto.dtoBase.BaseResponse;
+import com.person.entites.City;
 
 public interface ICityServices {
 

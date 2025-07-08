@@ -9,6 +9,9 @@ import lombok.Setter;
 public class AdresIdDto {
 
     @Schema(example = "2")
-    private Long id;
+   private Long id;
+    @Schema(example = "İstanbul Bebek")
+
+    private String description;
 
 }

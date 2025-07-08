@@ -1,5 +1,6 @@
 package com.person.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "adres")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Adres implements Serializable {
 
     private static final long serialVersionUID = 1L;

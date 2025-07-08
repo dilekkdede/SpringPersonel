@@ -27,6 +27,7 @@ public class PersonelController {
     @GetMapping(path = "/list")
     public BaseResponse findAll() {
         return personelServices.findAll();
+
     }
 
     @GetMapping(path = "/get-id/{id}")
