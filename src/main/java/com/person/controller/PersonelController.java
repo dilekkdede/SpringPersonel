@@ -115,7 +115,7 @@ public class PersonelController {
     public BaseResponse personelListesiCountvestatus(@PathVariable(name = "status") int status) {
         return personelServices.personelListesiCountvestatus(status);
     }
-    
+
     //JPA QUERYS
 
     @GetMapping(path = "/personel-listesi-jpa")
@@ -212,6 +212,16 @@ public class PersonelController {
     @GetMapping(path = "/personel-listesi-createDate-with-sistem-tarihi")
     public List<BaseResponse> personelIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException {
         return personelServices.personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi();
+    }
+
+    @GetMapping("/countByUnit")
+    public BaseResponse countByUnit() {
+        return personelServices.findPersonelCountByUnit();
+    }
+
+    @GetMapping("/countByCity")
+    public BaseResponse countByCity() {
+        return personelServices.findPersonelCountByCity();
     }
 
 

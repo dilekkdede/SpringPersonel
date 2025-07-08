@@ -59,5 +59,14 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
     @Query(value = "select p from Personel p where p.createDate between to_date(:dateBas,'YYYY-MM-DD') and to_date(:dateSon,'YYYY-MM-DD')")
     List<Personel> personelListesiIkiTarihAraligindakiCreateDate(Date dateBas, Date dateSon);
 
+    @Query("SELECT u.code, u.name, COUNT(p) " +
+            "FROM Unit u LEFT JOIN Personel p ON p.unit = u " +
+            "GROUP BY u.code, u.name")
+    List<Object[]> findPersonelCountByUnit();
+
+    @Query("SELECT  u.name, COUNT(p) " +
+            "FROM City u LEFT JOIN Personel p ON p.city = u " +
+            "GROUP BY  u.name")
+    List<Object[]> findPersonelCountByCity();
 
 }

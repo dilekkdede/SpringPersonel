@@ -14,4 +14,9 @@ public interface IUnitServices {
     BaseResponse deleteById(Long id);
 
     BaseResponse update(Long id, UnitSaveDto dto);
+
+    BaseResponse count();
+
+
+
 }

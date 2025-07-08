@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -109,4 +110,18 @@ public class UnitServicesImpl implements IUnitServices {
 
         return response;
     }
+
+    @Override
+    public BaseResponse count() {
+        BaseResponse response = new BaseResponse();
+        Integer count= unitRepository.unitListesiCount();
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Count of units found");
+        response.setData(count);
+
+        return response;
+    }
+
+
 }

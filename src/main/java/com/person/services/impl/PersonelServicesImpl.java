@@ -720,5 +720,29 @@ public class PersonelServicesImpl implements IPersonelServices {
         return personelListesi;
     }
 
+    @Override
+    public BaseResponse findPersonelCountByUnit() {
+        BaseResponse response = new BaseResponse();
+        List<Object[]> result = personelJPARepository.findPersonelCountByUnit();
+
+        response.setData(result);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage(HttpStatus.OK.getReasonPhrase());
+        return response;
+
+
+    }
+
+    @Override
+    public BaseResponse findPersonelCountByCity() {
+        BaseResponse response = new BaseResponse();
+        List<Object[]> result = personelJPARepository.findPersonelCountByCity();
+
+        response.setData(result);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage(HttpStatus.OK.getReasonPhrase());
+        return response;
+    }
+
 
 }

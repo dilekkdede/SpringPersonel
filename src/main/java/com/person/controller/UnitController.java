@@ -44,4 +44,13 @@ public class UnitController {
         return unitServices.update(id, dto);
     }
 
+    @GetMapping(path = "/count")
+    public BaseResponse count() {
+        return unitServices.count();
+    }
+
+
+
+
+
 }

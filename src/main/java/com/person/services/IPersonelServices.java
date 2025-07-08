@@ -10,10 +10,9 @@ import java.util.List;
 public interface IPersonelServices {
 
 
-
-
     /// ////////////CRUD İŞLEMLERİ //////////////////////////
     BaseResponse save(PersonelSaveDto dto);
+
     BaseResponse findAll();
 
     BaseResponse findById(Long id);
@@ -91,4 +90,11 @@ public interface IPersonelServices {
     List<BaseResponse> personelListesiIkiTarihAraligindakiCreateDate(PersonelDtoTarihAraligi dto) throws ParseException;
 
     List<BaseResponse> personelListesiIkiTarihAraligindakiCreateDateWithSistemTarihi() throws ParseException;
+
+    BaseResponse findPersonelCountByUnit();
+
+    BaseResponse findPersonelCountByCity();
+
 }
+
+
