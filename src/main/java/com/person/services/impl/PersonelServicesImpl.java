@@ -727,16 +727,10 @@ public class PersonelServicesImpl implements IPersonelServices {
         BaseResponse response = new BaseResponse();
         List<PersonelUnitCountDto> personelUnitCount = new ArrayList<>();
 
-        List<Object[]> result = personelJPARepository.findPersonelCountByUnit();
-        for (int i = 0; i < result.size(); i++) {
-            PersonelUnitCountDto list = new PersonelUnitCountDto();
-            list.setCode(result.get(i)[0].toString());
-            list.setName(result.get(i)[1].toString());
-            list.setPersonSize(Integer.parseInt(result.get(i)[2].toString()));
-            personelUnitCount.add(list);
-        }
+        List<PersonelUnitCountDto> result = personelJPARepository.findPersonelCountByUnit();
 
-        response.setData(personelUnitCount);
+
+        response.setData(result);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage(HttpStatus.OK.getReasonPhrase());
         return response;
