@@ -1,7 +1,9 @@
 package com.person.services.impl;
 
+import com.person.dto.PersonelCityCountDto;
 import com.person.dto.PersonelDto;
 import com.person.dto.PersonelSaveDto;
+import com.person.dto.PersonelUnitCountDto;
 import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoQuery.*;
 import com.person.entites.*;
@@ -723,9 +725,18 @@ public class PersonelServicesImpl implements IPersonelServices {
     @Override
     public BaseResponse findPersonelCountByUnit() {
         BaseResponse response = new BaseResponse();
-        List<Object[]> result = personelJPARepository.findPersonelCountByUnit();
+        List<PersonelUnitCountDto> personelUnitCount = new ArrayList<>();
 
-        response.setData(result);
+        List<Object[]> result = personelJPARepository.findPersonelCountByUnit();
+        for (int i = 0; i < result.size(); i++) {
+            PersonelUnitCountDto list = new PersonelUnitCountDto();
+            list.setCode(result.get(i)[0].toString());
+            list.setName(result.get(i)[1].toString());
+            list.setPersonSize(Integer.parseInt(result.get(i)[2].toString()));
+            personelUnitCount.add(list);
+        }
+
+        response.setData(personelUnitCount);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage(HttpStatus.OK.getReasonPhrase());
         return response;
@@ -736,9 +747,17 @@ public class PersonelServicesImpl implements IPersonelServices {
     @Override
     public BaseResponse findPersonelCountByCity() {
         BaseResponse response = new BaseResponse();
+        List<PersonelCityCountDto> personelCityCount = new ArrayList<>();
         List<Object[]> result = personelJPARepository.findPersonelCountByCity();
 
-        response.setData(result);
+        for (int i = 0; i < result.size(); i++) {
+            PersonelCityCountDto dto = new PersonelCityCountDto();
+            dto.setName(result.get(i)[0].toString());
+            dto.setPersonSize(Integer.parseInt(result.get(i)[1].toString()));
+            personelCityCount.add(dto);
+        }
+
+        response.setData(personelCityCount);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage(HttpStatus.OK.getReasonPhrase());
         return response;
