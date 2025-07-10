@@ -1,5 +1,6 @@
 package com.person.repository;
 
+import com.person.dto.PersonelCityCountDto;
 import com.person.dto.PersonelUnitCountDto;
 import com.person.entites.Personel;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -65,9 +66,9 @@ public interface PersonelJPARepository extends JpaRepository<Personel, Long> {
             "GROUP BY u.code, u.name")
     List<PersonelUnitCountDto> findPersonelCountByUnit();
 
-    @Query("SELECT  u.name, COUNT(p) " +
-            "FROM City u LEFT JOIN Personel p ON p.city = u " +
+    @Query("SELECT new com.person.dto.PersonelCityCountDto(u.name ,COUNT(p)) " +
+            "FROM City u INNER JOIN Personel p ON p.city = u " +
             "GROUP BY  u.name")
-    List<Object[]> findPersonelCountByCity();
+    List<PersonelCityCountDto> findPersonelCountByCity();
 
 }

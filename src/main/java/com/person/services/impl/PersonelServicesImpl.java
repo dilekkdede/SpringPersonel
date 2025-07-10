@@ -742,16 +742,9 @@ public class PersonelServicesImpl implements IPersonelServices {
     public BaseResponse findPersonelCountByCity() {
         BaseResponse response = new BaseResponse();
         List<PersonelCityCountDto> personelCityCount = new ArrayList<>();
-        List<Object[]> result = personelJPARepository.findPersonelCountByCity();
+        List<PersonelCityCountDto> result = personelJPARepository.findPersonelCountByCity();
 
-        for (int i = 0; i < result.size(); i++) {
-            PersonelCityCountDto dto = new PersonelCityCountDto();
-            dto.setName(result.get(i)[0].toString());
-            dto.setPersonSize(Integer.parseInt(result.get(i)[1].toString()));
-            personelCityCount.add(dto);
-        }
-
-        response.setData(personelCityCount);
+        response.setData(result);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage(HttpStatus.OK.getReasonPhrase());
         return response;
