@@ -27,6 +27,7 @@ public class PersonelDto implements Serializable {
     private Date birthDate;
     private CityInfoDto city;
     private UnitInfoDto unit;
+    private AdresInfoDto adres;
 
 
 }

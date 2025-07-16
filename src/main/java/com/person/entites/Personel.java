@@ -47,7 +47,6 @@ public class Personel implements Serializable {
     @Column(name = "birth_day")
     private Date birthDate;
 
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private City city;

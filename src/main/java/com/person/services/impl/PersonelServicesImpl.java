@@ -1,9 +1,6 @@
 package com.person.services.impl;
 
-import com.person.dto.PersonelCityCountDto;
-import com.person.dto.PersonelDto;
-import com.person.dto.PersonelSaveDto;
-import com.person.dto.PersonelUnitCountDto;
+import com.person.dto.*;
 import com.person.dto.dtoBase.BaseResponse;
 import com.person.dto.dtoQuery.*;
 import com.person.entites.*;
@@ -95,6 +92,7 @@ public class PersonelServicesImpl implements IPersonelServices {
         personel.setBolum(dto.getBolum());
         personel.setBirthDate(dto.getBirthDate());
 
+
         Optional<City> findyCity = cityRepository.findById(dto.getCity().getId());
         if (findyCity.isPresent()) {
             personel.setCity(findyCity.get());
@@ -106,8 +104,20 @@ public class PersonelServicesImpl implements IPersonelServices {
             personel.setUnit(findUnit.get());
         }
 
+
         Personel dbPersonel = personelRepository.save(personel);
+
+        Adres adres = new Adres();
+        adres.setPersonelId(dbPersonel.getId().intValue());
+        adres.setDescription(dto.getAdres().getDescription());
+        adres.setStatus(RecordStatus.ACTIVE.getValue());
+        adres.setCreateDate(new Date());
+
+        Adres dbAdres = adresRepository.save(adres);
+
         PersonelDto dtoPersonel = modelMapper.map(dbPersonel, PersonelDto.class);
+        AdresDto adresDto = modelMapper.map(dbAdres, AdresDto.class);
+
 
         response.setStatus(HttpStatus.CREATED.value());
         response.setMessage("Personel saved successfully");

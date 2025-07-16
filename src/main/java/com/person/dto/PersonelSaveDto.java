@@ -38,5 +38,7 @@ public class PersonelSaveDto {
 
     private UnitIdDto unit;
 
+    private AdresSavePersonelDto adres;
+
 
 }
