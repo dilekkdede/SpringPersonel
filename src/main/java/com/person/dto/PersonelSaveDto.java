@@ -33,7 +33,6 @@ public class PersonelSaveDto {
     @Schema(example = "1994-01-19")
     private Date birthDate;
 
-    private AdresdescriptionDto adres;
 
     private CityIdDto city;
 

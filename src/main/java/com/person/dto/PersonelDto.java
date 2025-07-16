@@ -26,7 +26,6 @@ public class PersonelDto implements Serializable {
     private String bolum;
     private Date birthDate;
     private CityInfoDto city;
-    private AdresInfoDto adres;
     private UnitInfoDto unit;
 
 

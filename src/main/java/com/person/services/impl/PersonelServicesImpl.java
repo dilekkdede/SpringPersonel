@@ -76,7 +76,7 @@ public class PersonelServicesImpl implements IPersonelServices {
             return response;
         }
 
-        if (dto.getUnit().getId() == null || dto.getCity().getId() == null || dto.getAdres() == null) {
+        if (dto.getUnit().getId() == null || dto.getCity().getId() == null) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             response.setMessage("Unit ıd / City ıd / Adres ıd alanları boş geçilemez!");
             response.setData(null);
@@ -100,14 +100,6 @@ public class PersonelServicesImpl implements IPersonelServices {
             personel.setCity(findyCity.get());
         }
 
-        Adres adres = new Adres();
-        adres.setDescription(dto.getAdres().getDescription());
-        adres.setStatus(RecordStatus.ACTIVE.getValue());
-        adres.setCreateDate(new Date());
-
-        Adres savedAdres = adresRepository.save(adres);
-        personel.setAdres(savedAdres);
-
 
         Optional<Unit> findUnit = unitRepository.findById(dto.getUnit().getId());
         if (findUnit.isPresent()) {
@@ -115,8 +107,6 @@ public class PersonelServicesImpl implements IPersonelServices {
         }
 
         Personel dbPersonel = personelRepository.save(personel);
-        adres.setPersonelId(dbPersonel.getId().intValue());
-        adresRepository.save(adres);
         PersonelDto dtoPersonel = modelMapper.map(dbPersonel, PersonelDto.class);
 
         response.setStatus(HttpStatus.CREATED.value());
@@ -197,7 +187,6 @@ public class PersonelServicesImpl implements IPersonelServices {
         // City ve Unit ilişkilerini kopar
         personel.setCity(null);
         personel.setUnit(null);
-        personel.setAdres(null);
 
         // Personel silinir
         personelRepository.delete(personel);
@@ -247,16 +236,6 @@ public class PersonelServicesImpl implements IPersonelServices {
             if (dto.getCity() != null && dto.getCity().getId() != null) {
                 Optional<City> findCity = cityRepository.findById(dto.getCity().getId());
                 findPersonel.get().setCity(findCity.get());
-            }
-
-            if (dto.getAdres() != null && dto.getAdres().getDescription() != null) {
-                Adres adres = new Adres();
-                adres.setDescription(dto.getAdres().getDescription());
-                adres.setStatus(RecordStatus.ACTIVE.getValue());
-                adres.setCreateDate(new Date());
-
-                Adres savedAdres = adresRepository.save(adres);
-                findPersonel.get().setAdres(savedAdres);
             }
 
 
