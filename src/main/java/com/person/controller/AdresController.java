@@ -7,6 +7,8 @@ import com.person.services.IAdresServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @RestController
 @RequestMapping("/rest/api/adres")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
@@ -42,6 +44,11 @@ public class AdresController {
         BaseResponse baseResponse = adresService.update(id, dto);
         return baseResponse;
 
+    }
+
+    @GetMapping(path = "/get-personel-id/{id}")
+    public BaseResponse findByIdPersonel(@PathVariable(name = "id") Integer id) {
+        return adresService.findByIdPersonel(id);
     }
 
 }

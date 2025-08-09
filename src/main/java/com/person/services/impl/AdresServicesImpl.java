@@ -103,6 +103,21 @@ public class AdresServicesImpl implements IAdresServices {
     }
 
     @Override
+    public BaseResponse findByIdPersonel(Integer id) {
+        BaseResponse response = new BaseResponse();
+
+        List<Adres> findAdres = adresRepository.findAdresByPersonelId(id);
+
+        response.setData(findAdres);
+        response.setMessage("Arama başarılı");
+        response.setStatus(HttpStatus.OK.value());
+
+        return response;
+    }
+
+
+
+    @Override
     public BaseResponse deleteById(Long id) {
 
 
@@ -156,4 +171,6 @@ public class AdresServicesImpl implements IAdresServices {
 
         return response;
     }
+
+
 }

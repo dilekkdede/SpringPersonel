@@ -14,4 +14,6 @@ public interface IAdresServices {
     BaseResponse deleteById(Long id);
 
     BaseResponse update(Long id, AdresSaveDto dto);
+
+    BaseResponse findByIdPersonel(Integer id);
 }
