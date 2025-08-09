@@ -16,3 +16,10 @@ Tablar açıldığında;
 
 
 !!BİTİRTİKCE İŞRATLE CE COMİTLEMEYİ UNUTMA
+
+
+  YENİ GÖREVLER:
+Adres ekleme personel save kısmında olmayacak backend ve frontentden kaldır.
+adres ekleme, silme, güncellem butonları düzenle ekranında gelecek. (adres classında)
+adres ekleme kısmında  text area kullanılacak.
+Popup çarpıya basmadan kapanmasın (araştır bir özellik)
