@@ -46,7 +46,6 @@ public class UnitServicesImpl implements IUnitServices {
         response.setData(dtoUnit);
         response.setMessage("Unit saved Successfully");
         log.info("Unit saved Successfully...");
-        log.info("Unit saved Successfully...");
         return response;
     }
 
@@ -63,6 +62,7 @@ public class UnitServicesImpl implements IUnitServices {
         response.setStatus(HttpStatus.OK.value());
         response.setData(dtoUnits);
         response.setMessage("All units found");
+        log.info("Found all units size: {}", dtoUnits.size());
         return response;
 
     }
@@ -77,6 +77,7 @@ public class UnitServicesImpl implements IUnitServices {
             response.setData(dtoUnit);
             response.setMessage("Unit found Successfully");
         }
+        log.info("unit findById: {}", id);
         return response;
     }
 
@@ -89,6 +90,7 @@ public class UnitServicesImpl implements IUnitServices {
 
         baseResponse.setStatus(HttpStatus.OK.value());
         baseResponse.setMessage("Unit başarılı bir şekilde silindi");
+        log.info("Unit silindi: {}", id);
         return baseResponse;
     }
 
@@ -108,7 +110,7 @@ public class UnitServicesImpl implements IUnitServices {
         response.setStatus(HttpStatus.OK.value());
         response.setData(dtoUnit);
         response.setMessage("Unit update Successfully");
-
+        log.info("Unit update");
         return response;
     }
 

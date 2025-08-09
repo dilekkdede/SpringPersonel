@@ -15,11 +15,10 @@ import java.util.Date;
 @Table(name = "unit")
 public class Unit {
 
-    @Column(name = "id")
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Column(name = "name")
     private String name;
