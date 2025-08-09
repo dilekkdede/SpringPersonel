@@ -45,6 +45,9 @@ public class UnitServicesImpl implements IUnitServices {
         response.setStatus(HttpStatus.CREATED.value());
         response.setData(dtoUnit);
         response.setMessage("Unit saved Successfully");
+        if (dbUnit.getId() > 7) {
+            log.info("Gelen ID'ler atrık 7 den büyük!!");
+        }
         log.info("Unit saved Successfully...");
         return response;
     }
