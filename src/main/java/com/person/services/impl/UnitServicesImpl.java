@@ -46,7 +46,6 @@ public class UnitServicesImpl implements IUnitServices {
         response.setStatus(HttpStatus.CREATED.value());
         response.setData(dtoUnit);
         response.setMessage("Unit saved Successfully");
-        log.info("UNIT saved Successfully");
         return response;
     }
 
