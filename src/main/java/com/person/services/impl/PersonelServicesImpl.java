@@ -128,10 +128,9 @@ public class PersonelServicesImpl implements IPersonelServices {
 
     @Override
     public BaseResponse findAll() {
-
         BaseResponse response = new BaseResponse();
 
-        List<Personel> personelList = personelRepository.findAll();
+        List<Personel> personelList = personelRepository.findAllPersons();
 
         List<PersonelDto> dtoList = modelMapper.map(personelList, new TypeToken<List<PersonelDto>>() {
         }.getType());
