@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 @RequestMapping("/rest/api/contact")
-
 public class ContactController {
 
     @Autowired
@@ -39,6 +39,11 @@ public class ContactController {
         return contactServices.update(id, dto
         );
 
+    }
+
+    @GetMapping(path = "/get-personel-ıd-contact/{id}")
+    public BaseResponse findByIdPersonelContact(@PathVariable(name = "id") Long id) {
+        return contactServices.findByIdPersonel(id);
     }
 
 

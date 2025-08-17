@@ -106,4 +106,19 @@ public class ContactServicesImpl implements IContactServices {
 
         return response;
     }
+
+
+
+    @Override
+    public BaseResponse findByIdPersonel(Long id) {
+        BaseResponse response = new BaseResponse();
+
+        List<Contact> findContact = contactRepository.findContactByPersonelId(id);
+
+        response.setData(findContact);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("ContactByPerosnelId found successfully");
+
+        return response;
+    }
 }

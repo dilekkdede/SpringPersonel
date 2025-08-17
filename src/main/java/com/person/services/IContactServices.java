@@ -14,4 +14,7 @@ public interface IContactServices {
     BaseResponse deleteById(Long id);
 
     BaseResponse update(Long id, ContactSaveDto dto);
+
+
+    BaseResponse findByIdPersonel(Long id);
 }

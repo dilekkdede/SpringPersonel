@@ -111,10 +111,9 @@ public class AdresServicesImpl implements IAdresServices {
         response.setData(findAdres);
         response.setMessage("Arama başarılı");
         response.setStatus(HttpStatus.OK.value());
-
+        log.info("findByIdPersonel id: " + id);
         return response;
     }
-
 
 
     @Override
